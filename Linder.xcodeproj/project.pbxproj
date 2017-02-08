@@ -10,13 +10,15 @@
 		B105E03F1E499E87004331E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B105E03E1E499E87004331E9 /* AppDelegate.swift */; };
 		B105E0481E499E87004331E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B105E0471E499E87004331E9 /* Assets.xcassets */; };
 		B105E04B1E499E87004331E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B105E0491E499E87004331E9 /* LaunchScreen.storyboard */; };
+		B106C3241E4AFF4300D4A64D /* ChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B106C3221E4AFF4300D4A64D /* ChannelCollectionViewCell.swift */; };
+		B106C3251E4AFF4300D4A64D /* ChannelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B106C3231E4AFF4300D4A64D /* ChannelCollectionViewCell.xib */; };
+		B106C3271E4B071400D4A64D /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B106C3261E4B071400D4A64D /* CalendarTableViewCell.xib */; };
 		B18D52781E49A15900BC8898 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D52771E49A15900BC8898 /* HomeTableViewController.swift */; };
 		B18D527B1E49A20F00BC8898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B18D52791E49A20F00BC8898 /* Main.storyboard */; };
 		B18D527E1E49A2C900BC8898 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D527C1E49A2C900BC8898 /* ChannelTableViewCell.swift */; };
 		B18D527F1E49A2C900BC8898 /* ChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B18D527D1E49A2C900BC8898 /* ChannelTableViewCell.xib */; };
 		B18D52811E49A31800BC8898 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D52801E49A31800BC8898 /* SearchViewController.swift */; };
 		B18D52841E49A35100BC8898 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D52821E49A35100BC8898 /* CalendarTableViewCell.swift */; };
-		B18D52851E49A35100BC8898 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B18D52831E49A35100BC8898 /* CalendarTableViewCell.xib */; };
 		B18D528E1E49A43000BC8898 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D52891E49A43000BC8898 /* Channel.swift */; };
 		B18D528F1E49A43000BC8898 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D528A1E49A43000BC8898 /* User.swift */; };
 		B18D52901E49A43000BC8898 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D528B1E49A43000BC8898 /* Extensions.swift */; };
@@ -31,13 +33,15 @@
 		B105E0471E499E87004331E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B105E04A1E499E87004331E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B105E04C1E499E87004331E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B106C3221E4AFF4300D4A64D /* ChannelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionViewCell.swift; sourceTree = "<group>"; };
+		B106C3231E4AFF4300D4A64D /* ChannelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionViewCell.xib; sourceTree = "<group>"; };
+		B106C3261E4B071400D4A64D /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		B18D52771E49A15900BC8898 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		B18D527A1E49A20F00BC8898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B18D527C1E49A2C900BC8898 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		B18D527D1E49A2C900BC8898 /* ChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelTableViewCell.xib; sourceTree = "<group>"; };
 		B18D52801E49A31800BC8898 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B18D52821E49A35100BC8898 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
-		B18D52831E49A35100BC8898 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		B18D52891E49A43000BC8898 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		B18D528A1E49A43000BC8898 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B18D528B1E49A43000BC8898 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -95,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				B18D52821E49A35100BC8898 /* CalendarTableViewCell.swift */,
-				B18D52831E49A35100BC8898 /* CalendarTableViewCell.xib */,
+				B106C3261E4B071400D4A64D /* CalendarTableViewCell.xib */,
 			);
 			name = CalendarTableViewCell;
 			sourceTree = "<group>";
@@ -105,6 +109,8 @@
 			children = (
 				B18D527C1E49A2C900BC8898 /* ChannelTableViewCell.swift */,
 				B18D527D1E49A2C900BC8898 /* ChannelTableViewCell.xib */,
+				B106C3221E4AFF4300D4A64D /* ChannelCollectionViewCell.swift */,
+				B106C3231E4AFF4300D4A64D /* ChannelCollectionViewCell.xib */,
 			);
 			name = ChannelTableViewCell;
 			sourceTree = "<group>";
@@ -183,10 +189,11 @@
 			files = (
 				B18D527B1E49A20F00BC8898 /* Main.storyboard in Resources */,
 				B18D527F1E49A2C900BC8898 /* ChannelTableViewCell.xib in Resources */,
-				B18D52851E49A35100BC8898 /* CalendarTableViewCell.xib in Resources */,
 				B105E04B1E499E87004331E9 /* LaunchScreen.storyboard in Resources */,
 				B105E0481E499E87004331E9 /* Assets.xcassets in Resources */,
+				B106C3271E4B071400D4A64D /* CalendarTableViewCell.xib in Resources */,
 				B18D52941E49A5F000BC8898 /* JoinSequence.storyboard in Resources */,
+				B106C3251E4AFF4300D4A64D /* ChannelCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +206,7 @@
 			files = (
 				B18D52781E49A15900BC8898 /* HomeTableViewController.swift in Sources */,
 				B18D52911E49A43000BC8898 /* Event.swift in Sources */,
+				B106C3241E4AFF4300D4A64D /* ChannelCollectionViewCell.swift in Sources */,
 				B18D528E1E49A43000BC8898 /* Channel.swift in Sources */,
 				B105E03F1E499E87004331E9 /* AppDelegate.swift in Sources */,
 				B18D52901E49A43000BC8898 /* Extensions.swift in Sources */,

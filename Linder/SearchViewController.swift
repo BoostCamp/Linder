@@ -19,8 +19,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup the Table View
+        self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellReuseIdentifier)
+        self.tableView.register(UINib(nibName: "CalendarTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,12 +66,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0 : // for updated channels
-            let cell = tableView.dequeueReusableCell(withIdentifier: channelsCellReuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: channelsCellReuseIdentifier, for: indexPath) as! ChannelTableViewCell
             return cell
             
-            
         default : // for recommanded calendars
-            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath) as! CalendarTableViewCell
             let event = recommandedEvents[indexPath.row]
             return cell
         }

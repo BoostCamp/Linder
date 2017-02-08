@@ -17,14 +17,14 @@ class Schedule {
     var startedAt: Date
     var endedAt: Date
     
-    init(id: Int64, name: String, startedAt: Date, endedAt: Date, createdAt: Date, updatedAt: Date) {
+    init(id: Int64, name: String, startedAt: Date, endedAt: Date) {
         self.id = id
         self.name = name
         self.startedAt = startedAt
         self.endedAt = endedAt
     }
     
-    init(id: Int64, name: String, location: String, startedAt: Date, endedAt: Date, createdAt: Date, updatedAt: Date) {
+    init(id: Int64, name: String, location: String, startedAt: Date, endedAt: Date) {
         self.id = id
         self.name = name
         self.location = location
