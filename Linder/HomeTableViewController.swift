@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import EventKitUI
 
 fileprivate let channelsCellReuseIdentifier: String = "channelsCell"
 fileprivate let calendarCellReuseIdentifier: String = "calendarCell"
@@ -23,6 +24,12 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // example for singleton usage
+        let dataController: DataController = DataController.sharedInstance()
+        
+        
+        
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellReuseIdentifier)
         self.tableView.register(UINib(nibName: "CalendarTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
         
@@ -100,6 +107,15 @@ class HomeTableViewController: UITableViewController {
     }
     
     // MARK: - Table view delegate
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0 :
+            return 200
+        default:
+            return 150
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
         case 0 :
