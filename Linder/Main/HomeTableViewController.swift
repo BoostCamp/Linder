@@ -1,6 +1,6 @@
 //
 //  HomeTableViewController.swift
-//  Pastel
+//  Linder
 //
 //  Created by 박종훈 on 2017. 1. 31..
 //  Copyright © 2017년 Hidden Track. All rights reserved.
@@ -17,7 +17,7 @@ fileprivate let segueToEventDetail: String = "toEventDetail"
 class HomeTableViewController: UITableViewController {
     
     var recommandedEvents: [Event] = []
-    var pastelEventStore: EKEventStore?
+    var LinderEventStore: EKEventStore?
     
     let eventDC = EventDataController.shared
     let channels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스"]
