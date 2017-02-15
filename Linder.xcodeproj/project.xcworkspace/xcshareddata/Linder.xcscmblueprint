@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7A3FC5984B2C82283114E1F6F22AA655955B7B09",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1F3B75BB80348BA74B74A2BE0932A2BD1F296850" : 9223372036854775807,
+    "7A3FC5984B2C82283114E1F6F22AA655955B7B09" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8E05D6B5-70A3-4FC2-A9FB-43CBBC730E79",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1F3B75BB80348BA74B74A2BE0932A2BD1F296850" : "pastel-ios\/",
+    "7A3FC5984B2C82283114E1F6F22AA655955B7B09" : "Linder\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Linder",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Linder.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hiddentrackco\/pastel-ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1F3B75BB80348BA74B74A2BE0932A2BD1F296850"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BoostCamp\/Linder",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7A3FC5984B2C82283114E1F6F22AA655955B7B09"
+    }
+  ]
+}
