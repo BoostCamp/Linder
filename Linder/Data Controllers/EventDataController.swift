@@ -1,6 +1,6 @@
 //
 //  EventDataControllerEventDataController.swift
-//  Linder
+//  Pastel
 //
 //  Created by 박종훈 on 2017. 2. 9..
 //  Copyright © 2017년 Hidden Track. All rights reserved.
@@ -90,7 +90,7 @@ class EventDataController {
         let events: [EKEvent] = getLocalStoredEvents(start: start, end: end)
         for event in events {
             //print("Convert Event(id: \(event.eventIdentifier) name: \(event.title) to Schedule")
-            // TODO :!!!!
+            // TODO : Using dictionary? resolve timing issue..
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
             let date = Calendar.current.date(from: dateComponents)!
             if var schedules = self.userSchedules[date] {

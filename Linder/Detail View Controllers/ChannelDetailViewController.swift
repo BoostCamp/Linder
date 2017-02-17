@@ -1,6 +1,6 @@
 //
 //  ChannelDetailViewController.swift
-//  Linder
+//  Pastel
 //
 //  Created by 박종훈 on 2017. 2. 13..
 //  Copyright © 2017년 Hidden Track. All rights reserved.
@@ -11,16 +11,15 @@ import UIKit
 fileprivate let eventCellID = "eventCell"
 fileprivate let segueToEventDetail = "toEventDetail"
 
-
-
 class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var followerCount: UILabel!
+    @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchButton: UIBarButtonItem!
-
+    
     var channel: Channel = Channel()
     private var _searchedEvents: [Event] = []
     private var _events: [Event] = []
@@ -36,30 +35,51 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     var isSearching: Bool = false
     
     let userDC = UserDataController.shared
     let eventDC = EventDataController.shared
     
-    private let cellSpacingHeight: CGFloat = 5.0
-    
     // MARK: - Constants
-    let cornerRadius: CGFloat = 9.0
+    private let cellSpacingHeight: CGFloat = 5.0
+    let thumbnailCornerRadius: CGFloat = 12.0
+    let thumbnailBorderWidth: CGFloat = 0.7
+    let thumbnailBorderColor = UIColor.black.cgColor
+    
+    let buttonCornerRadius: CGFloat = 15.0
+    let buttonBorderWidth: CGFloat = 1.2
+    let buttonBorderColor = UIColor.ldPuple.cgColor
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.backgroundColor = UIColor.ldPuple
+        //self.view.backgroundColor = UIColor.ldPuple
+        
         // Set NavigationBar Title to Channel's Name
         self.title = self.channel.title
         
         // Set Thumbnail Image
         self.thumbnail.image = self.channel.thumbnail
-        thumbnail.layer.cornerRadius = cornerRadius
+        thumbnail.layer.cornerRadius = thumbnailCornerRadius
+        thumbnail.layer.borderWidth = thumbnailBorderWidth
+        thumbnail.layer.borderColor = thumbnailBorderColor
         thumbnail.layer.masksToBounds = true
         
         // Set Channel Title
         self.titleLabel.text = self.channel.title
+        
         // Set Followers Count
         self.followerCount.text = String(self.channel.followersCount)
+        
+        // Set Follow Button
+        followButton.layer.cornerRadius = buttonCornerRadius
+        followButton.layer.borderWidth = buttonBorderWidth
+        followButton.layer.borderColor = buttonBorderColor
+        followButton.layer.masksToBounds = true
         
         // Set Table View
         self.tableView.dataSource = self
@@ -69,6 +89,15 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         // Load Events Data
         self.events = channel.events
         self.sort(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedIndex = tableView.indexPathForSelectedRow {
+            let cell = tableView.cellForRow(at: selectedIndex)
+            cell?.setSelected(false, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +135,14 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Table View Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return calendarTableViewCellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: segueToEventDetail, sender: self)
     }
 
     

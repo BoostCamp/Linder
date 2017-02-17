@@ -8,4 +8,5 @@ target 'Linder' do
   # Pods for Linder
   pod 'Alamofire', '~> 4.0'
   pod 'AlamofireObjectMapper', '~> 4.0'
+  pod 'SwiftyJSON', '~> 3.1.4'	
 end

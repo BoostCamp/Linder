@@ -1,6 +1,6 @@
 //
 //  UserDataController.swift
-//  Linder
+//  Pastel
 //
 //  Created by 박종훈 on 2017. 2. 13..
 //  Copyright © 2017년 Hidden Track. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-//import SwiftyJSON
+import SwiftyJSON
 
 enum UserDataType: String {
     case age = "age"
@@ -42,12 +42,12 @@ class UserDataController {
             return
         }
         
-        let path = URL(string: "www.naver.com" + "users/" + String(userID))!
+        let path = URL(string: baseURL + "users/" + String(userID))!
         
         let body: Parameters = [ type.rawValue : data ]
         
         let sessionManager = SessionManager()
-        //sessionManager.adapter = AccessTokenAdapter(accessToken: accessToken)
+        sessionManager.adapter = AccessTokenAdapter(accessToken: accessToken)
         
         let headers: HTTPHeaders = [
             "Authorization": "Bearer " + accessToken,
@@ -58,17 +58,17 @@ class UserDataController {
         Alamofire.request(path, method: .put, parameters: body, encoding: JSONEncoding.default, headers: headers).validate().responseJSON(completionHandler: { (response) in
             //sessionManager.request(path, method: .put, parameters: body, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { (response) in
             print("Header: ")
-            //print(JSON(response.request?.allHTTPHeaderFields ?? [:]))
+            print(JSON(response.request?.allHTTPHeaderFields ?? [:]))
             switch response.result {
             case .success(let value) :
                 // get userId from json
-                //let valueJSON = JSON(value)
-                //let dataJSON = valueJSON["data"]
+                let valueJSON = JSON(value)
+                let dataJSON = valueJSON["data"]
                 // set user Data from json to AppDelegate's User property
-                //self.user.gender = Gender(rawValue: dataJSON["gender"].intValue)!
+                self.user.gender = Gender(rawValue: dataJSON["gender"].intValue)!
                 
-                //let age: Int = Int(dataJSON["age"].intValue/10) * 10
-                //self.user.age = Age(rawValue: age)!
+                let age: Int = Int(dataJSON["age"].intValue/10) * 10
+                self.user.age = Age(rawValue: age)!
                 
                 switch type {
                 case .age :
