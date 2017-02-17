@@ -1,6 +1,6 @@
 //
 //  CalendarViewController.swift
-//  Pastel
+//  Lindar
 //
 //  Created by 박종훈 on 2017. 2. 9..
 //  Copyright © 2017년 Hidden Track. All rights reserved.

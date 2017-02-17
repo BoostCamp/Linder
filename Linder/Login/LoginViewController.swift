@@ -1,6 +1,6 @@
 //
 //  LoginViewController.swift
-//  Pastel
+//  Lindar
 //
 //  Created by HanManjong on 2017. 1. 10..
 //  Copyright © 2017년 Hidden Track. All rights reserved.
