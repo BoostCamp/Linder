@@ -9,4 +9,7 @@ target 'Linder' do
   pod 'Alamofire', '~> 4.0'
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'SwiftyJSON', '~> 3.1.4'	
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Nuke', '~> 5.0'
 end

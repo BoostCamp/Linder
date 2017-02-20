@@ -16,7 +16,7 @@ class Channel {
     var thumbnail: UIImage?
     var image: UIImage?
     var description: String?
-    var events: [Event] = []
+    var eventIDs: [EventID] = []
     var hashtags: [Hashtag] = []
     
     var followersCount: Int = 0
@@ -26,7 +26,7 @@ class Channel {
     convenience init() {
         self.init(title: "테스트 채널")
         thumbnail = #imageLiteral(resourceName: "channel")
-        events = Array(repeating: Event(), count: 5)
+        eventIDs = [1]
         followersCount = 238
     }
     
@@ -39,11 +39,11 @@ class Channel {
         self.thumbnail = thumbnail
     }
     
-    init(title: String, thumbnail: UIImage, hashtags: [Hashtag], events: [Event]) {
+    init(title: String, thumbnail: UIImage, hashtags: [Hashtag], eventIDs: [EventID]) {
         self.title = title
         self.thumbnail = thumbnail
         self.hashtags = hashtags
-        self.events = events
+        self.eventIDs = eventIDs
     }
 }
 

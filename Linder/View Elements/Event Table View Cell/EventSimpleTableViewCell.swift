@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class EventSimpleTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -43,16 +44,25 @@ class EventSimpleTableViewCell: UITableViewCell {
     }
     
     func set(event: Event) {
-        backgroundImageView.image = event.thumbnail
+        
+        
+        // 이미지 경로
+        if let url =  event.thumbnailURL {
+            Nuke.loadImage(with: url, into: backgroundImageView!)
+        }
+        else {
+            self.backgroundImageView.image = #imageLiteral(resourceName: "323x63_kakao")
+        }
+        
         eventNameLabel.text = event.title
         // TODO : How to make String corresponding calendar objects.
         
-        if let startDate = event.startDate {
+        if let startDate = event.startedAt {
             startDateLabel.text = String(date: startDate)
         }
-        if let endDate = event.endDate {
+        if let endDate = event.endedAt {
             endDateLabel.text = String(date: endDate)
         }
-        locationLabel.text = String(locationList: event.locationList)
+        locationLabel.text = String(locationList: event.locations)
     }
 }

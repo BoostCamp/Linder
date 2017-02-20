@@ -108,7 +108,7 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if let event = events.first {
                 self.event = event
             }
-            return event.schedules.count
+            return event.scheduleIDs.count
         }
     }
 
@@ -129,7 +129,9 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellID, for: indexPath) as! ScheduleTableViewCell
             // Configure the cell...
-            cell.schedule = self.event.schedules[indexPath.row]
+            eventDC.getRecommanedSchedule(withID: self.event.scheduleIDs[indexPath.row]) { (schedule) in
+                cell.schedule = schedule
+            }
             return cell
         }
     }

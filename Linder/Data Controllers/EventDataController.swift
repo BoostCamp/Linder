@@ -8,6 +8,8 @@
 
 import Foundation
 import EventKit
+import Firebase
+import FirebaseDatabase
 
 // singleton
 // app Backend
@@ -18,6 +20,9 @@ class EventDataController {
     // Create the singleton instance
     static let shared: EventDataController = EventDataController()
     
+    // Firebase database reference
+    let ref: FIRDatabaseReference
+    
     // Local Event Store
     private var eventStore: EKEventStore
     
@@ -27,16 +32,161 @@ class EventDataController {
     
     // Prevent to create another EventDataController instance
     private init() {
+        // Use Firebase library to configure APIs
+        FIRApp.configure()
+        // [START create_database_reference]
+        ref = FIRDatabase.database().reference()
+        // [END create_database_reference]
+        
         eventStore =  EKEventStore()
+        
         eventStore.requestAccess(to: .event) { (isAllowed, error) in
             if error == nil && isAllowed {
                 self.getLocalStoredSchedules()
-                self.getEvents()
+                self.events = self.getEvents()
             }
         }
     }
-    func getEvents() {
-        self.events = createDummyEvents()
+    
+    // Major Functions
+    
+    func getEvents(withIDs: [EventID]? = nil) -> [Event] {
+        return getFIREvents(withIDs: withIDs)
+        //return createDummyEvents()
+    }
+    
+    func getRecommanedSchedule(withID: ScheduleID, completion: @escaping (Schedule) -> Void) {
+        return getFIRRecommandedSchdule(withID: withID, completion: completion)
+    }
+    
+    
+    // MARK: - FIRBASE DB SET
+    
+    // FireBase DB setup
+    func setFIRDB() {
+        setFIREvents()
+        setFIRChannels()
+    }
+    
+    private func setFIREvents() {
+        
+    }
+    
+    private func setFIRSchedules() {
+        
+    }
+    
+    private func setFIRChannels() {
+    }
+    
+    // MARK: - FIRBASE DB Get
+    
+    private func getFIREvents(withIDs: [EventID]? = nil) -> [Event] {
+        
+        var tmpEventArray: [Event] = []
+
+        let eventsRef =  self.ref.child("events")
+        // TODO filter using parameter id
+        
+        eventsRef.observe(.childAdded, with: { (snapshot) in
+//            print("DUMP:")
+//            dump(snapshot)
+            
+            let value = snapshot.value as! [String: AnyObject]
+
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let startedAtString = value["startedAt"] as! String
+            
+            let endedAtString = value["endedAt"] as! String
+            
+            let event = Event(id: Int64(snapshot.key)!,
+                              title: value["title"] as! String,
+                              thumbnailURL: URL(string: value["thumbnail"] as! String)!,
+                              scheduleIDs: Array(value["schedules"] as! [Int64]),
+                              detail: value["detail"] as! String,
+                              locations: value["locations"] as! [String],
+                              startedAt: Date(string: startedAtString, formatter: formatter)!,
+                              endedAt: Date(string: endedAtString, formatter: formatter)!)
+            
+            tmpEventArray.append(event)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        return tmpEventArray
+    }
+    
+    private func getFIRRecommandedSchdule(withID id: ScheduleID, completion: @escaping (Schedule) -> Void) {
+        debugPrint("id : \(id)")
+        
+        let schedulesRef =  self.ref.child("schedules").child("\(id)")
+        
+        schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            debugPrint("DUMP:")
+            dump(snapshot)
+            
+            let id = Int64(snapshot.key)!
+            
+            let value = snapshot.value as! NSDictionary
+            let name = value["name"] as! String
+            let location = value["location"] as! String
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let startedAtString = value["startedAt"] as! String
+            let startedAt = Date(string: startedAtString, formatter: formatter)!
+            
+            let endedAtString = value["endedAt"] as! String
+            let endedAt = Date(string: endedAtString, formatter: formatter)!
+            
+            let detail = value["detail"] as! String
+            
+            let schedule = RecommandedSchedule(id: id,
+                                           name: name,
+                                           location: location,
+                                           startedAt: startedAt,
+                                           endedAt: endedAt,
+                                           detail: detail)
+            completion(schedule)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func getFIRRecommandedSchdules(withIDs: [ScheduleID]) -> [RecommandedSchedule] {
+        var schedules: [RecommandedSchedule] = []
+        
+        let schedulesRef =  self.ref.child("schedules")
+        // TODO filter using parameter id
+        
+        schedulesRef.observe(.childAdded, with: { (snapshot) in
+            dump(snapshot)
+            let value = snapshot.value as! NSDictionary
+            
+            
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let startedAtString = value["startedAt"] as! String
+            
+            let endedAtString = value["endedAt"] as! String
+            
+            let schedule = RecommandedSchedule(id: Int64(snapshot.key)!,
+                                           name: value["name"] as! String,
+                                           location: value["location"] as! String,
+                                           startedAt: Date.init(string: startedAtString, formatter: formatter)!,
+                                           endedAt: Date.init(string: endedAtString, formatter: formatter)!)
+            schedules.append(schedule)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        return schedules
     }
     
     // MARK: - Event Data Load
@@ -62,7 +212,9 @@ class EventDataController {
             schedules.append(RecommandedSchedule(name: "예시 스케쥴 3", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
             schedules.append(RecommandedSchedule(name: "예시 스케쥴 4", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
             schedules.append(RecommandedSchedule(name: "예시 스케쥴 5", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
-            let dummyEvent: Event = Event(title: titles[i], image: #imageLiteral(resourceName: "phantom"), schedules: schedules)
+            let dummyEvent: Event = Event(title: titles[i],
+                                          thumbnailURL: URL(string: "http://dimg.donga.com/wps/NEWS/IMAGE/2015/04/30/70995253.1.jpg")!,
+                                          scheduleIDs: [1,2]) // TODO : Schedule ID !!!
             dummyEvent.detail = "this is sample text for dummy. do not care so much. in working version, real data would be here."
             dummyEvents.append(dummyEvent)
             

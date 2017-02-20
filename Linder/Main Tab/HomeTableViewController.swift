@@ -95,17 +95,17 @@ class HomeTableViewController: UITableViewController {
             return cell
             
             
-        default : // for recommanded calendars
+        default : // for recommanded events
             let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath) as! CalendarTableViewCell
             let event = recommandedEvents[indexPath.row]
             cell.eventNameLabel.text = event.title
-            if let startDate = event.startDate {
+            if let startDate = event.startedAt {
                 cell.startDateLabel.text = String(date: startDate)
             }
-            if let endDate = event.endDate {
+            if let endDate = event.endedAt {
                 cell.endDateLabel.text = String(date: endDate)
             }
-            cell.locationLabel.text = String(locationList: event.locationList)
+            cell.locationLabel.text = String(locationList: event.locations)
             
             return cell
         }
@@ -186,4 +186,8 @@ class HomeTableViewController: UITableViewController {
     }
     */
 
+    @IBAction func notificationButtonTouchUpInside(_ sender: Any) {
+        print("set Firebase DB")
+        eventDC.setFIRDB()
+    }
 }

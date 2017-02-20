@@ -62,6 +62,7 @@
 		B10FB7D61E56C85200D239B8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7A21E56C85200D239B8 /* UIColor.swift */; };
 		B10FB7D71E56C85200D239B8 /* UIMonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7A31E56C85200D239B8 /* UIMonthPicker.swift */; };
 		B111693C1E5417F800B747E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B111693A1E5417F800B747E5 /* LaunchScreen.storyboard */; };
+		B1E20AE21E56DF52005D0D4B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1E20AE11E56DF52005D0D4B /* GoogleService-Info.plist */; };
 		D1321CF0D4325B3E979CE174 /* Pods_Linder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89391CC7ECD882E1A725571B /* Pods_Linder.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		B10FB7A21E56C85200D239B8 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		B10FB7A31E56C85200D239B8 /* UIMonthPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIMonthPicker.swift; sourceTree = "<group>"; };
 		B111693B1E5417F800B747E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B1E20AE11E56DF52005D0D4B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,18 +180,19 @@
 		B105E03D1E499E87004331E9 /* Linder */ = {
 			isa = PBXGroup;
 			children = (
+				B105E03E1E499E87004331E9 /* AppDelegate.swift */,
+				B111693A1E5417F800B747E5 /* LaunchScreen.storyboard */,
+				B10FB7811E56C85200D239B8 /* Main.storyboard */,
 				B10FB7601E56C85200D239B8 /* Data Controllers */,
 				B10FB7631E56C85200D239B8 /* Data Model */,
 				B10FB7691E56C85200D239B8 /* Detail View Controllers */,
 				B10FB7701E56C85200D239B8 /* Login */,
 				B10FB77C1E56C85200D239B8 /* Main Tab */,
-				B10FB7811E56C85200D239B8 /* Main.storyboard */,
 				B10FB7821E56C85200D239B8 /* Network */,
 				B10FB7851E56C85200D239B8 /* View Elements */,
-				B105E03E1E499E87004331E9 /* AppDelegate.swift */,
-				B111693A1E5417F800B747E5 /* LaunchScreen.storyboard */,
 				B105E0471E499E87004331E9 /* Assets.xcassets */,
 				B105E04C1E499E87004331E9 /* Info.plist */,
+				B1E20AE11E56DF52005D0D4B /* GoogleService-Info.plist */,
 			);
 			path = Linder;
 			sourceTree = "<group>";
@@ -208,8 +211,8 @@
 			children = (
 				B10FB7641E56C85200D239B8 /* Channel.swift */,
 				B10FB7651E56C85200D239B8 /* Event.swift */,
-				B10FB7661E56C85200D239B8 /* Extensions.swift */,
 				B10FB7671E56C85200D239B8 /* Schedule.swift */,
+				B10FB7661E56C85200D239B8 /* Extensions.swift */,
 				B10FB7681E56C85200D239B8 /* User.swift */,
 			);
 			path = "Data Model";
@@ -228,9 +231,9 @@
 		B10FB76B1E56C85200D239B8 /* Event Detail View */ = {
 			isa = PBXGroup;
 			children = (
-				B10FB76C1E56C85200D239B8 /* EventDetailTableViewCell.swift */,
 				B10FB76D1E56C85200D239B8 /* EventDetailViewController.swift */,
 				B10FB76E1E56C85200D239B8 /* EventHeaderTableViewCell.swift */,
+				B10FB76C1E56C85200D239B8 /* EventDetailTableViewCell.swift */,
 			);
 			path = "Event Detail View";
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			files = (
 				B10FB7D11E56C85200D239B8 /* TagCollectionReusableView.xib in Resources */,
 				B10FB7D31E56C85200D239B8 /* TagCollectionViewCell.xib in Resources */,
+				B1E20AE21E56DF52005D0D4B /* GoogleService-Info.plist in Resources */,
 				B10FB7B81E56C85200D239B8 /* Login.storyboard in Resources */,
 				B10FB7BE1E56C85200D239B8 /* Main.storyboard in Resources */,
 				B10FB7C21E56C85200D239B8 /* ChannelCollectionViewCell.xib in Resources */,
@@ -660,7 +664,7 @@
 				DEVELOPMENT_TEAM = 76433YZMGR;
 				INFOPLIST_FILE = Linder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = linder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -674,7 +678,7 @@
 				DEVELOPMENT_TEAM = 76433YZMGR;
 				INFOPLIST_FILE = Linder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = linder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

@@ -73,17 +73,22 @@ extension String {
 }
 
 extension Date {
-    init?(string: String) {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        formatter.locale = Locale(identifier: "ja_JP")  // 2001/01/02
+    init?(string: String, formatter: DateFormatter) {
         //Parse into Date
         if let dateFromString = formatter.date(from: string) {
             self = dateFromString
         } else {
             return nil
         }
+    }
+    
+    init?(string: String) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: "ja_JP")  // 2001/01/02
+        
+        self.init(string: string, formatter: formatter)
     }
     
     func toDateString() -> String

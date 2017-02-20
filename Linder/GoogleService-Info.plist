@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>972355608751-d0dg11av5p0eb9prn652blkr4ffc8lbm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.972355608751-d0dg11av5p0eb9prn652blkr4ffc8lbm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBZQem4QwpaWLM0ih_PsiZ2TKcWuOUsW-E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>972355608751</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.linder</string>
+	<key>PROJECT_ID</key>
+	<string>linder-5ad20</string>
+	<key>STORAGE_BUCKET</key>
+	<string>linder-5ad20.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:972355608751:ios:c80b20a93829dc6f</string>
+	<key>DATABASE_URL</key>
+	<string>https://linder-5ad20.firebaseio.com</string>
+</dict>
+</plist>

@@ -87,7 +87,8 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: eventCellID)
         
         // Load Events Data
-        self.events = channel.events
+        
+        self.events = eventDC.getEvents(withIDs: self.channel.eventIDs)
         self.sort(self)
     }
     
@@ -178,7 +179,7 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         case 2: // sort by endedAt
             if !events.isEmpty {
                 self.events.sort(by: { (former, later) -> Bool in
-                    return former.endDate! > later.endDate!
+                    return former.endedAt! > later.endedAt!
                 })
             }
         default: // Unhandle

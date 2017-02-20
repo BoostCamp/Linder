@@ -223,13 +223,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellID, for: indexPath) as! CalendarTableViewCell
             let event = (searchMode == .searched) ? searchedEvents[indexPath.row] : recommandedEvents[indexPath.row]
             cell.eventNameLabel.text = event.title
-            if let startDate = event.startDate {
+            if let startDate = event.startedAt {
                 cell.startDateLabel.text = String(date: startDate)
             }
-            if let endDate = event.endDate {
+            if let endDate = event.endedAt {
                 cell.endDateLabel.text = String(date: endDate)
             }
-            cell.locationLabel.text = String(locationList: event.locationList)
+            cell.locationLabel.text = String(locationList: event.locations)
             
             cell.separatorInset.left = 1000
             

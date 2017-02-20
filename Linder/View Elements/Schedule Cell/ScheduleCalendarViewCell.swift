@@ -17,6 +17,9 @@ class ScheduleCalendarViewCell: UITableViewCell {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     private var _schedule: Schedule?
     
     var schedule: Schedule? {
@@ -27,6 +30,13 @@ class ScheduleCalendarViewCell: UITableViewCell {
             endLabel.text = new?.endedAt.toTimeString()
             locationLabel.text = new?.location
             addButton.isHidden = new is UserSchedule
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.activityIndicator.stopAnimating()
+                self.loadingView.alpha = 0
+            }) { (success) in
+                self.loadingView.isHidden = success
+            }
         }
         get {
             return _schedule
@@ -48,7 +58,7 @@ class ScheduleCalendarViewCell: UITableViewCell {
         // Initialization code
         //self.layer.borderWidth = 0.1
         //self.layer.borderColor = UIColor.darkGray.cgColor
-
+        self.activityIndicator.startAnimating()
     }
     
     @IBAction func addButtonTouchUpInside(_ sender: UIButton) {

@@ -9,33 +9,37 @@
 import Foundation
 import EventKit
 
+typealias ScheduleID = Int64
 
 class Schedule {
-    var id: Int64
+    var id: ScheduleID
     var name: String
     var location: String
     var startedAt: Date
     var endedAt: Date = Date()
+    var detail: String
     var createdAt: Date = Date()
     var updatedAt: Date = Date()
-    var eventID: Int64 = .empty
+    var eventID: EventID = .empty
     
-    init(id: Int64 = .empty , name: String = "Schedule No Named", location: String = "", startedAt: Date = Date(), createdAt: Date = Date(), updatedAt: Date = Date()) {
+    init(id: ScheduleID = .empty , name: String = "Schedule No Named", location: String = "", startedAt: Date = Date(), detail: String = "", createdAt: Date = Date(), updatedAt: Date = Date()) {
         self.id = id
         self.name = name
         self.location = location
         self.startedAt = startedAt
         self.endedAt = startedAt.addingTimeInterval(.hour * 2.0)
+        self.detail = detail
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
     
-    init(id: Int64 = .empty , name: String = "Schedule No Named", location: String = "", startedAt: Date = Date(), endedAt: Date, createdAt: Date = Date(), updatedAt: Date = Date()) {
+    init(id: ScheduleID = .empty , name: String = "Schedule No Named", location: String = "", startedAt: Date = Date(), endedAt: Date, detail: String = "", createdAt: Date = Date(), updatedAt: Date = Date()) {
         self.id = id
         self.name = name
         self.location = location
         self.startedAt = startedAt
         self.endedAt = endedAt
+        self.detail = detail
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
@@ -80,5 +84,5 @@ extension EKEvent {
 extension Int64 {
     static let localStored: Int64 = -3
     static let dummy: Int64 = -2
-    static let empty: Int64 = 0
+    static let empty: Int64 = -1
 }

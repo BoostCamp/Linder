@@ -9,12 +9,21 @@
 import UIKit
 
 class ScheduleTableViewCell: ScheduleCalendarViewCell {
-    // TODO :  오른쪽에 > 왼쪽에 + 버튼 . 셀 누르면 아래에 디테일 설명이 나와야 한다.
+    
     @IBOutlet weak var tableViewCell: UIView!
     @IBOutlet weak var extensionCell: UIView!
     @IBOutlet weak var indicatorView: UIView!
     @IBOutlet weak var detailTextView: UITextView!
-    
+
+    override var schedule: Schedule? {
+        set (new) {
+            super.schedule = new
+            detailTextView.text = new?.detail
+        }
+        get {
+            return super.schedule
+        }
+    }
     
     var origianlIndicator: UIImageView?
     var flipedIndicator: UIImageView?

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 let EventHeaderTableViewCellHeight: CGFloat = 170
 
@@ -23,11 +24,18 @@ class EventHeaderTableViewCell: UITableViewCell {
             return _event
         }
         set (new) {
-            self.thumbnailView.image = new?.thumbnail
+            // 이미지 경로
+            if let url =  new?.thumbnailURL {
+                Nuke.loadImage(with: url, into: thumbnailView!)
+            }
+            else {
+                self.thumbnailView.image = #imageLiteral(resourceName: "323x63_kakao")
+            }
+            
             self.titleView.text = new?.title
-            self.startDate.text = new?.startDate?.toDateString()
-            self.endDate.text = new?.endDate?.toDateString()
-            if let locationList = new?.locationList {
+            self.startDate.text = new?.startedAt?.toDateString()
+            self.endDate.text = new?.endedAt?.toDateString()
+            if let locationList = new?.locations {
                 self.location.text = String(locationList: locationList)
             }
             self._event = new
