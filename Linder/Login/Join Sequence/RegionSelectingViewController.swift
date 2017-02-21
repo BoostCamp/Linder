@@ -15,7 +15,7 @@ class RegionSelectingViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var regionCollectionView: TagCollectionView!
     
     let userDC = UserDataController.shared
-    let regions: [String] = ["서울","인천","경기","강원","대전","충남・세종","충북","광주","전북","전남","부산","울산","경븍","경남","제주"]
+    let regions: [String] = ["서울","인천","경기","강원","대전","충남・세종","충북","광주","전북","전남","부산","울산","경북","경남","제주"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +64,15 @@ class RegionSelectingViewController: UIViewController, UICollectionViewDelegate,
         let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         
         if let region = cell.titleLabel?.text {
-            cell.setSelected()
+            //cell.setSelected()
             // Put region to user
             userDC.setRegion(regionName: region)
         }
 
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-        cell.setDeselect()
-    }
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
+//        //cell.setDeselect()
+//    }
 }

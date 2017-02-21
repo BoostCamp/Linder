@@ -15,6 +15,7 @@ fileprivate let scheduleCellID: String = "scheduleCell"
 fileprivate let tagCellID: String = "tagCell"
 
 fileprivate let segueToEventDetail: String = "toEventDetail"
+fileprivate let segueToFilterView: String = "toFilterView"
 
 enum SearchScope: String {
     case all = "전체"
@@ -42,12 +43,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var scopeControl: UISegmentedControl!
     @IBOutlet weak var maskingView: UIView!
     
-    private var _searchMode: SearchMode = .normal
-    var searchMode: SearchMode {
-        get { return _searchMode }
-        set (newMode) {
-            _searchMode = newMode
-            switch newMode {
+    var searchMode: SearchMode = .normal {
+        didSet {
+            switch searchMode {
             case .normal:
                 maskingView.isHidden = true
                 scopeControl.isHidden = true
@@ -62,6 +60,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     var scope: SearchScope = .all
+    
+    var filters: [[String]] = [ [] , [] ] {// index 0 : region filter strings , index 1 : when filter strings.
+        didSet {
+            self.filterCollectionView.reloadData()
+        }
+    }
+    
     
     let eventDC = EventDataController.shared
 
@@ -338,6 +343,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             
+        case segueToFilterView :
+            let destinationVC = segue.destination as! FilterViewController
+            destinationVC.selectedfilters = self.filters
         default:
             return
         }
@@ -391,13 +399,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         updateSearchTable(searchField.text!, scope: scope)
     }
     
-    @IBAction func filterTouched(_ sender: Any) {
-        // temp
-        self.searchMode = .normal
-        self.searchField.resignFirstResponder()
-        self.updateSearchTable(scope: .all)
-    }
-    
     func endSearch() {
         self.searchField.resignFirstResponder()
         self.searchMode = (self.tableView.numberOfSections == 2) ? .normal : .searched
@@ -408,8 +409,14 @@ extension SearchViewController: UITextFieldDelegate {
     // MARK: - UITextField Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchMode = .searched
-        updateSearchTable(textField.text!, scope: scope)
+        if textField.text == "" {
+            searchMode = .normal
+            self.updateSearchTable(scope: .all)
+        } else {
+            searchMode = .searched
+            updateSearchTable(textField.text!, scope: scope)
+        }
+        
         textField.endEditing(true)
         return true
     }
@@ -421,17 +428,19 @@ extension SearchViewController: UITextFieldDelegate {
         //TODO : Show category bar
         return true
     }
+
 }
 
+
+// MARK : - Filter Collection View
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagCellID, for: indexPath) as! TagCollectionViewCell
-        //cell.backgroundColor = UIColor.ldPuple
         cell.textColor = UIColor.white
         cell.borderColor = UIColor.white
         cell.cornerRadius = 11.0
-        cell.titleLabel.text = "filter1"
+        cell.titleLabel.text = (filters[0].count <= indexPath.item) ? filters[1][indexPath.item - filters[0].count] : filters[0][indexPath.item]
         return cell
     }
 
@@ -441,7 +450,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return eventDC.
-        return 7
+        return filters[0].count + filters[1].count
     }
 }
 

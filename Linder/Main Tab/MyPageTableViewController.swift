@@ -193,7 +193,7 @@ class MyPageInfoCellDelegate: NSObject, UICollectionViewDelegate {
     // MARK: - Collection View Delegate
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-        cell.setSelected()
+        cell.isSelected = true
         return true
     }
     
@@ -208,7 +208,7 @@ class MyPageInfoCellDelegate: NSObject, UICollectionViewDelegate {
             debugPrint("TODO : Region Select View")
         }
         collectionView.deselectItem(at: indexPath, animated: true)
-        cell.setDeselect()
+        cell.isSelected = false
     }
 }
 
@@ -219,12 +219,9 @@ class MyPageInterestCellDelegate: NSObject, UICollectionViewDelegate {
     // MARK: - Collection View Delegate
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         if indexPath.item == userDC.user.hashtags.count {
-            print("hi")
             let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-            cell.setDeselect()
-//            cell.titleLabel.textColor = .white
-//            cell.tagLabel.textColor = .white
-//            cell.backgroundColor = UIColor.ldPuple
+            cell.titleLabel.textColor = .ldPuple
+            cell.tagLabel.textColor = .ldPuple
             return true
         }
         return false
@@ -235,8 +232,8 @@ class MyPageInterestCellDelegate: NSObject, UICollectionViewDelegate {
         debugPrint("TODO : Interest Add View")
         let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         collectionView.deselectItem(at: indexPath, animated: true)//selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-        cell.setSelected()
-//        cell.tagLabel.textColor = .ldPuple
-//        cell.titleLabel.textColor = .ldPuple
+        //cell.isSelected = false
+        cell.titleLabel.textColor = .white
+        cell.tagLabel.textColor = .white
     }
 }

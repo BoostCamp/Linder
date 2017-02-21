@@ -90,7 +90,7 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
             let genderCell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
             
             if let gender = genderCell.titleLabel?.text {
-                genderCell.setSelected()
+                //genderCell.setSelected()
                 debugPrint(gender)
                 // Put gender to user
                 userDC.putUserData(type: .gender, data: gender)
@@ -99,7 +99,7 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
             let ageCell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
             
             if let age = ageCell.titleLabel?.text {
-                ageCell.setSelected()
+                //ageCell.setSelected()
                 debugPrint(age)
                 // Put age to user
                 userDC.putUserData(type: .age, data: age)
@@ -107,8 +107,8 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-        cell.setDeselect()
-    }
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
+//        //cell.setDeselect()
+//    }
 }

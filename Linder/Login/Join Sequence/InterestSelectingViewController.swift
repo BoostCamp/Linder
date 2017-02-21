@@ -96,7 +96,7 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
         let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         
         if let interest = cell.titleLabel?.text {
-            cell.setSelected()
+            //cell.setSelected()
             debugPrint("Follows \(interest)")
             // follow interest
             userDC.follow(followable: .hashtags, data: interest)
@@ -106,7 +106,7 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         if let interest = cell.titleLabel?.text {
-            cell.setDeselect()
+            //cell.setDeselect()
             debugPrint("UnFollows \(interest)")
             // follow interest
             userDC.unFollow(followable: .hashtags, data: interest)

@@ -77,16 +77,17 @@ class TagCollectionViewCell: UICollectionViewCell {
         selectedBackgroundView?.backgroundColor = UIColor.ldPuple
     }
     
-    func setSelected() {
-        //isSelected = true
-        tagLabel.textColor = UIColor.white
-        titleLabel.textColor = UIColor.white
+    func setLabelSelected(_ isSelecting: Bool) {
+        
     }
     
-    func setDeselect() {
-        //isSelected = false
-        tagLabel.textColor = UIColor.ldPuple
-        titleLabel.textColor = UIColor.ldPuple
+    override var isSelected: Bool {
+        didSet {
+            super.isSelected = isSelected
+            let color = isSelected ? UIColor.white : UIColor.ldPuple
+            tagLabel.textColor = color
+            titleLabel.textColor = color
+        }
     }
     
     

@@ -63,6 +63,7 @@
 		B10FB7D71E56C85200D239B8 /* UIMonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7A31E56C85200D239B8 /* UIMonthPicker.swift */; };
 		B111693C1E5417F800B747E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B111693A1E5417F800B747E5 /* LaunchScreen.storyboard */; };
 		B1E20AE21E56DF52005D0D4B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1E20AE11E56DF52005D0D4B /* GoogleService-Info.plist */; };
+		B1E4A0A91E5C70600006D45C /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E4A0A81E5C70600006D45C /* FilterViewController.swift */; };
 		D1321CF0D4325B3E979CE174 /* Pods_Linder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89391CC7ECD882E1A725571B /* Pods_Linder.framework */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,7 @@
 		B10FB7A31E56C85200D239B8 /* UIMonthPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIMonthPicker.swift; sourceTree = "<group>"; };
 		B111693B1E5417F800B747E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1E20AE11E56DF52005D0D4B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B1E4A0A81E5C70600006D45C /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				B10FB77E1E56C85200D239B8 /* HomeTableViewController.swift */,
-				B10FB7801E56C85200D239B8 /* SearchViewController.swift */,
+				B1E4A0A71E5C70440006D45C /* Search View */,
 				B10FB77D1E56C85200D239B8 /* CalendarViewController.swift */,
 				B10FB77F1E56C85200D239B8 /* MyPageTableViewController.swift */,
 			);
@@ -367,6 +369,15 @@
 				B10FB79F1E56C85200D239B8 /* TagCollectionViewCell.xib */,
 			);
 			path = "Tag Collection View Cell";
+			sourceTree = "<group>";
+		};
+		B1E4A0A71E5C70440006D45C /* Search View */ = {
+			isa = PBXGroup;
+			children = (
+				B10FB7801E56C85200D239B8 /* SearchViewController.swift */,
+				B1E4A0A81E5C70600006D45C /* FilterViewController.swift */,
+			);
+			name = "Search View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -505,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1E4A0A91E5C70600006D45C /* FilterViewController.swift in Sources */,
 				B10FB7B91E56C85200D239B8 /* LoginViewController.swift in Sources */,
 				B10FB7CE1E56C85200D239B8 /* ScheduleTableViewCell.swift in Sources */,
 				B10FB7A41E56C85200D239B8 /* EventDataController.swift in Sources */,
