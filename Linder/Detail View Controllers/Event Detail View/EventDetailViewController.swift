@@ -17,11 +17,30 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
     // TODO : high light corresponding schedule !!
     @IBOutlet weak var tableView: UITableView!
     let eventDC = EventDataController.shared
-    var eventID: Int64 = .empty
+    
     var event: Event = Event()
+    
+    var eventID: EventID {
+        get {
+            return self.event.id
+        }
+        set (new) {
+            let events = eventDC.events.filter({ (event) -> Bool in
+                event.id == new
+            })
+            if let event = events.first {
+                self.event = event
+            } else {
+                eventDC.getEvents(withIDs: [new], completion: { (event) in
+                    self.event = event  
+                })
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // setup table view
         self.tableView.register(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: scheduleCellID)
         self.tableView.delegate = self
@@ -41,12 +60,12 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        
-//               // set Status Bar Color
-////        let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-////        statusBar?.backgroundColor = .ldPuple
-////        applyTransparentBackgroundToTheNavigationBar()
+//         set Status Bar Color
+//        let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//        statusBar?.backgroundColor = .ldPuple
+//        applyTransparentBackgroundToTheNavigationBar()
 //    }
-//    
+//
 //    override func viewDidLayoutSubviews() {
 //        // tableView is shown below navigationBar
 ////        if let rect = self.navigationController?.navigationBar.frame {
@@ -102,19 +121,13 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
         case 0:
             return 2
         default:
-            let events = eventDC.events.filter({ (event) -> Bool in
-                event.id == self.eventID
-            })
-            if let event = events.first {
-                self.event = event
-            }
             return event.scheduleIDs.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath {
-        case IndexPath(row: 0, section: 0):
+        case IndexPath(row: 0, section: 0): // Event Header
             let cell = tableView.dequeueReusableCell(withIdentifier: headerCellID, for: indexPath) as! EventHeaderTableViewCell
             // Configure the cell...
             cell.event = self.event
@@ -129,7 +142,7 @@ class EventDetailViewController: UIViewController, UITableViewDelegate, UITableV
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellID, for: indexPath) as! ScheduleTableViewCell
             // Configure the cell...
-            eventDC.getRecommanedSchedule(withID: self.event.scheduleIDs[indexPath.row]) { (schedule) in
+            eventDC.getSchedule(withID: self.event.scheduleIDs[indexPath.row]) { (schedule) in
                 cell.schedule = schedule
             }
             return cell

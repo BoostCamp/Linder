@@ -22,13 +22,19 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     let monthButtonTitlePostfix = "월 ▼"
     
-    let numberOfRecommand = 2 // Temporary set to 0. Should be 2
+    let maxNumberOfRecommand = 2 // Temporary set to 0. Should be 2
     let eventDC = EventDataController.shared
     let today: Date = Date() // set today
     var month: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date()) // set current month
     
+    var recommandedSchedulesForDate: [Date:[RecommandedSchedule]] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // View Layout set
+        self.extendedLayoutIncludesOpaqueBars = true
+        //self.edgesForExtendedLayout = .all
+        
         // tableView Set
         self.tableView.register(UINib(nibName: "ScheduleCalendarViewCell", bundle: nil), forCellReuseIdentifier: scheduleCellID)
         self.tableView.delegate = self
@@ -70,6 +76,21 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         formatter.dateFormat = " M"  + monthButtonTitlePostfix
         let monthString = month.toDateString(formatter)
         self.monthButton.title = monthString
+        
+        for day in 0..<month.numberOfDaysInMonth() {
+            let date = Calendar.current.date(byAdding: DateComponents(day: day), to: month.startDate)!
+            eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
+                if var array = self.recommandedSchedulesForDate[date] {
+                    array.append(recommandation)
+                } else {
+                    self.recommandedSchedulesForDate[date] = []
+                    self.recommandedSchedulesForDate[date]?.append(recommandation)
+                }
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
+                self.tableView.endUpdates()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,7 +105,19 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         return month.numberOfDaysInMonth()
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let numberOfRows = self.tableView(tableView, numberOfRowsInSection: section)
+        if numberOfRows == 0 {
+            return 0.001
+        }
+        return 25
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let numberOfRows = self.tableView(tableView, numberOfRowsInSection: section)
+        if numberOfRows == 0 {
+            return nil
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "dd EEE"
         let date = Calendar.current.date(byAdding: DateComponents(day: section), to: month.startDate)!
@@ -101,28 +134,32 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             numberOfSchedule = schedulesInTheDate.count
         }
         //print("Number Of Schedule: ",numberOfSchedule)
-        return numberOfSchedule + numberOfRecommand
+        
+        return numberOfSchedule + (recommandedSchedulesForDate[date]?.count ?? 0)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let numberOfRowsInSection = tableView.numberOfRows(inSection: indexPath.section)
+        //let numberOfRowsInSection = tableView.numberOfRows(inSection: indexPath.section)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellID, for: indexPath) as! ScheduleCalendarViewCell
         let date = Calendar.current.date(byAdding: DateComponents(day: indexPath.section), to: month.startDate)!
         
-        if indexPath.row < numberOfRowsInSection - numberOfRecommand { // for user's local stored schedule
+        if indexPath.row < (eventDC.userSchedules[date]?.count ?? 0) { // for user's local stored schedule
             if let local = eventDC.userSchedules[date]?[indexPath.row] {
                 cell.schedule = local
             }
             return cell
         } else {
             // for recommanded schedule
-            let recommandNumber = indexPath.row - numberOfRowsInSection + numberOfRecommand
-            let schedule = eventDC.getRecommanedSchedules(number: numberOfRecommand, for: date)[recommandNumber]
+            let recommandNumber = indexPath.row - (eventDC.userSchedules[date]?.count ?? 0)
+            let schedule = recommandedSchedulesForDate[date]?[recommandNumber]
             cell.schedule = schedule
             return cell
         }
     }
+    
+    // MARK: - Table View Delegate
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! ScheduleCalendarViewCell
@@ -175,7 +212,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         return true
     }
     */
-
     
     // MARK: - Navigation
 
@@ -193,6 +229,4 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
     }
-    
-
 }

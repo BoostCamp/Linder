@@ -25,7 +25,8 @@ class EventSimpleTableViewCell: UITableViewCell {
             return _event
         }
         set (new) {
-           set(event: new)
+            set(event: new)
+            self._event = new
         }
     }
     
@@ -45,12 +46,12 @@ class EventSimpleTableViewCell: UITableViewCell {
     
     func set(event: Event) {
         
-        
         // 이미지 경로
         if let url =  event.thumbnailURL {
             Nuke.loadImage(with: url, into: backgroundImageView!)
         }
         else {
+            // TODO : Defalt Event Background Asset needed
             self.backgroundImageView.image = #imageLiteral(resourceName: "323x63_kakao")
         }
         

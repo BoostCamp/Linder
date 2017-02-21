@@ -42,7 +42,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var scopeControl: UISegmentedControl!
     @IBOutlet weak var maskingView: UIView!
     
-    var _searchMode: SearchMode = .normal
+    private var _searchMode: SearchMode = .normal
     var searchMode: SearchMode {
         get { return _searchMode }
         set (newMode) {
@@ -68,10 +68,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var recommandedChannels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "예시 채넣", "한화 이글스", "엘지 트윈스"]
     var searchedChannels: [String] = []
     
-    var recommandedEvents: [Event] = []
     var searchedEvents: [Event] = []
-    
-    var schedules: [Schedule] = []
     var searchedSchedules: [Schedule] = []
     
     // For Event add
@@ -85,7 +82,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Setup the Table View
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellID)
-        self.tableView.register(UINib(nibName: "CalendarTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellID)
+        self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellID)
         self.tableView.register(UINib(nibName: "ScheduleCalendarViewCell", bundle: nil), forCellReuseIdentifier: scheduleCellID)
 
         // Setup the searchField
@@ -140,8 +137,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         scopeControl.isHidden = true
         
         // Load Recommand Data
-        recommandedEvents = eventDC.getRecommandedEvents()
-        schedules = eventDC.schedules
+        if eventDC.events.count == 0 {
+            eventDC.getEvents { (event) in
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row:self.eventDC.events.count - 1, section: 1)], with: .bottom)
+                self.tableView.endUpdates()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -196,9 +199,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if [SearchScope.all, SearchScope.event].contains(scope) { return searchedEvents.count }
                 return 0
             }
-            return recommandedEvents.count
+            return eventDC.events.count
         case 2 : // for searched schedule
-            if searchMode == .searched && [SearchScope.all, SearchScope.schedule].contains(scope) { return searchedSchedules.count }
+            if searchMode == .searched && [SearchScope.all, SearchScope.schedule].contains(scope) {
+                return searchedSchedules.count
+            }
+            //else
             return 0
         default :
             return 0
@@ -220,17 +226,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
             
         case 1 : // for calendars
-            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellID, for: indexPath) as! CalendarTableViewCell
-            let event = (searchMode == .searched) ? searchedEvents[indexPath.row] : recommandedEvents[indexPath.row]
-            cell.eventNameLabel.text = event.title
-            if let startDate = event.startedAt {
-                cell.startDateLabel.text = String(date: startDate)
-            }
-            if let endDate = event.endedAt {
-                cell.endDateLabel.text = String(date: endDate)
-            }
-            cell.locationLabel.text = String(locationList: event.locations)
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellID, for: indexPath) as! EventSimpleTableViewCell
+            let event = (searchMode == .searched) ? searchedEvents[indexPath.row] : eventDC.events[indexPath.row]
+            cell.event = event
+            // to delete table rows seperators
             cell.separatorInset.left = 1000
             
             return cell
@@ -329,11 +328,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case segueToEventDetail :
             let destinationVC = segue.destination as! EventDetailViewController
             let selectedCellIndex = self.tableView.indexPathForSelectedRow
-            if let selectedCell = self.tableView.cellForRow(at: selectedCellIndex!) as? CalendarTableViewCell {
-                destinationVC.eventID = selectedCell.event.id
+            if let selectedCell = self.tableView.cellForRow(at: selectedCellIndex!) as? EventSimpleTableViewCell {
+                destinationVC.event = selectedCell.event
             }
             if let selectedCell = self.tableView.cellForRow(at: selectedCellIndex!) as? ScheduleCalendarViewCell {
-                destinationVC.eventID = (selectedCell.schedule?.eventID) ?? .empty
+                if let eventID = selectedCell.schedule?.eventID {
+                    //print("eventID:",eventID)
+                    destinationVC.eventID = eventID
+                }
             }
             
         default:
@@ -341,6 +343,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // MARK: - Search
     func updateSearchTable(_ text: String = "", scope: SearchScope = .all) {
         getSearchResult(text: text, scope: scope)
         self.tableView.reloadData()
@@ -366,13 +369,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             })
             break
         case .event :
-            searchedEvents = recommandedEvents.filter({ (event : Event) -> Bool in
+            searchedEvents = eventDC.events.filter({ (event : Event) -> Bool in
                 return event.title.lowercased().contains(text.lowercased())
             })
             break
         case .schedule :
-            searchedSchedules = schedules.filter({ (schedule : Schedule) -> Bool in
-                return schedule.name.lowercased().contains(text.lowercased())
+            eventDC.searchSchedules(withKeyword: text.lowercased(), completion: { (schedules) in
+                self.searchedSchedules = schedules
+                self.tableView.reloadData()
             })
             break
         }

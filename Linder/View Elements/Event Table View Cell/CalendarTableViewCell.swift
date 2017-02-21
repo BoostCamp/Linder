@@ -16,6 +16,18 @@ class CalendarTableViewCell: EventSimpleTableViewCell {
     @IBOutlet weak var channelNameLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
 
+    override var event: Event {
+        get {
+            return super.event
+        }
+        set (new) {
+            super.event = new
+//            
+//            self.channelThumbnailView.image = new.
+//            self.channelNameLabel.text = new
+//            self.followersCountLabel.text = new
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -19,11 +19,8 @@ fileprivate let segueToLoginID = "toLogin"
 
 class HomeTableViewController: UITableViewController {
     
-    var recommandedEvents: [Event] = []
-    var lindarEventStore: EKEventStore?
-    
     let eventDC = EventDataController.shared
-    let channels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스"]
+    var lindarEventStore: EKEventStore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +32,12 @@ class HomeTableViewController: UITableViewController {
         
         
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellReuseIdentifier)
-        self.tableView.register(UINib(nibName: "CalendarTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
-        recommandedEvents = eventDC.getRecommandedEvents()
+        self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
+        eventDC.getRecommandedEvents { (event) in
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row:self.eventDC.recommandedEvents.count - 1, section: 1)], with: .bottom)
+            self.tableView.endUpdates()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,17 +78,16 @@ class HomeTableViewController: UITableViewController {
         case 0 : // for updated channels
             return 1
         default : // for recommanded calendars
-            return recommandedEvents.count
+            return eventDC.recommandedEvents.count
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0 : // for updated channels
             let cell = tableView.dequeueReusableCell(withIdentifier: channelsCellReuseIdentifier, for: indexPath) as! ChannelTableViewCell
             
-            cell.channels = channels.map({ (title) -> Channel in
+            cell.channels = eventDC.channels.map({ (title) -> Channel in
                 Channel(title: title, thumbnail: #imageLiteral(resourceName: "channel"))
             })
             cell.allowsMultipleSelection = false
@@ -96,17 +96,10 @@ class HomeTableViewController: UITableViewController {
             
             
         default : // for recommanded events
-            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath) as! CalendarTableViewCell
-            let event = recommandedEvents[indexPath.row]
-            cell.eventNameLabel.text = event.title
-            if let startDate = event.startedAt {
-                cell.startDateLabel.text = String(date: startDate)
-            }
-            if let endDate = event.endedAt {
-                cell.endDateLabel.text = String(date: endDate)
-            }
-            cell.locationLabel.text = String(locationList: event.locations)
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath) as! EventSimpleTableViewCell
+            let event = eventDC.recommandedEvents[indexPath.row]
+            cell.event = event
+        
             return cell
         }
     }
@@ -179,12 +172,27 @@ class HomeTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let id = segue.identifier else {
+            print("ERROR: Requested segue with no id")
+            return
+        }
+        switch id {
+        case segueToEventDetail:
+            guard let selectedIndex = self.tableView.indexPathForSelectedRow else {
+                print("ERROR: No Cell Sellected")
+                return
+            }
+            let selectedCell = self.tableView.cellForRow(at: selectedIndex) as! EventSimpleTableViewCell
+            let selectedEvent = selectedCell.event
+            
+            let eventDetailVC = segue.destination as! EventDetailViewController
+            eventDetailVC.event = selectedEvent
+        default:
+            return
+        }
     }
-    */
+    
 
     @IBAction func notificationButtonTouchUpInside(_ sender: Any) {
         print("set Firebase DB")

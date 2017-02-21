@@ -26,8 +26,10 @@ class EventDataController {
     // Local Event Store
     private var eventStore: EKEventStore
     
-    var userSchedules: Dictionary<Date, [UserSchedule]> = [:]
+    var channels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스"]
     var events: [Event] = []
+    var recommandedEvents: [Event] = []
+    var userSchedules: Dictionary<Date, [UserSchedule]> = [:]
     var schedules: [Schedule] = []
     
     // Prevent to create another EventDataController instance
@@ -38,25 +40,39 @@ class EventDataController {
         ref = FIRDatabase.database().reference()
         // [END create_database_reference]
         
+        
+        // Get User Schedules
         eventStore =  EKEventStore()
         
         eventStore.requestAccess(to: .event) { (isAllowed, error) in
             if error == nil && isAllowed {
                 self.getLocalStoredSchedules()
-                self.events = self.getEvents()
             }
         }
     }
     
+    // MARK: - Event Data Load
     // Major Functions
     
-    func getEvents(withIDs: [EventID]? = nil) -> [Event] {
-        return getFIREvents(withIDs: withIDs)
+    // if ids == nil, get all events
+    
+    func getEvents(withIDs ids: [EventID]? = nil, from: UInt = 1, count: UInt = 10, completion: @escaping (Event) -> Void) {
+        self.getFIREvents(withIDs: ids, completion: completion)
         //return createDummyEvents()
     }
     
-    func getRecommanedSchedule(withID: ScheduleID, completion: @escaping (Schedule) -> Void) {
-        return getFIRRecommandedSchdule(withID: withID, completion: completion)
+    func getRecommandedEvents(completion: @escaping (Event) -> Void) {
+        // TODO : Get calendars from server. not from dummy
+        //self.recommanedEvents.append(contentsOf: createDummyEvents())
+        self.getFIRRecommandedEvents(completion: completion)
+    }
+    
+    func getSchedule(withID: ScheduleID, completion: @escaping (Schedule) -> Void) {
+        getFIRSchdule(withID: withID, completion: completion)
+    }
+    
+    func searchSchedules(withKeyword keyword: String, completion: @escaping ([Schedule]) -> Void) {
+        self.searchFIRSchedules(withKeyword: keyword, completion: completion)
     }
     
     
@@ -81,66 +97,140 @@ class EventDataController {
     
     // MARK: - FIRBASE DB Get
     
-    private func getFIREvents(withIDs: [EventID]? = nil) -> [Event] {
+    private func getFIREvents(withIDs ids: [EventID]? = nil, completion: @escaping (Event) -> Void){
         
-        var tmpEventArray: [Event] = []
-
-        let eventsRef =  self.ref.child("events")
-        // TODO filter using parameter id
-        
-        eventsRef.observe(.childAdded, with: { (snapshot) in
-//            print("DUMP:")
-//            dump(snapshot)
+        var eventsRef =  self.ref.child("events")
+        var type = FIRDataEventType.childAdded
+        if let id = ids?.first {
+            eventsRef =  self.ref.child("events").child("\(id)")
+            type = FIRDataEventType.value
+        }
+        print(eventsRef)
+        eventsRef.observe(type, with: { (snapshot) in
+            print("DUMP:")
+            dump(snapshot)
             
-            let value = snapshot.value as! [String: AnyObject]
-
+            guard let value = snapshot.value as? [String: AnyObject] else {
+                print("Error: NO Data")
+                return
+            }
+            
+            guard let scheduleIDs = value["schedules"] as? [Int64] else {
+                print("Error: No or Invalide Schedule IDS")
+                return
+            }
+            
             // pars Date
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd HH:mm"
             
-            let startedAtString = value["startedAt"] as! String
+            guard let startedAtString = value["startedAt"] as? String else {
+                print("ERROR: Cannot Pars Start Date of Event ID: \(snapshot.key).")
+                return
+            }
             
-            let endedAtString = value["endedAt"] as! String
+            guard let endedAtString = value["endedAt"] as? String else {
+                print("ERROR: Cannot Pars End Date of Event ID: \(snapshot.key).")
+                return
+            }
             
             let event = Event(id: Int64(snapshot.key)!,
                               title: value["title"] as! String,
                               thumbnailURL: URL(string: value["thumbnail"] as! String)!,
-                              scheduleIDs: Array(value["schedules"] as! [Int64]),
+                              scheduleIDs: Array(scheduleIDs),
                               detail: value["detail"] as! String,
                               locations: value["locations"] as! [String],
                               startedAt: Date(string: startedAtString, formatter: formatter)!,
                               endedAt: Date(string: endedAtString, formatter: formatter)!)
             
-            tmpEventArray.append(event)
+            self.events.append(event)
+            completion(event)
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-        return tmpEventArray
     }
     
-    private func getFIRRecommandedSchdule(withID id: ScheduleID, completion: @escaping (Schedule) -> Void) {
-        debugPrint("id : \(id)")
+    private func getFIRRecommandedEvents(completion: @escaping (Event) -> Void) {
         
-        let schedulesRef =  self.ref.child("schedules").child("\(id)")
+        let eventsRef =  self.ref.child("events")
         
-        schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            debugPrint("DUMP:")
-            dump(snapshot)
+        eventsRef.observe(.childAdded, with: { (snapshot) in
+            //print("DUMP:")
+            //dump(snapshot)
             
-            let id = Int64(snapshot.key)!
+            let value = snapshot.value as! [String: AnyObject]
             
-            let value = snapshot.value as! NSDictionary
-            let name = value["name"] as! String
-            let location = value["location"] as! String
+            guard let scheduleIDs = value["schedules"] as? [Int64] else {
+                print("Error: No or Invalide Event IDS")
+                return
+            }
+            
             // pars Date
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd HH:mm"
             
-            let startedAtString = value["startedAt"] as! String
+            guard let startedAtString = value["startedAt"] as? String else {
+                print("ERROR: Cannot Pars Start Date of Event ID: \(snapshot.key).")
+                return
+            }
+            
+            guard let endedAtString = value["endedAt"] as? String else {
+                print("ERROR: Cannot Pars End Date of Event ID: \(snapshot.key).")
+                return
+            }
+            
+            let event = Event(id: Int64(snapshot.key)!,
+                              title: value["title"] as! String,
+                              thumbnailURL: URL(string: value["thumbnail"] as! String)!,
+                              scheduleIDs: Array(scheduleIDs),
+                              detail: value["detail"] as! String,
+                              locations: value["locations"] as! [String],
+                              startedAt: Date(string: startedAtString, formatter: formatter)!,
+                              endedAt: Date(string: endedAtString, formatter: formatter)!)
+            
+            self.recommandedEvents.append(event)
+            completion(event)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func getFIRSchdule(withID id: ScheduleID, completion: @escaping (Schedule) -> Void) {
+        
+        let schedulesRef =  self.ref.child("schedules").child("\(id)")
+        
+        schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            //debugPrint("DUMP:")
+            //dump(snapshot)
+            
+            let id = Int64(snapshot.key)!
+            
+            guard let value = snapshot.value as? NSDictionary else {
+                print("ERROR: Failed to Load Request Schedule with id : \(id). Please Check the DB has Requested Schedule.")
+                return
+            }
+            let name = value["name"] as! String
+            guard let location = value["location"] as? String else {
+                print("ERROR: Cannot Pars Location of Schedule ID: \(snapshot.key).")
+                return
+            }
+            
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            guard let startedAtString = value["startedAt"] as? String else {
+                print("ERROR: Cannot Pars Start Date of Schedule ID: \(snapshot.key).")
+                return
+            }
+            
+            guard let endedAtString = value["endedAt"] as? String else {
+                print("ERROR: Cannot Pars End Date of Schedule ID: \(snapshot.key).")
+                return
+            }
+            
             let startedAt = Date(string: startedAtString, formatter: formatter)!
             
-            let endedAtString = value["endedAt"] as! String
             let endedAt = Date(string: endedAtString, formatter: formatter)!
             
             let detail = value["detail"] as! String
@@ -151,84 +241,101 @@ class EventDataController {
                                            startedAt: startedAt,
                                            endedAt: endedAt,
                                            detail: detail)
+            if let eventID = value["eventId"] as? EventID {
+                schedule.eventID = eventID
+            }
+            
             completion(schedule)
         }) { (error) in
             print(error.localizedDescription)
         }
     }
+//    
+//    private func getFIRSchdules(withIDs ids: [ScheduleID]) -> [RecommandedSchedule] {
+//        var schedules: [RecommandedSchedule] = []
+//        
+//        let schedulesRef =  self.ref.child("schedules")
+//        // TODO filter using parameter id
+//        
+//        schedulesRef.observe(.childAdded, with: { (snapshot) in
+//            dump(snapshot)
+//            guard let value = snapshot.value as? NSDictionary else {
+//                print("ERROR: Failed to Load Request Schedule with id : \(ids). Please Check the DB has Requested Schedule.")
+//                return
+//            }
+//            
+//            // pars Date
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+//            
+//            guard let startedAtString = value["startedAt"] as? String else {
+//                print("ERROR: Cannot Pars Start Date of Schedule ID: \(snapshot.key).")
+//                return
+//            }
+//            
+//            guard let endedAtString = value["endedAt"] as? String else {
+//                print("ERROR: Cannot Pars End Date of Schedule ID: \(snapshot.key).")
+//                return
+//            }
+//            
+//            let schedule = RecommandedSchedule(id: Int64(snapshot.key)!,
+//                                           name: value["name"] as! String,
+//                                           location: value["location"] as! String,
+//                                           startedAt: Date.init(string: startedAtString, formatter: formatter)!,
+//                                           endedAt: Date.init(string: endedAtString, formatter: formatter)!)
+//            schedules.append(schedule)
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//        return schedules
+//    }
     
-    private func getFIRRecommandedSchdules(withIDs: [ScheduleID]) -> [RecommandedSchedule] {
-        var schedules: [RecommandedSchedule] = []
+    private func searchFIRSchedules(withKeyword keyword: String, completion: @escaping ([Schedule]) -> Void) {
+        var schedules: [Schedule] = []
         
-        let schedulesRef =  self.ref.child("schedules")
-        // TODO filter using parameter id
-        
-        schedulesRef.observe(.childAdded, with: { (snapshot) in
-            dump(snapshot)
-            let value = snapshot.value as! NSDictionary
+        let schedulesRef =  self.ref.child("schedules").queryOrdered(byChild: "name").queryStarting(atValue: keyword).queryEnding(atValue: keyword+"\u{f8ff}")
+        schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+//            debugPrint("snapShot")
+//            dump(snapshot)
             
-            
-            // pars Date
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            let startedAtString = value["startedAt"] as! String
-            
-            let endedAtString = value["endedAt"] as! String
-            
-            let schedule = RecommandedSchedule(id: Int64(snapshot.key)!,
-                                           name: value["name"] as! String,
-                                           location: value["location"] as! String,
-                                           startedAt: Date.init(string: startedAtString, formatter: formatter)!,
-                                           endedAt: Date.init(string: endedAtString, formatter: formatter)!)
-            schedules.append(schedule)
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                guard let value = rest.value as? NSDictionary else {
+                    print("ERROR: Failed to Load Request Schedule with Keyword : \(keyword). Please Check the DB has Requested Schedule.")
+                    return
+                }
+                // pars Date
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                
+                guard let startedAtString = value["startedAt"] as? String else {
+                    print("ERROR: Cannot Pars Start Date of Schedule ID: \(rest.key).")
+                    return
+                }
+                
+                guard let endedAtString = value["endedAt"] as? String else {
+                    print("ERROR: Cannot Pars End Date of Schedule ID: \(rest.key).")
+                    return
+                }
+                
+                let schedule = RecommandedSchedule(id: Int64(rest.key)!,
+                                                   name: value["name"] as! String,
+                                                   location: value["location"] as! String,
+                                                   startedAt: Date.init(string: startedAtString, formatter: formatter)!,
+                                                   endedAt: Date.init(string: endedAtString, formatter: formatter)!)
+                if let eventID = value["eventId"] as? EventID {
+                    schedule.eventID = eventID
+                }
+                
+                schedules.append(schedule)
+            }
+            completion(schedules)
         }) { (error) in
             print(error.localizedDescription)
         }
         
-        return schedules
     }
-    
-    // MARK: - Event Data Load
-    func getRecommandedEvents() -> [Event] {
-        var events: [Event] = []
-        
-        // TODO : Get calendars from server. not from dummy
-        events.append(contentsOf: createDummyEvents())
-        
-        return events
-    }
-    
-    // MARK: Dummy Creator
-    func createDummyEvents() -> [Event]{
-        
-        var dummyEvents: [Event] = [] // init calendar to return
-        var titles = ["뮤란씨 물총축제", "부스트캠프 수료식", "프로젝트 데모데이", "맥북 증정식", "하이파트 눈썰매 축제", "가평 산천어 축제", "가나다날 개회식", "맥심 블로그 경진대회"]
-        
-        for i in 0..<8 {
-            var schedules: [Schedule] = []
-            schedules.append(createSchedule(title: titles[i] + "1", startDate: Date(string: "2016/11/26")!, endDate: Date(string: "2016/11/26")!, location: "서울 블루스퀘어 삼성전자홀"))
-            schedules.append(createSchedule(title: titles[i] + "2", startDate: Date(string: "2017/03/12")!, endDate: Date(string: "2017/03/12")!, location: "서울 블루스퀘어 삼성전자홀"))
-            schedules.append(RecommandedSchedule(name: "예시 스케쥴 3", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
-            schedules.append(RecommandedSchedule(name: "예시 스케쥴 4", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
-            schedules.append(RecommandedSchedule(name: "예시 스케쥴 5", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
-            let dummyEvent: Event = Event(title: titles[i],
-                                          thumbnailURL: URL(string: "http://dimg.donga.com/wps/NEWS/IMAGE/2015/04/30/70995253.1.jpg")!,
-                                          scheduleIDs: [1,2]) // TODO : Schedule ID !!!
-            dummyEvent.detail = "this is sample text for dummy. do not care so much. in working version, real data would be here."
-            dummyEvents.append(dummyEvent)
-            
-            self.schedules.append(contentsOf: schedules)
-        }
-        
-        return dummyEvents
-    }
-    
-    func createSchedule(title: String, startDate: Date, endDate: Date, location: String) -> Schedule {
-        let schedule = Schedule(id: 0, name: title, location: location, startedAt: startDate, endedAt: endDate)
-        return schedule
-    }
-
     
     // Returns Schedules converted from EKEvents saved in loacal Event Store
     func getLocalStoredSchedules() {
@@ -267,17 +374,95 @@ class EventDataController {
         return events
     }
     
-    func getRecommanedSchedules(number: Int, for date: Date) -> [RecommandedSchedule] {
-        // TODO : Real getter to be constucted, currently just dummy creator.
-        var recommandedSchedules: [RecommandedSchedule] = []
-        for count in 1..<number + 1 {
-            let newSchedule = RecommandedSchedule(id: .dummy, name: "추천 일정 \(count)", location: "장소 \(count)",
-                startedAt: date.addingTimeInterval( TimeInterval.hour * Double(count) ), endedAt: date.addingTimeInterval( TimeInterval.hour * Double(count + 1)))
-            recommandedSchedules.append(newSchedule)
-            
-        }
-        return recommandedSchedules
+    func getRecommanedSchedules(maxNumber max: Int, for date: Date, completion: @escaping (RecommandedSchedule) -> Void ) {
+        getFIRRecommanedSchedules(maxNumber: max, for: date, completion: completion)
     }
+    
+    func getFIRRecommanedSchedules(maxNumber max: Int, for date: Date, completion:  @escaping (RecommandedSchedule) -> Void ) {
+        var count = 0
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let dateString = formatter.string(from: date)
+        
+        let nextDate = date.addingTimeInterval(24 * 60 * 60)
+        let nextDateString = formatter.string(from: nextDate)
+        
+        let schedulesRef =  self.ref.child("schedules").queryOrdered(byChild: "startedAt").queryStarting(atValue: dateString).queryEnding(atValue: nextDateString)
+        schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            debugPrint("snapShot for \(dateString)")
+            dump(snapshot)
+            
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot, (count < max) {
+                guard let value = rest.value as? NSDictionary else {
+                    print("ERROR: Failed to Load Request Schedule at \(dateString). Please Check the DB has Requested Schedule.")
+                    return
+                }
+                // pars Date
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                
+                guard let startedAtString = value["startedAt"] as? String else {
+                    print("ERROR: Cannot Pars Start Date of Schedule ID: \(rest.key).")
+                    return
+                }
+                
+                guard let endedAtString = value["endedAt"] as? String else {
+                    print("ERROR: Cannot Pars End Date of Schedule ID: \(rest.key).")
+                    return
+                }
+                
+                let schedule = RecommandedSchedule(id: Int64(rest.key)!,
+                                                   name: value["name"] as! String,
+                                                   location: value["location"] as! String,
+                                                   startedAt: Date.init(string: startedAtString, formatter: formatter)!,
+                                                   endedAt: Date.init(string: endedAtString, formatter: formatter)!)
+                
+                if let eventID = value["eventId"] as? Int {
+                    schedule.eventID = EventID(eventID)
+                }
+                
+                count += 1
+                completion(schedule)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    
+    // MARK: Dummy Creator
+    func createDummyEvents() -> [Event]{
+        
+        var dummyEvents: [Event] = [] // init calendar to return
+        var titles = ["뮤란씨 물총축제", "부스트캠프 수료식", "프로젝트 데모데이", "맥북 증정식", "하이파트 눈썰매 축제", "가평 산천어 축제", "가나다날 개회식", "맥심 블로그 경진대회"]
+        
+        for i in 0..<8 {
+            var schedules: [Schedule] = []
+            schedules.append(createSchedule(title: titles[i] + "1", startDate: Date(string: "2016/11/26")!, endDate: Date(string: "2016/11/26")!, location: "서울 블루스퀘어 삼성전자홀"))
+            schedules.append(createSchedule(title: titles[i] + "2", startDate: Date(string: "2017/03/12")!, endDate: Date(string: "2017/03/12")!, location: "서울 블루스퀘어 삼성전자홀"))
+            schedules.append(RecommandedSchedule(name: "예시 스케쥴 3", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
+            schedules.append(RecommandedSchedule(name: "예시 스케쥴 4", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
+            schedules.append(RecommandedSchedule(name: "예시 스케쥴 5", location: "서울 블루스퀘어 삼성전자홀", startedAt: Date(string: "2016/11/27")!, endedAt: Date(string: "2016/11/27")!))
+            let dummyEvent: Event = Event(title: titles[i],
+                                          thumbnailURL: URL(string: "http://dimg.donga.com/wps/NEWS/IMAGE/2015/04/30/70995253.1.jpg")!,
+                                          scheduleIDs: [1,2]) // TODO : Schedule ID !!!
+            dummyEvent.detail = "this is sample text for dummy. do not care so much. in working version, real data would be here."
+            dummyEvents.append(dummyEvent)
+            
+            self.schedules.append(contentsOf: schedules)
+        }
+        
+        return dummyEvents
+    }
+    
+    func createSchedule(title: String, startDate: Date, endDate: Date, location: String) -> Schedule {
+        let schedule = Schedule(id: 0, name: title, location: location, startedAt: startDate, endedAt: endDate)
+        return schedule
+    }
+
 }
 
 

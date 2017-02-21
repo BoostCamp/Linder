@@ -31,6 +31,10 @@ extension String {
         formatter.timeStyle = .none
         formatter.locale = Locale(identifier: "ja_JP") // 2001/01/02
         
+        self.init(date: date, formatter: formatter)
+    }
+    
+    init?(date: Date, formatter: DateFormatter) {
         //Get Date String
         let DateString = formatter.string(from: date)
         

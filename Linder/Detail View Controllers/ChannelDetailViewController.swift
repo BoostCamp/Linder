@@ -21,19 +21,21 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var searchButton: UIBarButtonItem!
     
     var channel: Channel = Channel()
+    
     private var _searchedEvents: [Event] = []
-    private var _events: [Event] = []
-    var events: [Event] {
-        get {
-            if isSearching {
-                return _searchedEvents
-            }
-            return _events
-        }
-        set (new) {
-            self._events = new
-        }
-    }
+//    private var _events: [Event] = []
+//    var events: [Event] {
+//        get {
+//            if isSearching {
+//                return _searchedEvents
+//            }
+//            return _events
+//        }
+//        set (new) {
+//            self._events = new
+//        }
+//    }
+    var events: [Event] = []
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -87,8 +89,13 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: eventCellID)
         
         // Load Events Data
-        
-        self.events = eventDC.getEvents(withIDs: self.channel.eventIDs)
+        eventDC.getEvents(withIDs: self.channel.eventIDs) { (event) in
+            if self.events.count != 0 {
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row:self.events.count - 1, section: 1)], with: .bottom)
+                self.tableView.endUpdates()
+            }
+        }
         self.sort(self)
     }
     

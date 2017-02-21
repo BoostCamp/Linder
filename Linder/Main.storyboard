@@ -128,11 +128,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="86" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RZD-eb-VBu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="86" id="9iP-7S-wPi" customClass="ScheduleTableViewCell" customModule="Linder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="86"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9iP-7S-wPi" id="Vpk-Nt-2cI">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
@@ -218,8 +218,8 @@
                             <constraint firstItem="hMf-sz-VD2" firstAttribute="leading" secondItem="Fsm-vg-gcZ" secondAttribute="leading" id="CXF-tx-Lrs"/>
                             <constraint firstItem="hMf-sz-VD2" firstAttribute="top" secondItem="aJh-LQ-37e" secondAttribute="bottom" id="Fiv-7l-41T"/>
                             <constraint firstItem="hMf-sz-VD2" firstAttribute="width" secondItem="Fsm-vg-gcZ" secondAttribute="width" multiplier="2:3" id="WwO-bc-T14"/>
-                            <constraint firstItem="1Kk-Ox-Vwh" firstAttribute="top" secondItem="RZD-eb-VBu" secondAttribute="bottom" id="cek-2h-TtX"/>
                             <constraint firstItem="RZD-eb-VBu" firstAttribute="leading" secondItem="Fsm-vg-gcZ" secondAttribute="leading" id="fy0-1S-Phy"/>
+                            <constraint firstAttribute="bottom" secondItem="RZD-eb-VBu" secondAttribute="bottom" id="xuw-u9-2HC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6ZX-JK-oaw">
@@ -1074,7 +1074,7 @@ EFNlYXJjaA
         <image name="search_selected" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Scm-u0-Cnq"/>
         <segue reference="z2o-PC-7pR"/>
+        <segue reference="tGP-8d-r2b"/>
     </inferredMetricsTieBreakers>
 </document>

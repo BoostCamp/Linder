@@ -90,8 +90,11 @@ class Event {
 }
 
 extension String {
-    init(locationList: [String]) {
-        let set = Set(locationList)
+    init?(locationList: [String]?) {
+        guard let locations = locationList else {
+            return nil
+        }
+        let set = Set(locations)
         let count = set.count
         switch count {
         case 0:

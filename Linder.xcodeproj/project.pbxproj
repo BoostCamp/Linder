@@ -266,10 +266,10 @@
 		B10FB77C1E56C85200D239B8 /* Main Tab */ = {
 			isa = PBXGroup;
 			children = (
-				B10FB77D1E56C85200D239B8 /* CalendarViewController.swift */,
 				B10FB77E1E56C85200D239B8 /* HomeTableViewController.swift */,
-				B10FB77F1E56C85200D239B8 /* MyPageTableViewController.swift */,
 				B10FB7801E56C85200D239B8 /* SearchViewController.swift */,
+				B10FB77D1E56C85200D239B8 /* CalendarViewController.swift */,
+				B10FB77F1E56C85200D239B8 /* MyPageTableViewController.swift */,
 			);
 			path = "Main Tab";
 			sourceTree = "<group>";

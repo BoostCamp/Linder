@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="147" id="KGk-i7-Jjw" customClass="EventSimpleTableViewCell" customModule="Pastel" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="147" id="KGk-i7-Jjw" customClass="EventSimpleTableViewCell" customModule="Linder" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -19,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Vb-ls-6gK">
-                        <rect key="frame" x="5" y="0.0" width="310" height="146.5"/>
+                        <rect key="frame" x="5" y="5" width="310" height="139.5"/>
                     </imageView>
                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h10-OD-wL9">
-                        <rect key="frame" x="5" y="0.0" width="310" height="146.5"/>
+                        <rect key="frame" x="5" y="5" width="310" height="139.5"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="z4W-i6-7cu" userLabel="Calendar info">
-                        <rect key="frame" x="5" y="41" width="310" height="64.5"/>
+                        <rect key="frame" x="5" y="42.5" width="310" height="64.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Axk-Ss-tz4">
                                 <rect key="frame" x="82" y="0.0" width="146" height="25.5"/>
@@ -67,18 +67,18 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="h10-OD-wL9" secondAttribute="bottom" id="1BK-nY-tV1"/>
                     <constraint firstItem="z4W-i6-7cu" firstAttribute="height" relation="lessThanOrEqual" secondItem="3Vb-ls-6gK" secondAttribute="height" id="5rN-Vx-kAZ"/>
-                    <constraint firstAttribute="bottom" secondItem="3Vb-ls-6gK" secondAttribute="bottom" id="6Zj-gJ-4En"/>
+                    <constraint firstAttribute="bottom" secondItem="3Vb-ls-6gK" secondAttribute="bottom" constant="2" id="6Zj-gJ-4En"/>
                     <constraint firstAttribute="trailing" secondItem="3Vb-ls-6gK" secondAttribute="trailing" constant="5" id="6wa-1q-W8J"/>
+                    <constraint firstItem="z4W-i6-7cu" firstAttribute="centerY" secondItem="3Vb-ls-6gK" secondAttribute="centerY" id="D08-Nh-ecU"/>
                     <constraint firstItem="z4W-i6-7cu" firstAttribute="width" secondItem="3Vb-ls-6gK" secondAttribute="width" id="E5f-nk-rK9"/>
-                    <constraint firstItem="z4W-i6-7cu" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="FIi-ze-odI"/>
+                    <constraint firstItem="h10-OD-wL9" firstAttribute="bottom" secondItem="3Vb-ls-6gK" secondAttribute="bottom" id="GeG-r3-1Ce"/>
                     <constraint firstItem="h10-OD-wL9" firstAttribute="trailing" secondItem="3Vb-ls-6gK" secondAttribute="trailing" id="Qvm-1L-jmG"/>
-                    <constraint firstItem="h10-OD-wL9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="T16-0L-Nfs"/>
+                    <constraint firstItem="h10-OD-wL9" firstAttribute="top" secondItem="3Vb-ls-6gK" secondAttribute="top" id="VS2-6H-Tpp"/>
+                    <constraint firstItem="z4W-i6-7cu" firstAttribute="centerX" secondItem="3Vb-ls-6gK" secondAttribute="centerX" id="iQx-YH-DPF"/>
                     <constraint firstItem="h10-OD-wL9" firstAttribute="leading" secondItem="3Vb-ls-6gK" secondAttribute="leading" id="oPc-Bl-KnI"/>
-                    <constraint firstItem="z4W-i6-7cu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rZE-Wf-Q3A"/>
                     <constraint firstItem="3Vb-ls-6gK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="uad-R3-pm1"/>
-                    <constraint firstItem="3Vb-ls-6gK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="y3b-5v-aQg"/>
+                    <constraint firstItem="3Vb-ls-6gK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="y3b-5v-aQg"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
