@@ -49,12 +49,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             case .normal:
                 maskingView.isHidden = true
                 scopeControl.isHidden = true
+                filterCollectionView.isHidden = false
             case .searching:
                 maskingView.isHidden = false
                 scopeControl.isHidden = true
+                filterCollectionView.isHidden = false
             case .searched:
                 maskingView.isHidden = true
                 scopeControl.isHidden = false
+                filterCollectionView.isHidden = true
             }
         }
     }
@@ -66,7 +69,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.filterCollectionView.reloadData()
         }
     }
-    
     
     let eventDC = EventDataController.shared
 
@@ -124,11 +126,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         // Scope Control appearence
-        scopeControl.setBackgroundImage(nil, for: .normal, barMetrics: .default)
-        scopeControl.setBackgroundImage(nil, for: .selected, barMetrics: .default)
+        
+        // TODO : Set Appropriated Image
+        //scopeControl.setBackgroundImage(#imageLiteral(resourceName: "323x63_facebook"), for: .normal, barMetrics: .default)
+        //scopeControl.setBackgroundImage(#imageLiteral(resourceName: "channel"), for: .selected, barMetrics: .default)
         
         let selectedTitleAttributes = [
-            NSForegroundColorAttributeName : UIColor.ldPuple,
+            NSForegroundColorAttributeName : UIColor.ldPupleDark,
             NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue // TODO : background 로 구현
             ] as [String : Any]
         

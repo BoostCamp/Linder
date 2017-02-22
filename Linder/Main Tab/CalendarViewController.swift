@@ -19,6 +19,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var monthPicker: UIMonthPicker!
     @IBOutlet weak var monthButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var maskingView: UIView!
     
     let monthButtonTitlePostfix = "월 ▼"
     
@@ -29,11 +30,12 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     var recommandedSchedulesForDate: [Date:[RecommandedSchedule]] = [:]
     
+    let animationDuration = 0.2
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // View Layout set
         self.extendedLayoutIncludesOpaqueBars = true
-        //self.edgesForExtendedLayout = .all
         
         // tableView Set
         self.tableView.register(UINib(nibName: "ScheduleCalendarViewCell", bundle: nil), forCellReuseIdentifier: scheduleCellID)
@@ -48,14 +50,15 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         monthPicker.layer.borderWidth = 0.3
         monthPicker.layer.borderColor = UIColor.ldPuple.cgColor
         monthPicker.onDateSelected = { (month: Int, year: Int) in
-            print("month: ", month)
-            print("year: ", year)
             
             self.month = DateComponents(calendar: .current, year: year, month: month)
             self.monthUpdated()
             
             self.tableView.reloadData()
         }
+        
+        self.maskingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hideMonthPicker)))
+        maskingView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +70,29 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func monthChange(_ sender: Any) {
-        monthPicker.isHidden = !monthPicker.isHidden
+        let width = self.view.frame.width * (2/3)
+        let height = width * (3/4)
+        if monthPicker.isHidden {
+            monthPicker.isHidden = false
+            monthPicker.frame.size = CGSize.zero
+            UIView.animate(withDuration: animationDuration, animations: { 
+                self.monthPicker.frame.size = CGSize(width: width, height: height)
+            })
+            maskingView.isHidden = false
+        } else {
+            hideMonthPicker()
+        }
+    }
+    
+    func hideMonthPicker() {
+        if !monthPicker.isHidden {
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.monthPicker.frame.size = CGSize.zero
+            }, completion: { (success) in
+                self.monthPicker.isHidden = true
+            })
+        }
+        maskingView.isHidden = true
     }
     
     func monthUpdated() {
@@ -79,16 +104,15 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         
         for day in 0..<month.numberOfDaysInMonth() {
             let date = Calendar.current.date(byAdding: DateComponents(day: day), to: month.startDate)!
-            eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
-                if var array = self.recommandedSchedulesForDate[date] {
-                    array.append(recommandation)
-                } else {
-                    self.recommandedSchedulesForDate[date] = []
+            
+            if self.recommandedSchedulesForDate[date] == nil{
+                self.recommandedSchedulesForDate[date] = []
+                eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
                     self.recommandedSchedulesForDate[date]?.append(recommandation)
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
+                    self.tableView.endUpdates()
                 }
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
-                self.tableView.endUpdates()
             }
         }
     }

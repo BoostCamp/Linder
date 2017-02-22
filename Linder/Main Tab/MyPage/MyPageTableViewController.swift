@@ -42,9 +42,6 @@ class MyPageTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // for smooth navigation apearing and disapearing
-        self.navigationController?.view.backgroundColor = .ldPuple
-        
         // set up table view
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelCellID)
         self.tableView.estimatedRowHeight = 70
@@ -83,6 +80,11 @@ class MyPageTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // for smooth navigation apearing and disapearing
+        self.navigationController?.view.backgroundColor = .ldPuple
+        self.edgesForExtendedLayout = .bottom
+        self.extendedLayoutIncludesOpaqueBars = true
 
         // set Status Bar Color
         let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
@@ -99,27 +101,33 @@ class MyPageTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
+        self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = true
+        self.navigationController?.viewControllers.last?.edgesForExtendedLayout = .top
+        
         UIView.animate(withDuration: navigationMoveDuration, animations: {
             // show navigation bar
             self.navigationController?.isNavigationBarHidden = false
+            self.navigationController?.navigationBar.barStyle = .black
+            UIApplication.shared.statusBarStyle = .lightContent
             
-            // set Status Bar Color to default
+            // set Status Bar BackGround Color to default
             let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
             statusBar?.backgroundColor = .clear
-
         })
-        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = false
         super.viewDidDisappear(animated)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func settingTouchUpInside(_ sender: Any) {
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

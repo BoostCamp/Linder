@@ -66,13 +66,13 @@
         <!--Home-->
         <scene sceneID="LS4-ld-KVd">
             <objects>
-                <tableViewController title="Home" id="JPO-Jc-7ST" customClass="HomeTableViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Home" id="JPO-Jc-7ST" customClass="HomeTableViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="1" id="yiY-3w-Oez">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="A2k-tb-a5Z" customClass="ChannelTableViewCell" customModule="Pastel" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="A2k-tb-a5Z" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A2k-tb-a5Z" id="Jr9-sH-kc7">
@@ -80,7 +80,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="qNl-xv-8Dr" customClass="CalendarTableViewCell" customModule="Pastel" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="qNl-xv-8Dr" customClass="CalendarTableViewCell" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="100" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qNl-xv-8Dr" id="zOC-RW-LpT">
@@ -114,7 +114,7 @@
         <!--Calendar View Controller-->
         <scene sceneID="yPW-mM-SOH">
             <objects>
-                <viewController id="pUZ-5P-hBo" customClass="CalendarViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pUZ-5P-hBo" customClass="CalendarViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aJh-LQ-37e"/>
                         <viewControllerLayoutGuide type="bottom" id="1Kk-Ox-Vwh"/>
@@ -124,10 +124,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="86" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RZD-eb-VBu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="86" id="9iP-7S-wPi" customClass="ScheduleTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="86" id="9iP-7S-wPi" customClass="ScheduleTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9iP-7S-wPi" id="Vpk-Nt-2cI">
@@ -199,8 +199,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <pickerView alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMf-sz-VD2" customClass="UIMonthPicker" customModule="Pastel" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="213" height="160"/>
+                            <view alpha="0.20000000298023224" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUG-vw-ZtM">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <pickerView alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMf-sz-VD2" customClass="UIMonthPicker" customModule="Linder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="212.5" height="159"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hMf-sz-VD2" secondAttribute="height" multiplier="4:3" id="31a-mf-vip"/>
@@ -209,13 +213,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="MUG-vw-ZtM" secondAttribute="trailing" id="0jc-7l-hYq"/>
                             <constraint firstItem="RZD-eb-VBu" firstAttribute="top" secondItem="Fsm-vg-gcZ" secondAttribute="top" id="9he-yv-LZU"/>
                             <constraint firstAttribute="trailing" secondItem="RZD-eb-VBu" secondAttribute="trailing" id="Aeo-Xu-1fQ"/>
                             <constraint firstItem="hMf-sz-VD2" firstAttribute="leading" secondItem="Fsm-vg-gcZ" secondAttribute="leading" id="CXF-tx-Lrs"/>
-                            <constraint firstItem="hMf-sz-VD2" firstAttribute="top" secondItem="aJh-LQ-37e" secondAttribute="bottom" id="Fiv-7l-41T"/>
+                            <constraint firstItem="MUG-vw-ZtM" firstAttribute="top" secondItem="aJh-LQ-37e" secondAttribute="bottom" id="D2x-Pr-2Qj"/>
+                            <constraint firstItem="hMf-sz-VD2" firstAttribute="top" secondItem="aJh-LQ-37e" secondAttribute="bottom" constant="-0.40000000000000002" id="Fiv-7l-41T"/>
+                            <constraint firstItem="1Kk-Ox-Vwh" firstAttribute="top" secondItem="MUG-vw-ZtM" secondAttribute="bottom" id="OBp-S4-rq6"/>
                             <constraint firstItem="hMf-sz-VD2" firstAttribute="width" secondItem="Fsm-vg-gcZ" secondAttribute="width" multiplier="2:3" id="WwO-bc-T14"/>
-                            <constraint firstItem="1Kk-Ox-Vwh" firstAttribute="top" secondItem="RZD-eb-VBu" secondAttribute="bottom" id="cek-2h-TtX"/>
+                            <constraint firstAttribute="bottom" secondItem="RZD-eb-VBu" secondAttribute="bottom" id="YHK-cz-kqW"/>
                             <constraint firstItem="RZD-eb-VBu" firstAttribute="leading" secondItem="Fsm-vg-gcZ" secondAttribute="leading" id="fy0-1S-Phy"/>
+                            <constraint firstItem="MUG-vw-ZtM" firstAttribute="leading" secondItem="Fsm-vg-gcZ" secondAttribute="leading" id="sBf-yY-zdp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6ZX-JK-oaw">
@@ -228,6 +236,7 @@
                         <barButtonItem key="rightBarButtonItem" image="calendar_selected" id="wKL-M6-aeo"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="maskingView" destination="MUG-vw-ZtM" id="iTj-5R-Qp8"/>
                         <outlet property="monthButton" destination="ONN-Ch-kgG" id="fMI-g1-JNO"/>
                         <outlet property="monthPicker" destination="hMf-sz-VD2" id="1kw-dq-rne"/>
                         <outlet property="tableView" destination="RZD-eb-VBu" id="qWo-mE-is3"/>
@@ -241,7 +250,7 @@
         <!--Title-->
         <scene sceneID="EEb-eC-Se6">
             <objects>
-                <viewController storyboardIdentifier="ChannelDetailView" hidesBottomBarWhenPushed="YES" id="DkR-fC-6tt" customClass="ChannelDetailViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChannelDetailView" hidesBottomBarWhenPushed="YES" id="DkR-fC-6tt" customClass="ChannelDetailViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bNV-1U-Vhf"/>
                         <viewControllerLayoutGuide type="bottom" id="lvs-gE-pvU"/>
@@ -304,7 +313,7 @@
                                 <rect key="frame" x="0.0" y="128" width="320" height="376"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventCell" id="SDP-nV-JyQ" customClass="EventSimpleTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventCell" id="SDP-nV-JyQ" customClass="EventSimpleTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="10" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SDP-nV-JyQ" id="fqO-rL-T9Z">
@@ -378,7 +387,7 @@
         <!--Search View Controller-->
         <scene sceneID="jyE-d5-Wur">
             <objects>
-                <viewController id="nI5-Au-Sjb" customClass="SearchViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nI5-Au-Sjb" customClass="SearchViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WGA-sr-fHT"/>
                         <viewControllerLayoutGuide type="bottom" id="h6r-Z3-ixs"/>
@@ -391,7 +400,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="476"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="Y8l-Cb-Iv2" customClass="ChannelTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="Y8l-Cb-Iv2" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y8l-Cb-Iv2" id="Ndv-0v-wQg">
@@ -399,7 +408,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="KBq-1y-99c" customClass="CalendarTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="KBq-1y-99c" customClass="CalendarTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="100" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KBq-1y-99c" id="LPQ-sc-kt4">
@@ -407,7 +416,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="86" id="Nhb-fb-QLz" customClass="ScheduleTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="86" id="Nhb-fb-QLz" customClass="ScheduleTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="144" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nhb-fb-QLz" id="K6I-Bq-QF3">
@@ -483,23 +492,6 @@
                                     <outlet property="delegate" destination="nI5-Au-Sjb" id="9Iu-iq-EyR"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dcO-BI-heN">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
-                                <segments>
-                                    <segment title="전체"/>
-                                    <segment title="채널"/>
-                                    <segment title="캘린더"/>
-                                    <segment title="일정"/>
-                                </segments>
-                                <color key="tintColor" red="0.68627450980000004" green="0.56078431370000004" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="scopeChanged:" destination="nI5-Au-Sjb" eventType="valueChanged" id="6F3-JN-YTB"/>
-                                </connections>
-                            </segmentedControl>
-                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f5n-wl-898">
-                                <rect key="frame" x="0.0" y="28" width="320" height="427"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uWz-47-3y8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
                                 <color key="backgroundColor" red="0.68627450980000004" green="0.56078431370000004" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -510,7 +502,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="hBi-WZ-5NU" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="hBi-WZ-5NU" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="3" width="70" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -520,6 +512,23 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dcO-BI-heN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                <segments>
+                                    <segment title="전체"/>
+                                    <segment title="채널"/>
+                                    <segment title="캘린더"/>
+                                    <segment title="일정"/>
+                                </segments>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="scopeChanged:" destination="nI5-Au-Sjb" eventType="valueChanged" id="6F3-JN-YTB"/>
+                                </connections>
+                            </segmentedControl>
+                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f5n-wl-898">
+                                <rect key="frame" x="0.0" y="28" width="320" height="427"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -575,7 +584,7 @@
         <!--Event Detail View Controller-->
         <scene sceneID="UC5-X9-GL8">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="pMQ-zi-Te6" customClass="EventDetailViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="pMQ-zi-Te6" customClass="EventDetailViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pah-4s-kHm"/>
                         <viewControllerLayoutGuide type="bottom" id="1Iu-a6-l6k"/>
@@ -589,11 +598,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="123" id="imW-Ql-sdD" customClass="EventHeaderTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="123" id="imW-Ql-sdD" customClass="EventHeaderTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="imW-Ql-sdD" id="lXj-fN-h6U">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OX8-ya-9DE">
@@ -666,11 +675,11 @@
                                             <outlet property="titleView" destination="dQC-EL-m4T" id="EWZ-qs-bHb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="129" id="sKT-kN-zy0" customClass="EventDetailTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="129" id="sKT-kN-zy0" customClass="EventDetailTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="151" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sKT-kN-zy0" id="vkg-1W-qua">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-fk-gaM">
@@ -692,11 +701,11 @@
                                             <outlet property="textView" destination="cQJ-fk-gaM" id="27c-hd-U0P"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="85" id="aZ6-o8-v5T" customClass="ScheduleTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="85" id="aZ6-o8-v5T" customClass="ScheduleTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="280" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aZ6-o8-v5T" id="bvC-VM-r2j">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="z9D-MC-9bL">
@@ -785,7 +794,7 @@
         <!--My Page Table View Controller-->
         <scene sceneID="69G-hd-yTM">
             <objects>
-                <tableViewController id="ZTk-ec-bQ9" customClass="MyPageTableViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ZTk-ec-bQ9" customClass="MyPageTableViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="1" id="4by-Rk-nwU">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -798,7 +807,7 @@
                                         <rect key="frame" x="0.0" y="35" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nLj-zM-YLi" id="glk-tF-s82">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qyZ-qb-8pm">
@@ -829,7 +838,7 @@
                                                     <rect key="frame" x="282" y="20" width="30" height="30"/>
                                                     <state key="normal" title="⚙"/>
                                                     <connections>
-                                                        <action selector="settingTouchUpInside:" destination="ZTk-ec-bQ9" eventType="touchUpInside" id="HMU-cA-yeV"/>
+                                                        <segue destination="AZj-iC-uZI" kind="show" id="IYS-Xt-30B"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -848,23 +857,23 @@
                             <tableViewSection headerTitle="정보" id="ejc-zr-RSv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="infoTagTableCell" rowHeight="50" id="2PB-Ey-tTH">
-                                        <rect key="frame" x="0.0" y="146" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="145" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2PB-Ey-tTH" id="Gv6-vv-8ej">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KXI-Hj-xdq" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KXI-Hj-xdq" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="320" height="33"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HAU-BO-Rdm" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HAU-BO-Rdm" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target">
                                                         <size key="itemSize" width="50" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="UJZ-Q2-eWf" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="UJZ-Q2-eWf" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -888,23 +897,23 @@
                             <tableViewSection headerTitle="관심사" id="Kxm-dZ-NpV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="interestTagTableCell" rowHeight="50" id="KPq-DL-s53">
-                                        <rect key="frame" x="0.0" y="236" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="234" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KPq-DL-s53" id="eRu-Zv-ecB">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pXY-Z0-gfv" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pXY-Z0-gfv" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="320" height="33"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8F-fG-Zzv" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8F-fG-Zzv" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target">
                                                         <size key="itemSize" width="50" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="lAB-Oe-2ml" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="lAB-Oe-2ml" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -927,11 +936,11 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="채널" id="sbj-Cl-bi1">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelTableCell" rowHeight="156" id="gVC-gi-G63" customClass="ChannelTableViewCell" customModule="Pastel" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="326" width="320" height="156"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelTableCell" rowHeight="156" id="gVC-gi-G63" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="323" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVC-gi-G63" id="76r-Cs-mYk">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="woz-ho-4CM">
@@ -944,7 +953,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="channelCell" id="cwW-eN-hph" customClass="ChannelCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="channelCell" id="cwW-eN-hph" customClass="ChannelCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -989,6 +998,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Joc-xZ-UsM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1554" y="1812"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="q9e-Ky-3za">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Setting" id="AZj-iC-uZI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TmT-jn-94s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2692" y="1812"/>
         </scene>
         <!-- Search-->
         <scene sceneID="w9X-Il-uSo">
@@ -1061,7 +1078,7 @@ EFNlYXJjaA
         <!--필터 선택-->
         <scene sceneID="Sih-Re-k01">
             <objects>
-                <viewController storyboardIdentifier="Interest" id="Jrr-NS-Spp" customClass="FilterViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Interest" id="Jrr-NS-Spp" customClass="FilterViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7hS-7Y-AoL"/>
                         <viewControllerLayoutGuide type="bottom" id="Hfh-fs-0Yn"/>
@@ -1070,12 +1087,12 @@ EFNlYXJjaA
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rjo-sW-BB4" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rjo-sW-BB4" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="9H8-2T-EEz" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="9H8-2T-EEz" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="mMR-5D-jGl" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="mMR-5D-jGl" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1115,7 +1132,7 @@ EFNlYXJjaA
         <image name="search_selected" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4PX-Sp-1Pf"/>
+        <segue reference="tGP-8d-r2b"/>
         <segue reference="JS4-pN-nld"/>
     </inferredMetricsTieBreakers>
 </document>

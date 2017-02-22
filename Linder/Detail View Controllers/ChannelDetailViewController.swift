@@ -37,6 +37,7 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
 //    }
     var events: [Event] = []
     
+    // Setting Status Bar Color Style
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -58,8 +59,7 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.backgroundColor = UIColor.ldPuple
-        //self.view.backgroundColor = UIColor.ldPuple
+        //self.navigationController?.navigationBar.backgroundColor = UIColor.ldPuple
         
         // Set NavigationBar Title to Channel's Name
         self.title = self.channel.title
