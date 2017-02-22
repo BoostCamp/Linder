@@ -68,8 +68,8 @@ class UserSchedule: Schedule {
 }
 
 extension EKEvent {
-    convenience init(schedule: Schedule) {
-        self.init(eventStore: EKEventStore())
+    convenience init(schedule: Schedule, eventStore: EKEventStore) {
+        self.init(eventStore: eventStore)
         self.title = schedule.name
         self.location = schedule.location
         self.startDate = schedule.startedAt
@@ -78,6 +78,7 @@ extension EKEvent {
         // TODO : make two date representation same
         self.notes =    "Created At: " + String(date: schedule.createdAt)! + "\n" +
                         "Updated At: " + String(describing: schedule.updatedAt)
+        self.calendar = eventStore.defaultCalendarForNewEvents
     }
 }
 

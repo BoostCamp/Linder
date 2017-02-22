@@ -43,15 +43,13 @@ class User {
     var gender: Gender = .unknown
     var age: Age = .a30s
     var hashtags: [Hashtag] = []
-    var channels: [Channel] = []
+    var channelIDs: [ChannelID] = []
     var region: String = "서울"
     
     init() { // Guest User Creation
         self.id = -1
         self.hashtags.append(contentsOf: ["관심사1","관심사2","관심사3"])
-        self.channels.append(contentsOf: [Channel(title:"channel1", thumbnail: #imageLiteral(resourceName: "channel")),
-                                          Channel(title:"channel2", thumbnail: #imageLiteral(resourceName: "channel")),
-                                          Channel(title:"channel3", thumbnail: #imageLiteral(resourceName: "channel"))])
+        self.channelIDs = [1,2,3]
     }
     
     init(id: Int64) {

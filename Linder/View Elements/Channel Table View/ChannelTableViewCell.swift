@@ -12,19 +12,32 @@ private let cellReuseIdentifier = "channelCell"
 let channelTableViewCellPadding: CGFloat = 10.0
 
 class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
-    @IBOutlet weak var channelCollectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    var channels: [Channel] = []
+//    var channelScope: ChannelScope = .all {
+//        didSet {
+//            EventDataController.shared.getChannels(scope: channelScope) { (channel) in
+//                self.channels.append(channel)
+//                self.collectionView.insertItems(at: [IndexPath(item: self.channels.count - 1, section: 0)])
+//            }
+//        }
+//    }
     var allowsMultipleSelection = false
     var containerVC: UIViewController?
+    
+    var channels: [Channel] = []
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        channelCollectionView.dataSource = self
-        channelCollectionView.delegate = self
-        channelCollectionView.register(UINib.init(nibName: "ChannelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
-        channelCollectionView.allowsMultipleSelection = self.allowsMultipleSelection
-        channelCollectionView.contentInset = UIEdgeInsets(top: 0, left: 8.0, bottom: 0, right: 8.0)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(UINib.init(nibName: "ChannelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.allowsMultipleSelection = self.allowsMultipleSelection
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 8.0, bottom: 0, right: 8.0)
+    }
+    
+    func insertNewItem() {
+        self.collectionView.insertItems(at: [IndexPath(item: channels.count - 1, section: 0)])
     }
 
     // MARK: - CollectionViewDataSource

@@ -24,6 +24,7 @@ class MyPageTableViewController: UITableViewController {
     @IBOutlet weak var channelCell: ChannelTableViewCell!
     
     let userDC = UserDataController.shared
+    let eventDC = EventDataController.shared
     
     let infoCellDelegate = MyPageInfoCellDelegate()
     let interestCellDelegate = MyPageInterestCellDelegate()
@@ -60,11 +61,14 @@ class MyPageTableViewController: UITableViewController {
         self.interestTagCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: interestCellID)
         self.interestTagCollectionView.cellWidth = 70
 
-        // Channel CELL DATA SET UP
-        channelCell.channels = userDC.user.channels
+        // temporary channel for set layout
+        channelCell.channels = userDC.user.channelIDs.map({ (id) -> Channel in
+            print("id:" , id)
+            return Channel(id: id)
+        })
         channelCell.allowsMultipleSelection = false
         channelCell.containerVC = self
-        let flowLayout = channelCell.channelCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let flowLayout = channelCell.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.itemSize = CGSize(width: channelCollectionViewCellWidth, height: channelCollectionViewCellHeight)
         
         
@@ -76,6 +80,17 @@ class MyPageTableViewController: UITableViewController {
         profileThumbnailView.layer.borderWidth = thumbnailBorderWidth
         profileThumbnailView.layer.borderColor = thumbnailBorderColor
         profileThumbnailView.layer.masksToBounds = true
+        
+        eventDC.getChannels(scope: .following) { (channel) in
+            if let index = self.userDC.user.channelIDs.index(of: channel.id) {
+                self.channelCell.channels[index] = channel
+                
+                let cell = self.channelCell.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as! ChannelCollectionViewCell
+                cell.channel = channel
+                
+                self.channelCell.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +154,7 @@ class MyPageTableViewController: UITableViewController {
         case 2:
             return interestTagCollectionView.contentSize.height + 17 // 8 * 2 for top & bottom  + 1 for additional
         case 3:
-            return channelCell.channelCollectionView.contentSize.height + 17 // 8 * 2 for top & bottom  + 1 for additional
+            return channelCell.collectionView.contentSize.height + 17 // 8 * 2 for top & bottom  + 1 for additional
         default:
             return 0
         }

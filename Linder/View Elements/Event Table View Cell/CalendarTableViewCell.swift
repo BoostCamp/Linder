@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 let calendarTableViewCellHeight: CGFloat = 160
 
@@ -15,19 +16,6 @@ class CalendarTableViewCell: EventSimpleTableViewCell {
     @IBOutlet weak var channelThumbnailView: UIImageView!
     @IBOutlet weak var channelNameLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
-
-    override var event: Event {
-        get {
-            return super.event
-        }
-        set (new) {
-            super.event = new
-//            
-//            self.channelThumbnailView.image = new.
-//            self.channelNameLabel.text = new
-//            self.followersCountLabel.text = new
-        }
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +29,13 @@ class CalendarTableViewCell: EventSimpleTableViewCell {
     }
     
     func set(channel: Channel, event: Event) {
-        channelThumbnailView.image = channel.thumbnail
+        if let url =  channel.thumbnailURL {
+            Nuke.loadImage(with: url, into: channelThumbnailView!)
+        }
+        else {
+            // TODO : Defalt Channel Background Asset needed
+            self.channelThumbnailView.image = #imageLiteral(resourceName: "channel")
+        }
         channelNameLabel.text = channel.title
         followersCountLabel.text = String(channel.followersCount)
         super.set(event: event)

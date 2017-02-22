@@ -20,23 +20,33 @@ fileprivate let segueToLoginID = "toLogin"
 class HomeTableViewController: UITableViewController {
     
     let eventDC = EventDataController.shared
-    var lindarEventStore: EKEventStore?
+    var updatedChannels: [Channel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Network Indicator on Status Bar
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
         // TODO : Check log in
         // TODO: Custom myUIViewController and myUITablevie controlelr  OR Protocol programing.
         //
-        performSegue(withIdentifier: segueToLoginID, sender: self)
-        
+        //performSegue(withIdentifier: segueToLoginID, sender: self)
         
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellReuseIdentifier)
         self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
+        
         eventDC.getRecommandedEvents { (event) in
             self.tableView.beginUpdates()
             self.tableView.insertRows(at: [IndexPath(row:self.eventDC.recommandedEvents.count - 1, section: 1)], with: .bottom)
             self.tableView.endUpdates()
+        }
+        
+        eventDC.getChannels(scope: .following) { (channel) in
+            self.updatedChannels.append(channel)
+            if let channelCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ChannelTableViewCell {
+                channelCell.channels.append(channel)
+                channelCell.insertNewItem()
+            }
         }
     }
     
@@ -55,6 +65,12 @@ class HomeTableViewController: UITableViewController {
         
         self.navigationItem.leftBarButtonItem?.image = postImage?.withRenderingMode(.alwaysOriginal)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Network Indicator on Status Bar
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,6 +88,10 @@ class HomeTableViewController: UITableViewController {
         let sectionTitles = ["최근 업데이트", "추천 캘린더"]
         return sectionTitles[section]
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -86,20 +106,17 @@ class HomeTableViewController: UITableViewController {
         switch indexPath.section {
         case 0 : // for updated channels
             let cell = tableView.dequeueReusableCell(withIdentifier: channelsCellReuseIdentifier, for: indexPath) as! ChannelTableViewCell
-            
-            cell.channels = eventDC.channels.map({ (title) -> Channel in
-                Channel(title: title, thumbnail: #imageLiteral(resourceName: "channel"))
-            })
+            cell.channels = self.updatedChannels
             cell.allowsMultipleSelection = false
             cell.containerVC = self
+            cell.selectionStyle = .none
             return cell
-            
             
         default : // for recommanded events
             let cell = tableView.dequeueReusableCell(withIdentifier: calendarCellReuseIdentifier, for: indexPath) as! EventSimpleTableViewCell
             let event = eventDC.recommandedEvents[indexPath.row]
             cell.event = event
-        
+            cell.selectionStyle = .none
             return cell
         }
     }

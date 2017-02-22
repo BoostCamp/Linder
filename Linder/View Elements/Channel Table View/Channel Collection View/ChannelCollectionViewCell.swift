@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class ChannelCollectionViewCell: UICollectionViewCell {
 
@@ -14,6 +15,7 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var checkImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var maskingView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //var thumbnail: UIImage?
     
@@ -21,14 +23,18 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     static let borderWidth: CGFloat = 0.5
     static let borderColor = UIColor.black.cgColor
     
-    var _channel: Channel = Channel()
-    var channel: Channel {
-        get {
-            return self._channel
-        }
-        set (new) {
-            self.title.text = new.title
-            self.thumbnailView.image = new.thumbnail
+    var channel: Channel = Channel() {
+        didSet {
+            self.title.text = channel.title
+            
+            if let url =  channel.thumbnailURL {
+                Nuke.loadImage(with: url, into: self.thumbnailView!)
+                activityIndicator.stopAnimating()
+            }
+//            else {
+//                // TODO : Defalt Event Background Asset needed
+//                self.thumbnailView.image = #imageLiteral(resourceName: "channel")
+//            }
         }
     }
     
@@ -45,6 +51,9 @@ class ChannelCollectionViewCell: UICollectionViewCell {
         
         checkImage.image = #imageLiteral(resourceName: "check")
         checkImage.isHidden = true
+        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
     }
     
     func setSelected() {

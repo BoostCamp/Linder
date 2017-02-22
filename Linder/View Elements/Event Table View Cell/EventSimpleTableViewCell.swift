@@ -19,14 +19,9 @@ class EventSimpleTableViewCell: UITableViewCell {
     
     var cornerRadius: CGFloat = 8.0
     
-    private var _event: Event = Event()
-    var event: Event {
-        get {
-            return _event
-        }
-        set (new) {
-            set(event: new)
-            self._event = new
+    var event: Event = Event() {
+        didSet (new) {
+            set(event: event)
         }
     }
     

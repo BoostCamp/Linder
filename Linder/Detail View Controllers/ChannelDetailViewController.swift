@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 fileprivate let eventCellID = "eventCell"
 fileprivate let segueToEventDetail = "toEventDetail"
@@ -65,7 +66,13 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.title = self.channel.title
         
         // Set Thumbnail Image
-        self.thumbnail.image = self.channel.thumbnail
+        if let url =  channel.thumbnailURL {
+            Nuke.loadImage(with: url, into: thumbnail!)
+        }
+        else {
+            // TODO : Defalt Event Background Asset needed
+            self.thumbnail.image = #imageLiteral(resourceName: "channel")
+        }
         thumbnail.layer.cornerRadius = thumbnailCornerRadius
         thumbnail.layer.borderWidth = thumbnailBorderWidth
         thumbnail.layer.borderColor = thumbnailBorderColor
@@ -90,13 +97,12 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
         
         // Load Events Data
         eventDC.getEvents(withIDs: self.channel.eventIDs) { (event) in
-            if self.events.count != 0 {
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row:self.events.count - 1, section: 1)], with: .bottom)
-                self.tableView.endUpdates()
-            }
+            self.events.append(event)
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row:self.events.count - 1, section: 0)], with: .bottom)
+            self.tableView.endUpdates()
         }
-        self.sort(self)
+        //self.sort(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,16 +121,17 @@ class ChannelDetailViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK : - Table View Data Source
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.events.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.events.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: eventCellID, for: indexPath) as! EventSimpleTableViewCell
-        cell.event = events[indexPath.section]
+        cell.event = events[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
     

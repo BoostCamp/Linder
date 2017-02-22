@@ -72,8 +72,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     let eventDC = EventDataController.shared
 
-    var recommandedChannels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "예시 채넣", "한화 이글스", "엘지 트윈스"]
-    var searchedChannels: [String] = []
+    var recommandedChannels: [Channel] = []
+    var searchedChannels: [Channel] = []
     
     var searchedEvents: [Event] = []
     var searchedSchedules: [Schedule] = []
@@ -154,6 +154,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
+        eventDC.getChannels(scope: .all, completion: { (channel) in
+            self.recommandedChannels.append(channel)
+            self.tableView.reloadSections([0], with: .automatic)
+            if let channelCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ChannelTableViewCell {
+                channelCell.channels.append(channel)
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,13 +230,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0 : // for channels
-            let channels = searchMode == .searched ? searchedChannels : recommandedChannels
+            let channels = (searchMode == .searched) ? searchedChannels : recommandedChannels
             let cell = tableView.dequeueReusableCell(withIdentifier: channelsCellID, for: indexPath) as! ChannelTableViewCell
-            
-            // TODO : set Data Source For inner collectionView
-            cell.channels = channels.map({ (title) -> Channel in
-                Channel(title: title, thumbnail: #imageLiteral(resourceName: "channel"))
-            })
+            cell.channels = channels
             cell.allowsMultipleSelection = false
             cell.containerVC = self
             return cell
@@ -240,7 +243,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.event = event
             // to delete table rows seperators
             cell.separatorInset.left = 1000
-            
+            cell.selectionStyle = .none
             return cell
             
         default : // for schedules
@@ -361,7 +364,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.reloadData()
         if (scope == .all || scope == .channel) { //&& !searchedChannels.isEmpty {
             if let channelCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ChannelTableViewCell {
-                channelCell.channelCollectionView.reloadData()
+                channelCell.collectionView.reloadData()
             }
             
         }
@@ -375,9 +378,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             getSearchResult(text: text, scope: .event)
             getSearchResult(text: text, scope: .schedule)
         case .channel :
-            // TODO :
-            searchedChannels = recommandedChannels.filter({( channel : String) -> Bool in
-                return channel.lowercased().contains(text.lowercased())
+            // TODO : Not filtering, but Real Search
+            searchedChannels = recommandedChannels.filter({( channel : Channel) -> Bool in
+                return channel.title.lowercased().contains(text.lowercased())
             })
             break
         case .event :

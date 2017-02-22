@@ -13,6 +13,9 @@ import FirebaseDatabase
 
 // singleton
 // app Backend
+enum ChannelScope {
+    case all, following
+}
 
 
 class EventDataController {
@@ -24,9 +27,9 @@ class EventDataController {
     let ref: FIRDatabaseReference
     
     // Local Event Store
-    private var eventStore: EKEventStore
+    var eventStore: EKEventStore
+    private var user = UserDataController.shared.user
     
-    var channels: [String] = ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스"]
     var events: [Event] = []
     var recommandedEvents: [Event] = []
     var userSchedules: Dictionary<Date, [UserSchedule]> = [:]
@@ -75,6 +78,10 @@ class EventDataController {
         self.searchFIRSchedules(withKeyword: keyword, completion: completion)
     }
     
+    func getChannels(scope: ChannelScope, count: UInt = 20, completion: @escaping (Channel) -> Void) {
+        self.getFIRChannels(scope: scope, count: count, completion: completion)
+    }
+    
     
     // MARK: - FIRBASE DB SET
     
@@ -96,27 +103,99 @@ class EventDataController {
     }
     
     // MARK: - FIRBASE DB Get
-    
-    private func getFIREvents(withIDs ids: [EventID]? = nil, completion: @escaping (Event) -> Void){
+    private func getFIRChannels(scope: ChannelScope, count: UInt = 20, completion: @escaping (Channel) -> Void) {
+        print("getFIRChannels")
+        let channelRef =  self.ref.child("channels").queryOrdered(byChild: "updatedAt")
+        let queryType = FIRDataEventType.childAdded
         
-        var eventsRef =  self.ref.child("events")
-        var type = FIRDataEventType.childAdded
-        if let id = ids?.first {
-            eventsRef =  self.ref.child("events").child("\(id)")
-            type = FIRDataEventType.value
-        }
-        print(eventsRef)
-        eventsRef.observe(type, with: { (snapshot) in
-            print("DUMP:")
-            dump(snapshot)
+        var cnt: UInt = 0
+
+        channelRef.observe(queryType, with: { (snapshot) in
+            //print("DUMP:")
+            //dump(snapshot)
+            guard let channelID = ChannelID(snapshot.key) else {
+                print("Error: No or Invalide Channel ID")
+                return
+            }
+            
+            // Check this channel is in search scope
+            guard scope == .all || self.user.channelIDs.contains(channelID) else {
+                return
+            }
             
             guard let value = snapshot.value as? [String: AnyObject] else {
                 print("Error: NO Data")
                 return
             }
             
+            guard let eventIDs = value["events"] as? [EventID] else {
+                print("Error: No or Invalide Event IDs")
+                  return
+            }
+            
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            guard let updatedAtString = value["updatedAt"] as? String else {
+                print("ERROR: Cannot Pars End Date of Channel ID: \(snapshot.key).")
+                return
+            }
+            
+            guard let hashtag = value["hashtag"] as? String else {
+                print("ERROR: Cannot Pars hashtag of Channel ID: \(snapshot.key).")
+                return
+            }
+            
+            let channel = Channel(id: channelID,
+                                  title: value["title"] as! String,
+                                  thumbnailURL: URL(string: value["thumbnail"] as! String)!,
+                                  hashtags: [hashtag],
+                                  eventIDs: eventIDs,
+                                  updatedAt: Date(string: updatedAtString, formatter: formatter)!)
+            completion(channel)
+            
+            cnt += 1
+            if cnt >= count {
+                channelRef.removeAllObservers()
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func getFIREvents(withIDs ids: [EventID]? = nil, completion: @escaping (Event) -> Void){
+        let eventsRef =  self.ref.child("events")
+        var type = FIRDataEventType.childAdded
+        
+        let newCompletion: ((Event) -> Void) = { (event) in
+            self.events.append(event)
+            completion(event)
+        }
+        
+        if let idArray = ids {
+            for id in idArray {
+                let eventRef = eventsRef.child("\(id)")
+                type = FIRDataEventType.value
+                self.observeFIREvent(reference: eventRef, type: type, completion: newCompletion)
+            }
+        } else {
+            self.observeFIREvent(reference: eventsRef, type: type, completion: newCompletion)
+        }
+        
+    }
+    
+    private func observeFIREvent(reference: FIRDatabaseReference, type: FIRDataEventType, completion: @escaping (Event) -> Void) {
+        reference.observe(type, with: { (snapshot) in
+            //print("DUMP:")
+            //dump(snapshot)
+            guard let value = snapshot.value as? [String: AnyObject] else {
+                print("Error: NO Data")
+                return
+            }
+            
             guard let scheduleIDs = value["schedules"] as? [Int64] else {
-                print("Error: No or Invalide Schedule IDS")
+                print("Error: No or Invalide Schedule IDs")
                 return
             }
             
@@ -142,8 +221,6 @@ class EventDataController {
                               locations: value["locations"] as! [String],
                               startedAt: Date(string: startedAtString, formatter: formatter)!,
                               endedAt: Date(string: endedAtString, formatter: formatter)!)
-            
-            self.events.append(event)
             completion(event)
         }) { (error) in
             print(error.localizedDescription)
@@ -151,48 +228,13 @@ class EventDataController {
     }
     
     private func getFIRRecommandedEvents(completion: @escaping (Event) -> Void) {
-        
         let eventsRef =  self.ref.child("events")
-        
-        eventsRef.observe(.childAdded, with: { (snapshot) in
-            //print("DUMP:")
-            //dump(snapshot)
-            
-            let value = snapshot.value as! [String: AnyObject]
-            
-            guard let scheduleIDs = value["schedules"] as? [Int64] else {
-                print("Error: No or Invalide Event IDS")
-                return
-            }
-            
-            // pars Date
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            guard let startedAtString = value["startedAt"] as? String else {
-                print("ERROR: Cannot Pars Start Date of Event ID: \(snapshot.key).")
-                return
-            }
-            
-            guard let endedAtString = value["endedAt"] as? String else {
-                print("ERROR: Cannot Pars End Date of Event ID: \(snapshot.key).")
-                return
-            }
-            
-            let event = Event(id: Int64(snapshot.key)!,
-                              title: value["title"] as! String,
-                              thumbnailURL: URL(string: value["thumbnail"] as! String)!,
-                              scheduleIDs: Array(scheduleIDs),
-                              detail: value["detail"] as! String,
-                              locations: value["locations"] as! [String],
-                              startedAt: Date(string: startedAtString, formatter: formatter)!,
-                              endedAt: Date(string: endedAtString, formatter: formatter)!)
-            
+        let type = FIRDataEventType.childAdded
+        let newCompletion: ( (Event) -> Void ) = { (event) in
             self.recommandedEvents.append(event)
             completion(event)
-        }) { (error) in
-            print(error.localizedDescription)
         }
+        self.observeFIREvent(reference: eventsRef, type: type, completion: newCompletion)
     }
     
     private func getFIRSchdule(withID id: ScheduleID, completion: @escaping (Schedule) -> Void) {
@@ -390,8 +432,8 @@ class EventDataController {
         
         let schedulesRef =  self.ref.child("schedules").queryOrdered(byChild: "startedAt").queryStarting(atValue: dateString).queryEnding(atValue: nextDateString)
         schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            debugPrint("snapShot for \(dateString)")
-            dump(snapshot)
+            //debugPrint("snapShot for \(dateString)")
+            //dump(snapshot)
             
             let enumerator = snapshot.children
             while let rest = enumerator.nextObject() as? FIRDataSnapshot, (count < max) {

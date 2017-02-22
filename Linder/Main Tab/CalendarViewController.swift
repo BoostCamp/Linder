@@ -154,9 +154,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let date = Calendar.current.date(byAdding: DateComponents(day: section), to: month.startDate)!
         //print(date)
         var numberOfSchedule = 0
-        if let schedulesInTheDate = eventDC.userSchedules[date] {
-            numberOfSchedule = schedulesInTheDate.count
-        }
+            
         //print("Number Of Schedule: ",numberOfSchedule)
         
         return numberOfSchedule + (recommandedSchedulesForDate[date]?.count ?? 0)

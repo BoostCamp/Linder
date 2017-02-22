@@ -88,11 +88,8 @@ class UserDataController {
     }
     
     func follow(channel: Channel) {
-        let contains = user.channels.contains(where: { (channelItem: Channel) -> Bool in
-            return channelItem.id == channel.id
-        })
-        if contains {
-            user.channels.append(channel)
+        if !user.channelIDs.contains(channel.id) {
+            user.channelIDs.append(channel.id)
         }
     }
     

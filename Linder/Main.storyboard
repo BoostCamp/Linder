@@ -72,7 +72,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="A2k-tb-a5Z" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channelsCell" id="A2k-tb-a5Z" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A2k-tb-a5Z" id="Jr9-sH-kc7">
@@ -80,7 +80,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="qNl-xv-8Dr" customClass="CalendarTableViewCell" customModule="Linder" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calendarCell" id="qNl-xv-8Dr" customClass="CalendarTableViewCell" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="100" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qNl-xv-8Dr" id="zOC-RW-LpT">
@@ -99,7 +99,9 @@
                         <barButtonItem key="leftBarButtonItem" enabled="NO" image="logo_white" id="EB4-D8-E9u">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Ring" id="KWm-Sz-E9V"/>
+                        <barButtonItem key="rightBarButtonItem" title="Ring" id="KWm-Sz-E9V">
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="pMQ-zi-Te6" kind="show" identifier="toEventDetail" id="Scm-u0-Cnq"/>
@@ -233,7 +235,9 @@
                                 <action selector="monthChange:" destination="pUZ-5P-hBo" id="ayd-AY-zwC"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="calendar_selected" id="wKL-M6-aeo"/>
+                        <barButtonItem key="rightBarButtonItem" image="calendar_selected" id="wKL-M6-aeo">
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="maskingView" destination="MUG-vw-ZtM" id="iTj-5R-Qp8"/>
@@ -301,8 +305,8 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrZ-IN-jlR">
-                                <rect key="frame" x="243" y="35" width="61" height="30"/>
-                                <state key="normal" title=" + 팔로우 ">
+                                <rect key="frame" x="227" y="35" width="77" height="30"/>
+                                <state key="normal" title="   + 팔로우   ">
                                     <color key="titleColor" red="0.68627450980000004" green="0.56078431370000004" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -364,6 +368,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="XnW-CT-KW1">
                         <barButtonItem key="rightBarButtonItem" image="search_selected" id="Hik-wS-Jim">
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="search:" destination="DkR-fC-6tt" id="G6h-eX-k9W"/>
                             </connections>
@@ -382,7 +387,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJc-ze-Px7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2691" y="1094"/>
+            <point key="canvasLocation" x="2690.625" y="1093.3098591549297"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="jyE-d5-Wur">
@@ -602,7 +607,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="imW-Ql-sdD" id="lXj-fN-h6U">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OX8-ya-9DE">
@@ -679,7 +684,7 @@
                                         <rect key="frame" x="0.0" y="151" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sKT-kN-zy0" id="vkg-1W-qua">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-fk-gaM">
@@ -705,7 +710,7 @@
                                         <rect key="frame" x="0.0" y="280" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aZ6-o8-v5T" id="bvC-VM-r2j">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="z9D-MC-9bL">
@@ -807,7 +812,7 @@
                                         <rect key="frame" x="0.0" y="35" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nLj-zM-YLi" id="glk-tF-s82">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qyZ-qb-8pm">
@@ -834,7 +839,7 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoX-r7-lqh">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoX-r7-lqh">
                                                     <rect key="frame" x="282" y="20" width="30" height="30"/>
                                                     <state key="normal" title="⚙"/>
                                                     <connections>
@@ -857,10 +862,10 @@
                             <tableViewSection headerTitle="정보" id="ejc-zr-RSv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="infoTagTableCell" rowHeight="50" id="2PB-Ey-tTH">
-                                        <rect key="frame" x="0.0" y="145" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="146" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2PB-Ey-tTH" id="Gv6-vv-8ej">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KXI-Hj-xdq" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
@@ -897,10 +902,10 @@
                             <tableViewSection headerTitle="관심사" id="Kxm-dZ-NpV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="interestTagTableCell" rowHeight="50" id="KPq-DL-s53">
-                                        <rect key="frame" x="0.0" y="234" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="236" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KPq-DL-s53" id="eRu-Zv-ecB">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pXY-Z0-gfv" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
@@ -937,10 +942,10 @@
                             <tableViewSection headerTitle="채널" id="sbj-Cl-bi1">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelTableCell" rowHeight="156" id="gVC-gi-G63" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="323" width="320" height="156"/>
+                                        <rect key="frame" x="0.0" y="326" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVC-gi-G63" id="76r-Cs-mYk">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="woz-ho-4CM">
@@ -972,7 +977,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="channelCollectionView" destination="woz-ho-4CM" id="gMb-EB-EvK"/>
+                                            <outlet property="collectionView" destination="woz-ho-4CM" id="qg6-fg-gP3"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1132,7 +1137,7 @@ EFNlYXJjaA
         <image name="search_selected" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tGP-8d-r2b"/>
-        <segue reference="JS4-pN-nld"/>
+        <segue reference="KPz-qM-L6w"/>
+        <segue reference="Scm-u0-Cnq"/>
     </inferredMetricsTieBreakers>
 </document>

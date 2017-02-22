@@ -13,7 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ChannelCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ChannelCollectionViewCell" customModule="Linder" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="114" height="133"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -43,6 +43,9 @@
                             <constraint firstAttribute="height" secondItem="jCR-08-F9p" secondAttribute="width" id="ZXZ-1A-09h"/>
                         </constraints>
                     </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-9D-sae">
+                        <rect key="frame" x="47" y="47" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
             </view>
             <constraints>
@@ -56,14 +59,17 @@
                 <constraint firstItem="jCR-08-F9p" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="NNe-iu-5Xf"/>
                 <constraint firstAttribute="bottom" secondItem="bHg-xS-maW" secondAttribute="bottom" id="PrB-JQ-Q7i"/>
                 <constraint firstItem="mvV-8q-MAg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ubg-mS-jRb"/>
+                <constraint firstItem="KA9-9D-sae" firstAttribute="centerX" secondItem="dA9-Xj-Oj0" secondAttribute="centerX" id="UlZ-VA-09i"/>
                 <constraint firstItem="mvV-8q-MAg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cJQ-Cd-JeE"/>
                 <constraint firstItem="bHg-xS-maW" firstAttribute="top" secondItem="dA9-Xj-Oj0" secondAttribute="bottom" id="gyh-Vr-zsB"/>
+                <constraint firstItem="KA9-9D-sae" firstAttribute="centerY" secondItem="dA9-Xj-Oj0" secondAttribute="centerY" id="nef-W9-TOX"/>
                 <constraint firstItem="jCR-08-F9p" firstAttribute="centerY" secondItem="dA9-Xj-Oj0" secondAttribute="centerY" id="pGS-wL-fil"/>
                 <constraint firstItem="bHg-xS-maW" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="spa-sa-BFx"/>
                 <constraint firstItem="dA9-Xj-Oj0" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="wUD-zz-Fw9"/>
             </constraints>
             <size key="customSize" width="114" height="133"/>
             <connections>
+                <outlet property="activityIndicator" destination="KA9-9D-sae" id="epY-HA-kkb"/>
                 <outlet property="checkImage" destination="jCR-08-F9p" id="OGd-cK-kJH"/>
                 <outlet property="maskingView" destination="mvV-8q-MAg" id="9YM-fM-eU8"/>
                 <outlet property="thumbnailView" destination="dA9-Xj-Oj0" id="NWE-Hr-4kj"/>

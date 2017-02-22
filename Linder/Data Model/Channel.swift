@@ -13,11 +13,12 @@ typealias ChannelID = Int64
 class Channel {
     var id: ChannelID = .dummy
     var title: String
-    var thumbnail: UIImage?
+    var thumbnailURL: URL?
     var image: UIImage?
     var description: String?
     var eventIDs: [EventID] = []
     var hashtags: [Hashtag] = []
+    var updatedAt: Date = Date()
     
     var followersCount: Int = 0
     //var followers: [User] = []
@@ -25,25 +26,22 @@ class Channel {
     // Dummy Creator
     convenience init() {
         self.init(title: "테스트 채널")
-        thumbnail = #imageLiteral(resourceName: "channel")
         eventIDs = [1]
         followersCount = 238
     }
     
-    init(title: String) {
-        self.title = title
+    convenience init(id: ChannelID) {
+        self.init(title: "")
+        self.id = id
     }
     
-    init(title: String, thumbnail: UIImage) {
+    init(id: ChannelID = .dummy, title: String, thumbnailURL: URL? = nil, hashtags: [Hashtag] = [], eventIDs: [EventID] = [], updatedAt: Date = Date()) {
+        self.id = id
         self.title = title
-        self.thumbnail = thumbnail
-    }
-    
-    init(title: String, thumbnail: UIImage, hashtags: [Hashtag], eventIDs: [EventID]) {
-        self.title = title
-        self.thumbnail = thumbnail
+        self.thumbnailURL = thumbnailURL
         self.hashtags = hashtags
         self.eventIDs = eventIDs
+        self.updatedAt = updatedAt
     }
 }
 

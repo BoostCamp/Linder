@@ -58,7 +58,7 @@ class ChannelSelectingViewController: UIViewController, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ChannelTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! ChannelTableViewCell
         cell.channels = Array(channels.values)[indexPath.section].map({ (title) -> Channel in
-            Channel(title: title, thumbnail: #imageLiteral(resourceName: "channel"))
+            Channel(title: title, thumbnailURL: URL(string: "https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"))
         })
         cell.allowsMultipleSelection = true
         return cell
