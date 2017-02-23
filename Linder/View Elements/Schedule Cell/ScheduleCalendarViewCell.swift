@@ -27,7 +27,9 @@ class ScheduleCalendarViewCell: UITableViewCell {
             startLabel.text = schedule?.startedAt.toTimeString()
             endLabel.text = schedule?.endedAt.toTimeString()
             locationLabel.text = schedule?.location
+            addButton.alpha = 1
             addButton.isHidden = schedule is UserSchedule
+            
             
             UIView.animate(withDuration: 0.3, animations: {
                 self.activityIndicator.stopAnimating()
@@ -44,6 +46,8 @@ class ScheduleCalendarViewCell: UITableViewCell {
         }
     }
     
+    private let eventDC = EventDataController.shared
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -53,40 +57,54 @@ class ScheduleCalendarViewCell: UITableViewCell {
     }
     
     @IBAction func addButtonTouchUpInside(_ sender: UIButton) {
-        sender.isHighlighted = true
-        debugPrint("TODO : Add to User's Local Calendar")
-        
         let eventStore = EventDataController.shared.eventStore
         
-        if (EKEventStore.authorizationStatus(for: .event) != EKAuthorizationStatus.authorized) {
-            eventStore.requestAccess(to: .event, completion: {
-                granted, error in
-                if granted {
-                    self.createEvent(eventStore)
-                } else {
-                    print("Request to Event Store Failed")
-                }
-            })
-        } else {
-            self.createEvent(eventStore)
-        }
-
-    }
-    
-    private func createEvent(_ eventStore: EKEventStore) {
         guard let schedule = self.schedule else {
             print("NO Schedule Exists")
             return
         }
         
-        let event = EKEvent(schedule: schedule, eventStore: eventStore)
-        
-        do {
-            try eventStore.save(event, span: .thisEvent)
-            print("Saved Event")
-            print(event)
-        } catch let error as NSError {
-            print("failed to save event with error : \(error)")
+        let completion: ( (Bool, Error?, EKEvent?) -> Void) = { (success, error, event) in
+            if success {
+                print("Successfully Saved Event From Schedule: \(schedule.name)")
+                
+                UIView.animate(withDuration: 0.2, animations: { 
+                    sender.alpha = 0
+                }, completion: { (success) in
+                    if success { sender.isHidden = true }
+                })
+                
+                let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: (event?.startDate)!)
+                let date = Calendar.current.date(from: dateComp)!
+                
+                
+                let userSchedule = UserSchedule(ekEvent: event!)
+                self.eventDC.userSchedules[date]?.append(userSchedule)
+                
+                let index = self.eventDC.recommandedSchedulesForDate[date]?.index(where: { (schedule) -> Bool in
+                    return schedule.id == self.schedule?.id
+                })
+                self.eventDC.recommandedSchedulesForDate[date]?.remove(at: index!)
+                
+                self.schedule = userSchedule
+            } else {
+                print("failed to save event with error : \(error)")
+            }
+            
         }
+        
+        if (EKEventStore.authorizationStatus(for: .event) != EKAuthorizationStatus.authorized) {
+            eventStore.requestAccess(to: .event, completion: {
+                granted, error in
+                if granted {
+                    self.eventDC.createEvent(schedule: schedule, eventStore: eventStore, completion : completion)
+                } else {
+                    print("Request to Event Store Failed")
+                }
+            })
+        } else {
+            eventDC.createEvent(schedule: schedule, eventStore: eventStore, completion : completion)
+        }
+
     }
 }

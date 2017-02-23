@@ -28,8 +28,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     let today: Date = Date() // set today
     var month: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date()) // set current month
     
-    var recommandedSchedulesForDate: [Date:[RecommandedSchedule]] = [:]
-    
     let animationDuration = 0.2
     
     override func viewDidLoad() {
@@ -105,10 +103,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         for day in 0..<month.numberOfDaysInMonth() {
             let date = Calendar.current.date(byAdding: DateComponents(day: day), to: month.startDate)!
             
-            if self.recommandedSchedulesForDate[date] == nil{
-                self.recommandedSchedulesForDate[date] = []
+            if self.eventDC.recommandedSchedulesForDate[date] == nil{
+                self.eventDC.recommandedSchedulesForDate[date] = []
                 eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
-                    self.recommandedSchedulesForDate[date]?.append(recommandation)
+                    self.eventDC.recommandedSchedulesForDate[date]?.append(recommandation)
                     self.tableView.beginUpdates()
                     self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
                     self.tableView.endUpdates()
@@ -152,12 +150,17 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         // 그 날의 일정들의 개수..
         //스케쥴로 가져올 때의 접근 방법...
         let date = Calendar.current.date(byAdding: DateComponents(day: section), to: month.startDate)!
-        //print(date)
-        var numberOfSchedule = 0
-            
-        //print("Number Of Schedule: ",numberOfSchedule)
         
-        return numberOfSchedule + (recommandedSchedulesForDate[date]?.count ?? 0)
+        var numberOfSchedule = 0
+        
+        if let schedulesInTheDate = eventDC.userSchedules[date] {
+            numberOfSchedule = schedulesInTheDate.count
+        }
+        
+        //print("\(date) Number Of Schedule: ",numberOfSchedule)
+        //let origianlRecommandateion = recommandedSchedulesForDate[date]
+        
+        return numberOfSchedule + (eventDC.recommandedSchedulesForDate[date]?.count ?? 0)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -165,6 +168,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellID, for: indexPath) as! ScheduleCalendarViewCell
         let date = Calendar.current.date(byAdding: DateComponents(day: indexPath.section), to: month.startDate)!
+        cell.isSelected = false
         
         if indexPath.row < (eventDC.userSchedules[date]?.count ?? 0) { // for user's local stored schedule
             if let local = eventDC.userSchedules[date]?[indexPath.row] {
@@ -174,7 +178,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             // for recommanded schedule
             let recommandNumber = indexPath.row - (eventDC.userSchedules[date]?.count ?? 0)
-            let schedule = recommandedSchedulesForDate[date]?[recommandNumber]
+            let schedule = eventDC.recommandedSchedulesForDate[date]?[recommandNumber]
             cell.schedule = schedule
             return cell
         }
@@ -193,7 +197,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             ekEventVC.event = userSchedule.originalEKEvent
             ekEventVC.allowsCalendarPreview = true
             ekEventVC.allowsEditing = true
-            
+            ekEventVC.delegate = self
             ekEventVC.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(ekEventVC, animated: true)
@@ -249,6 +253,43 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             destinationVC.eventID = selectedCell.schedule?.eventID ?? .empty
         default:
             return
+        }
+    }
+}
+
+extension CalendarViewController: EKEventViewDelegate {
+    func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        let event = controller.event
+        let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
+        let date = Calendar.current.date(from: dateComp)!
+        
+        let section = dateComp.day! - 1
+        guard let row = eventDC.userSchedules[date]?.index(where: { (userSchedule) -> Bool in
+            return userSchedule.originalEKEvent == event
+        }) else {
+            print("There is not Such EKEvent")
+            return
+        }
+        
+        let indexPath = IndexPath(row: row, section: section)
+        
+        switch action {
+        case .deleted:
+            eventDC.userSchedules[date]?.remove(at: row)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.reloadSections([section], with: .fade)
+            self.tableView.endUpdates()
+            controller.dismiss(animated: true)
+        default:
+            eventDC.userSchedules[date]?[row] = UserSchedule(ekEvent: event)
+            let cell = self.tableView.cellForRow(at: indexPath) as! ScheduleCalendarViewCell
+            cell.schedule = eventDC.userSchedules[date]?[row]
+            self.tableView.beginUpdates()
+            self.tableView.reloadRows(at: [indexPath], with: .fade)
+            self.tableView.reloadSections([section], with: .fade)
+            self.tableView.endUpdates()
+            controller.dismiss(animated: true)
         }
     }
 }

@@ -16,8 +16,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var collectionView: TagCollectionView!
     
     
-    let regions: [String] = ["전체","서울","인천","경기","강원","대전","충남・세종","충북","광주","전북","전남","부산","울산","경북","경남","제주"]
-    let whens: [String] = ["전체", "오늘", "내일", "내일모레", "이번주", "이번주말", "다음주", "다음주말"]
+    let regions: [String] = ["전체지역","서울","인천","경기","강원","대전","충남・세종","충북","광주","전북","전남","부산","울산","경북","경남","제주"]
+    let whens: [String] = ["전체일자", "오늘", "내일", "내일모레", "이번주", "이번주말", "다음주", "다음주말"]
     
     var selectedfilters: [[String]] = [ [], [] ]
     
@@ -36,7 +36,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.dataSource = self
         collectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: tagCellID)
         collectionView.register(UINib.init(nibName: "TagCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionCellID)
-        collectionView.cellWidth = 70
+        collectionView.preferredCellWidth = 80
         collectionView.SectionHeight = 25
         collectionView.allowsMultipleSelection = true
         

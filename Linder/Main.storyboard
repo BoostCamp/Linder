@@ -133,7 +133,7 @@
                                         <rect key="frame" x="0.0" y="56" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9iP-7S-wPi" id="Vpk-Nt-2cI">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Bhs-bl-wiN">
@@ -508,7 +508,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tagCell" id="hBi-WZ-5NU" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3" width="70" height="23"/>
+                                        <rect key="frame" x="0.0" y="2.5" width="70" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="23"/>
@@ -607,7 +607,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="imW-Ql-sdD" id="lXj-fN-h6U">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OX8-ya-9DE">
@@ -684,7 +684,7 @@
                                         <rect key="frame" x="0.0" y="151" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sKT-kN-zy0" id="vkg-1W-qua">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-fk-gaM">
@@ -710,7 +710,7 @@
                                         <rect key="frame" x="0.0" y="280" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aZ6-o8-v5T" id="bvC-VM-r2j">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="z9D-MC-9bL">
@@ -812,7 +812,7 @@
                                         <rect key="frame" x="0.0" y="35" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nLj-zM-YLi" id="glk-tF-s82">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qyZ-qb-8pm">
@@ -862,10 +862,10 @@
                             <tableViewSection headerTitle="정보" id="ejc-zr-RSv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="infoTagTableCell" rowHeight="50" id="2PB-Ey-tTH">
-                                        <rect key="frame" x="0.0" y="146" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="145" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2PB-Ey-tTH" id="Gv6-vv-8ej">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KXI-Hj-xdq" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
@@ -902,10 +902,10 @@
                             <tableViewSection headerTitle="관심사" id="Kxm-dZ-NpV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="interestTagTableCell" rowHeight="50" id="KPq-DL-s53">
-                                        <rect key="frame" x="0.0" y="236" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="234" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KPq-DL-s53" id="eRu-Zv-ecB">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pXY-Z0-gfv" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
@@ -942,10 +942,10 @@
                             <tableViewSection headerTitle="채널" id="sbj-Cl-bi1">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelTableCell" rowHeight="156" id="gVC-gi-G63" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="326" width="320" height="156"/>
+                                        <rect key="frame" x="0.0" y="323" width="320" height="156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVC-gi-G63" id="76r-Cs-mYk">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="woz-ho-4CM">

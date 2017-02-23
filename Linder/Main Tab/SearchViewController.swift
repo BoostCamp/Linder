@@ -64,7 +64,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var scope: SearchScope = .all
     
-    var filters: [[String]] = [ [] , [] ] {// index 0 : region filter strings , index 1 : when filter strings.
+    var filters: [[String]] = [ ["전체지역"] , ["전체일자"] ] {// index 0 : region filter strings , index 1 : when filter strings.
         didSet {
             self.filterCollectionView.reloadData()
         }
@@ -121,7 +121,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         filterCollectionView.allowsSelection = true
         filterCollectionView.backgroundColor = UIColor.ldPuple
         if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: 70.0, height: 22.0)
+            flowLayout.itemSize = CGSize(width: 90.0, height: 22.0)
             flowLayout.sectionInset.left = 8
         }
         

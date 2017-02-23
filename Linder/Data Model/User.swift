@@ -37,18 +37,18 @@ class User {
     var refreshToken: String?
     var expireDate: Date?
     
-    var thumbnail: UIImage = #imageLiteral(resourceName: "channel") // TODO : Set basic human image
-    var name: String = "홍길동"
-    var nickName: String = "Gildong"
-    var gender: Gender = .unknown
-    var age: Age = .a30s
+    var thumbnail: UIImage = #imageLiteral(resourceName: "Mike") // TODO : Set basic human image
+    var name: String = "한만종"
+    var nickName: String = "Mike"
+    var gender: Gender = .man
+    var age: Age = .a20s
     var hashtags: [Hashtag] = []
     var channelIDs: [ChannelID] = []
     var region: String = "서울"
     
     init() { // Guest User Creation
         self.id = -1
-        self.hashtags.append(contentsOf: ["관심사1","관심사2","관심사3"])
+        self.hashtags.append(contentsOf: ["야구","뮤지컬","테크"])
         self.channelIDs = [1,2,3]
     }
     

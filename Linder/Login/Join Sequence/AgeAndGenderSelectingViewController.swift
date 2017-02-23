@@ -28,13 +28,13 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
         ageCollectionView.delegate = self
         ageCollectionView.dataSource = self
         ageCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ageCellReuseIdentifier)
-        ageCollectionView.cellWidth = 70
+        ageCollectionView.preferredCellWidth = 70
         ageCollectionView.allowsSelection = true
         
         genderCollectionView.delegate = self
         genderCollectionView.dataSource = self
         genderCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: genderCellReuseIdentifier)
-        genderCollectionView.cellWidth = 70
+        genderCollectionView.preferredCellWidth = 70
         genderCollectionView.allowsSelection = true
     }
     

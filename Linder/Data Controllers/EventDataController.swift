@@ -33,6 +33,7 @@ class EventDataController {
     var events: [Event] = []
     var recommandedEvents: [Event] = []
     var userSchedules: Dictionary<Date, [UserSchedule]> = [:]
+    var recommandedSchedulesForDate: [Date:[RecommandedSchedule]] = [:]
     var schedules: [Schedule] = []
     
     // Prevent to create another EventDataController instance
@@ -383,21 +384,21 @@ class EventDataController {
     func getLocalStoredSchedules() {
         let threeMonthAgo = Date(timeIntervalSinceNow: -3 * 30 * 24 * 3600)
         let threeMonthAfter = Date(timeIntervalSinceNow: +3 * 30 * 24 * 3600)
-        print("Get Local Stored Scheduls from \(threeMonthAgo) to \(threeMonthAfter)")
+        //debugPrint("Get Local Stored Scheduls from \(threeMonthAgo) to \(threeMonthAfter)")
         getLocalStoredSchedules(start: threeMonthAgo, end: threeMonthAfter)
     }
     
     func getLocalStoredSchedules(start: Date, end: Date) {
         let events: [EKEvent] = getLocalStoredEvents(start: start, end: end)
         for event in events {
-            //print("Convert Event(id: \(event.eventIdentifier) name: \(event.title) to Schedule")
             // TODO : Using dictionary? resolve timing issue..
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
             let date = Calendar.current.date(from: dateComponents)!
+            //print("Write User Schedule name: \(event.title) at \(date)")
             if var schedules = self.userSchedules[date] {
-                schedules.append(UserSchedule(event))
+                schedules.append(UserSchedule(ekEvent: event))
             } else {
-                self.userSchedules[event.startDate] = [UserSchedule(event)]
+                self.userSchedules[date] = [UserSchedule(ekEvent: event)]
             }
         }
     }
@@ -503,6 +504,17 @@ class EventDataController {
     func createSchedule(title: String, startDate: Date, endDate: Date, location: String) -> Schedule {
         let schedule = Schedule(id: 0, name: title, location: location, startedAt: startDate, endedAt: endDate)
         return schedule
+    }
+    
+    func createEvent(schedule: Schedule, eventStore: EKEventStore, completion: (Bool, Error?, EKEvent?) -> Void) {
+        let event = EKEvent(schedule: schedule, eventStore: eventStore)
+        
+        do {
+            try eventStore.save(event, span: .thisEvent)
+            completion(true, nil, event)
+        } catch let error {
+            completion(false, error, nil)
+        }
     }
 
 }

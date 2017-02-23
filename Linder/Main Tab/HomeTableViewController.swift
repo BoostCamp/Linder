@@ -66,8 +66,7 @@ class HomeTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem?.image = postImage?.withRenderingMode(.alwaysOriginal)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
         // Network Indicator on Status Bar
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }

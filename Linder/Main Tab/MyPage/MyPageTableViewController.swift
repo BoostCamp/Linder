@@ -32,7 +32,7 @@ class MyPageTableViewController: UITableViewController {
     
     // MARK: - Constants
     let navigationMoveDuration = 0.3
-    let thumbnailCornerRadius: CGFloat = 11.0 //ChannelCollectionViewCell.cornerRadius
+    let thumbnailCornerRadius: CGFloat = 22.5 //ChannelCollectionViewCell.cornerRadius
     let thumbnailBorderWidth: CGFloat = 0.5
     let thumbnailBorderColor = UIColor.black.cgColor
     
@@ -53,13 +53,13 @@ class MyPageTableViewController: UITableViewController {
         self.infoTagCollectionView.delegate = infoCellDelegate
         self.infoTagCollectionView.dataSource = self
         self.infoTagCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: infoCellID)
-        self.infoTagCollectionView.cellWidth = 70
+        self.infoTagCollectionView.preferredCellWidth = 70
         self.infoTagCollectionView.allowsSelection = false
         
         self.interestTagCollectionView.delegate = interestCellDelegate
         self.interestTagCollectionView.dataSource = self
         self.interestTagCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: interestCellID)
-        self.interestTagCollectionView.cellWidth = 70
+        self.interestTagCollectionView.preferredCellWidth = 70
 
         // temporary channel for set layout
         channelCell.channels = userDC.user.channelIDs.map({ (id) -> Channel in
@@ -74,7 +74,7 @@ class MyPageTableViewController: UITableViewController {
         
         // Set User Date
         userName.text = userDC.user.name
-        userID.text = "@"+String(userDC.user.id)
+        userID.text = "@"+String(userDC.user.nickName)
         profileThumbnailView.image = userDC.user.thumbnail
         profileThumbnailView.layer.cornerRadius = thumbnailCornerRadius
         profileThumbnailView.layer.borderWidth = thumbnailBorderWidth

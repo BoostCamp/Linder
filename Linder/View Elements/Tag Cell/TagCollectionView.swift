@@ -9,8 +9,8 @@
 import UIKit
 
 class TagCollectionView: UICollectionView {
-    var numberOfColumns: Int = 4
-    var cellWidth: CGFloat = 100
+    //var numberOfColumns: Int = 4
+    var preferredCellWidth: CGFloat = 100
     var SectionHeight: CGFloat = 0
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,7 @@ extension TagCollectionView :  TagCollectionViewLayoutDelegate {
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width //화면 너비
         
-        return Int(round(width / cellWidth)) - 1
+        return Int(round(width / preferredCellWidth)) - 1
     }
     
     func collectionView(collectionView: UICollectionView, heightForSection: Int) -> CGFloat {

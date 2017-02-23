@@ -23,7 +23,7 @@ class RegionSelectingViewController: UIViewController, UICollectionViewDelegate,
         regionCollectionView.delegate = self
         regionCollectionView.dataSource = self
         regionCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: regionCellReuseIdentifier)
-        regionCollectionView.cellWidth = 70
+        regionCollectionView.preferredCellWidth = 70
     }
     
     override func didReceiveMemoryWarning() {

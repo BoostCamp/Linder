@@ -18,7 +18,7 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
     let userDC = UserDataController.shared
     
     let interests: [String : [String]] = [
-        "문화" : ["콘서트", "영화", "음악", "전시", "축제", "연극", "콘서트", "오페라"],
+        "문화" : ["콘서트", "영화", "음악", "전시", "축제", "연극", "뮤지컬", "오페라"],
         "쇼핑" : ["라이프", "뷰티", "패션", "푸드", "테크", "아울렛", "백화점", "면세점", "마트"],
         "스포츠" : ["야구", "축구", "농구", "배구", "UFC", "테니스", "골프", "피겨"],
         "생활/여행" : ["기차", "버스", "항공", "대학", "공채", "호텔", "여행", "천문", "국내여행", "해외여행", "축제"]
@@ -31,7 +31,7 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
         interestCollectionView.dataSource = self
         interestCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: interestCellReuseIdentifier)
         interestCollectionView.register(UINib.init(nibName: "TagCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionCellReuseIdentifier)
-        interestCollectionView.cellWidth = 70
+        interestCollectionView.preferredCellWidth = 70
         interestCollectionView.SectionHeight = 25
         interestCollectionView.allowsMultipleSelection = true
     }

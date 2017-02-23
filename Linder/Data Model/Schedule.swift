@@ -56,7 +56,7 @@ class RecommandedSchedule: Schedule {
 class UserSchedule: Schedule {
     var originalEKEvent : EKEvent
     
-    init(_ event: EKEvent) {
+    init(ekEvent event: EKEvent) {
         self.originalEKEvent = event
         super.init(id: .localStored,
                    name: event.title,
