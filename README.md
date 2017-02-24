@@ -14,15 +14,15 @@ Your Smart Schedule Manager
 
 
 ## Screenshots
-- Follow Event Channels You Are Interested In  <br/>
+### Follow Event Channels You Are Interested In  <br/>
 ![follow](https://github.com/BoostCamp/Linder/blob/master/Images/follow_channel.png?raw=true)
-- Get Recently Updated Event Recommandation <br/>
+### Get Recently Updated Event Recommandation <br/>
 ![home](https://github.com/BoostCamp/Linder/blob/master/Images/recent_event.png?raw=true)
-- Search Whatever Events You Like <br/>
+### Search Whatever Events You Like <br/>
 ![search](https://github.com/BoostCamp/Linder/blob/master/Images/search.png?raw=true)
-- Linder Will Suggest You by Your Interest And Schedules <br/>
+### Linder Will Suggest You by Your Interest And Schedules <br/>
 ![caledar](https://github.com/BoostCamp/Linder/blob/master/Images/recommandByUrSchedule.png?raw=true)
-- You Can Also Manage Your Schedule In Linder App!
+### You Can Also Manage Your Schedule In Linder App! <br/>
 ![manage](https://github.com/BoostCamp/Linder/blob/master/Images/Manage%20Schedules.png?raw=true)
 
 ## Info
