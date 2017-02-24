@@ -125,6 +125,7 @@ class EventDataController {
             
             // Check this channel is in search scope
             guard scope == .all || self.user.channelIDs.contains(channelID) else {
+                //print("out of scope :", channelID)
                 return
             }
             
@@ -483,8 +484,7 @@ class EventDataController {
         
         let schedulesRef =  self.ref.child("schedules").queryOrdered(byChild: "startedAt").queryStarting(atValue: dateString).queryEnding(atValue: nextDateString)
         schedulesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            //debugPrint("snapShot for \(dateString)")
-            //dump(snapshot)
+
             
             let enumerator = snapshot.children
             while let rest = enumerator.nextObject() as? FIRDataSnapshot, (count < max) {
@@ -519,6 +519,9 @@ class EventDataController {
                 count += 1
                 completion(schedule)
             }
+            
+            
+            
         }) { (error) in
             print(error.localizedDescription)
         }

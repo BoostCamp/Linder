@@ -22,7 +22,11 @@ class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
 //            }
 //        }
 //    }
-    var allowsMultipleSelection = false
+    var allowsMultipleSelection = false {
+        didSet {
+            collectionView.allowsMultipleSelection = self.allowsMultipleSelection
+        }
+    }
     var containerVC: UIViewController?
     
     var channels: [Channel] = []
@@ -67,6 +71,7 @@ class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
                 cell.setSelected()
                 print(cell.channel.title, " Selected")
                 userDC.user.channelIDs.append(cell.channel.id)
+                print(")userDC.user.channelIDs", userDC.user.channelIDs)
             }
             else {
                 if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChannelDetailView") as? ChannelDetailViewController {

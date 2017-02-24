@@ -46,9 +46,10 @@ class ChannelSelectingViewController: UIViewController, UITableViewDataSource, U
                     self.channelStore.append(channel)
                     
                     if let cell = self.channelTableView.cellForRow(at: IndexPath(row: section, section: 0)) as? ChannelTableViewCell {
-                        cell.collectionView.insertItems(at: [IndexPath(item: cell.collectionView.numberOfItems(inSection: 0) - 1 , section: 0 )])
+                        cell.channels.append(channel)
+                        cell.collectionView.reloadData()//insertItems(at: [IndexPath(item: cell.collectionView.numberOfItems(inSection: 0) - 1 , section: 0 )])
                     }
-                    
+                    self.channelTableView.reloadData()
                 })
             }
         }

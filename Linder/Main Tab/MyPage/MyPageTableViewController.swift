@@ -113,7 +113,11 @@ class MyPageTableViewController: UITableViewController {
 //        })
         
         // re calculating cell heights for auto sizing
+        self.infoTagCollectionView.reloadData()
+        self.interestTagCollectionView.reloadData()
+        self.channelCell.collectionView.reloadData()
         self.tableView.reloadData()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dA9-Xj-Oj0">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dA9-Xj-Oj0">
                         <rect key="frame" x="0.0" y="0.0" width="114" height="114"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="dA9-Xj-Oj0" secondAttribute="height" id="UnY-2W-kLy"/>

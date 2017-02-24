@@ -44,14 +44,6 @@ class HomeTableViewController: UITableViewController {
             self.tableView.insertRows(at: [IndexPath(row:self.eventDC.recommandedEvents.count - 1, section: 1)], with: .bottom)
             self.tableView.endUpdates()
         }
-        
-        eventDC.getChannels(scope: .following) { (channel) in
-            self.updatedChannels.append(channel)
-            if let channelCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ChannelTableViewCell {
-                channelCell.channels.append(channel)
-                channelCell.insertNewItem()
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +53,17 @@ class HomeTableViewController: UITableViewController {
         let postImage = preImage.withRenderingMode(.alwaysOriginal)
         
         self.navigationItem.leftBarButtonItem?.image = postImage
+        
+        if self.updatedChannels.count == 0 {
+            eventDC.getChannels(scope: .following) { (channel) in
+                self.updatedChannels.append(channel)
+                if let channelCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ChannelTableViewCell {
+                    channelCell.channels.append(channel)
+                    channelCell.insertNewItem()
+                }
+            }
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {

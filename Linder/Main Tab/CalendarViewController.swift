@@ -43,23 +43,21 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        // MonthButton setting
-        monthUpdated()
-        
         // Month Picker setting
         monthPicker.isHidden = true
         monthPicker.layer.borderWidth = 0.3
         monthPicker.layer.borderColor = UIColor.ldPuple.cgColor
         monthPicker.onDateSelected = { (month: Int, year: Int) in
-            
+            self.keysFilled = []
+            self.allSchedules = [:]
             self.month = DateComponents(calendar: .current, year: year, month: month)
             self.monthUpdated()
-            
-            self.tableView.reloadData()
         }
         
         self.maskingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hideMonthPicker)))
         maskingView.isHidden = true
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +81,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
 //            
 //        }
         
+        // MonthButton setting
+        monthUpdated()
+        
         self.tableView.reloadData()
 
     }
@@ -100,6 +101,8 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             hideMonthPicker()
         }
+        monthUpdated()
+        
     }
     
     func hideMonthPicker() {
@@ -115,6 +118,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     func monthUpdated() {
         // MonthButton setting
+        print("month update")
         let formatter = DateFormatter()
         formatter.dateFormat = " M"  + monthButtonTitlePostfix
         let monthString = month.toDateString(formatter)
@@ -123,19 +127,18 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         for day in 0..<month.numberOfDaysInMonth() {
             let date = Calendar.current.date(byAdding: DateComponents(day: day), to: month.startDate)!
             updateScheduleFor(date: date)
-            
         }
+        self.tableView.reloadData()
     }
     
     func updateScheduleFor(date: Date) {
         allSchedules.updateValue(eventDC.userSchedules[date] ?? [], forKey: date)
-        
-        if self.eventDC.recommandedSchedulesForDate[date] == nil{
+        print("date",date)
+        if self.eventDC.recommandedSchedulesForDate[date] == nil || self.eventDC.recommandedSchedulesForDate[date]?.count == 0{
             self.eventDC.recommandedSchedulesForDate[date] = []
             eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
                 self.eventDC.recommandedSchedulesForDate[date]?.append(recommandation)
                 self.allSchedules[date]!.append(recommandation)
-                self.tableView.reloadData()
                 //self.tableView.beginUpdates()
                 //self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
                 //self.tableView.endUpdates()
@@ -149,11 +152,25 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     return schedulesInDate.count > 0
                 }
+                self.tableView.reloadData()
             }
         } else {
             self.allSchedules[date]!.append(contentsOf: self.eventDC.recommandedSchedulesForDate[date]!)
+            
         }
         //if allSchedules[date]!.count == 0 { allSchedules[date] = nil }
+        
+        let keys = Array(self.allSchedules.keys).sorted(by: { (left, right) -> Bool in
+            return left.compare(right) == .orderedAscending
+        })
+        self.keysFilled = keys.filter { (date) -> Bool in
+            guard let schedulesInDate = self.allSchedules[date] else {
+                return false
+            }
+            return schedulesInDate.count > 0
+        }
+        self.tableView.reloadData()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -175,7 +192,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
 //            }
 //            return schedulesInDate.count > 0
 //        }
-        print("keysFilled.count",keysFilled.count)
+        //print("keysFilled.count",keysFilled.count)
         return keysFilled.count
     }
     
