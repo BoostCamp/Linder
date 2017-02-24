@@ -196,3 +196,15 @@ extension UINavigationController {
     
 }
 
+extension Dictionary {
+    
+    init(_ slice: Slice<Dictionary>) {
+        self = [:]
+        
+        for (key, value) in slice {
+            self[key] = value
+        }
+    }
+    
+}
+

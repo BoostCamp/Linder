@@ -80,6 +80,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="5da-xF-yrv" secondAttribute="bottom" id="6Bx-w3-uu2"/>
                 <constraint firstAttribute="trailing" secondItem="aLg-Qv-pbI" secondAttribute="trailing" constant="16" id="C8K-Ru-zjA"/>
+                <constraint firstItem="aLg-Qv-pbI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0hJ-4t-D1z" secondAttribute="trailing" constant="16" id="FBV-mt-QH8"/>
                 <constraint firstItem="5da-xF-yrv" firstAttribute="leading" secondItem="mi3-aV-6kI" secondAttribute="leading" id="HXS-Mj-rwf"/>
                 <constraint firstItem="aLg-Qv-pbI" firstAttribute="centerY" secondItem="mi3-aV-6kI" secondAttribute="centerY" id="K3z-1r-eae"/>
                 <constraint firstAttribute="trailing" secondItem="5da-xF-yrv" secondAttribute="trailing" id="TJF-zl-STW"/>

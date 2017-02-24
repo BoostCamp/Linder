@@ -26,6 +26,8 @@ class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var containerVC: UIViewController?
     
     var channels: [Channel] = []
+    
+    private let userDC = UserDataController.shared
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,10 +64,9 @@ class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell: ChannelCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ChannelCollectionViewCell {
             if self.allowsMultipleSelection {
-                if let channel = cell.title.text {
-                    cell.setSelected()
-                    print(channel, " Selected")
-                }
+                cell.setSelected()
+                print(cell.channel.title, " Selected")
+                userDC.user.channelIDs.append(cell.channel.id)
             }
             else {
                 if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChannelDetailView") as? ChannelDetailViewController {
@@ -83,6 +84,8 @@ class ChannelTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             if self.allowsMultipleSelection {
                 cell.setDeSelected()
                 print(cell.title.text ?? "nothing", " deselected")
+                let index = userDC.user.channelIDs.index(of: cell.channel.id)
+                userDC.user.channelIDs.remove(at: index!)
             }
         }
     }

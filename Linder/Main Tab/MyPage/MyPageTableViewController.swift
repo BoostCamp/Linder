@@ -15,9 +15,9 @@ private let channelCellID = "channelCell"
 private let segueToChannelDetailID = "toChannelDetail"
 
 class MyPageTableViewController: UITableViewController {
-    @IBOutlet weak var profileThumbnailView: UIImageView!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var userID: UILabel!
+//    @IBOutlet weak var profileThumbnailView: UIImageView!
+//    @IBOutlet weak var userName: UILabel!
+//    @IBOutlet weak var userID: UILabel!
 
     @IBOutlet weak var infoTagCollectionView: TagCollectionView!
     @IBOutlet weak var interestTagCollectionView: TagCollectionView!
@@ -72,14 +72,14 @@ class MyPageTableViewController: UITableViewController {
         flowLayout.itemSize = CGSize(width: channelCollectionViewCellWidth, height: channelCollectionViewCellHeight)
         
         
-        // Set User Date
-        userName.text = userDC.user.name
-        userID.text = "@"+String(userDC.user.nickName)
-        profileThumbnailView.image = userDC.user.thumbnail
-        profileThumbnailView.layer.cornerRadius = thumbnailCornerRadius
-        profileThumbnailView.layer.borderWidth = thumbnailBorderWidth
-        profileThumbnailView.layer.borderColor = thumbnailBorderColor
-        profileThumbnailView.layer.masksToBounds = true
+//        // Set User Date
+//        userName.text = userDC.user.name
+//        userID.text = "@"+String(userDC.user.nickName)
+//        profileThumbnailView.image = userDC.user.thumbnail
+//        profileThumbnailView.layer.cornerRadius = thumbnailCornerRadius
+//        profileThumbnailView.layer.borderWidth = thumbnailBorderWidth
+//        profileThumbnailView.layer.borderColor = thumbnailBorderColor
+//        profileThumbnailView.layer.masksToBounds = true
         
         eventDC.getChannels(scope: .following) { (channel) in
             if let index = self.userDC.user.channelIDs.index(of: channel.id) {
@@ -96,21 +96,21 @@ class MyPageTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // for smooth navigation apearing and disapearing
-        self.navigationController?.view.backgroundColor = .ldPuple
-        self.edgesForExtendedLayout = .bottom
-        self.extendedLayoutIncludesOpaqueBars = true
-
-        // set Status Bar Color
-        let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-        statusBar?.backgroundColor = .ldPuple
+//        // for smooth navigation apearing and disapearing
+//        self.navigationController?.view.backgroundColor = .ldPuple
+//        self.edgesForExtendedLayout = .bottom
+//        self.extendedLayoutIncludesOpaqueBars = true
+//
+//        // set Status Bar Color
+//        let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//        statusBar?.backgroundColor = .ldPuple
     }
     
     override func viewDidAppear(_ animated: Bool) {
         // hide navigation bar
-        UIView.animate(withDuration: navigationMoveDuration, animations: {
-            self.navigationController?.isNavigationBarHidden = true
-        })
+//        UIView.animate(withDuration: navigationMoveDuration, animations: {
+//            self.navigationController?.isNavigationBarHidden = true
+//        })
         
         // re calculating cell heights for auto sizing
         self.tableView.reloadData()
@@ -120,23 +120,23 @@ class MyPageTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         
         
-        self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = true
-        self.navigationController?.viewControllers.last?.edgesForExtendedLayout = .top
-        
-        UIView.animate(withDuration: navigationMoveDuration, animations: {
-            // show navigation bar
-            self.navigationController?.isNavigationBarHidden = false
-            self.navigationController?.navigationBar.barStyle = .black
-            UIApplication.shared.statusBarStyle = .lightContent
-            
-            // set Status Bar BackGround Color to default
-            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = .clear
-        })
+//        self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = true
+//        self.navigationController?.viewControllers.last?.edgesForExtendedLayout = .top
+//        
+//        UIView.animate(withDuration: navigationMoveDuration, animations: {
+//            // show navigation bar
+//            self.navigationController?.isNavigationBarHidden = false
+//            self.navigationController?.navigationBar.barStyle = .black
+//            UIApplication.shared.statusBarStyle = .lightContent
+//            
+//            // set Status Bar BackGround Color to default
+//            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+//            statusBar?.backgroundColor = .clear
+//        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = false
+        //self.navigationController?.viewControllers.last?.extendedLayoutIncludesOpaqueBars = false
         super.viewDidDisappear(animated)
     }
 
@@ -147,18 +147,26 @@ class MyPageTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0 :
-            return 80
-        case 1:
+//        case 0 :
+//            return 80
+        case 0:
             return 50
-        case 2:
+        case 1:
             return interestTagCollectionView.contentSize.height + 17 // 8 * 2 for top & bottom  + 1 for additional
-        case 3:
+        case 2:
             return channelCell.collectionView.contentSize.height + 17 // 8 * 2 for top & bottom  + 1 for additional
         default:
             return 0
         }
     }
+    
+    @IBAction func updatedUserData () {
+        self.infoTagCollectionView.reloadData()
+        self.interestTagCollectionView.reloadData()
+        self.channelCell.collectionView.reloadData()
+        self.tableView.reloadData()
+    }
+    
 }
 
 extension MyPageTableViewController: UICollectionViewDataSource {
@@ -174,7 +182,7 @@ extension MyPageTableViewController: UICollectionViewDataSource {
             return 3
         // for interest
         default:
-            return userDC.user.hashtags.count + 1
+            return userDC.user.hashtags.count// + 1
         }
     }
     
@@ -191,15 +199,15 @@ extension MyPageTableViewController: UICollectionViewDataSource {
         default:
             let cell: TagCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: interestCellID, for: indexPath) as! TagCollectionViewCell
             // last item is for adding new hashtag
-            if indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
-                cell.tagLabel.text = "+"
-                cell.titleLabel?.text = "추가"
-                cell.titleLabel.textColor = .white
-                cell.tagLabel.textColor = .white
-                cell.backgroundColor = UIColor.ldPuple
-                cell.selectedBackgroundView?.backgroundColor = .white
-                return cell
-            }
+//            if indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
+//                cell.tagLabel.text = "+"
+//                cell.titleLabel?.text = "추가"
+//                cell.titleLabel.textColor = .white
+//                cell.tagLabel.textColor = .white
+//                cell.backgroundColor = UIColor.ldPuple
+//                cell.selectedBackgroundView?.backgroundColor = .white
+//                return cell
+//            }
             let user = userDC.user
             let interests = user.hashtags
             // Configure the cell

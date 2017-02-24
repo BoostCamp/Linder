@@ -15,10 +15,11 @@ fileprivate let channelsCellReuseIdentifier: String = "channelsCell"
 fileprivate let calendarCellReuseIdentifier: String = "calendarCell"
 
 fileprivate let segueToEventDetail: String = "toEventDetail"
-fileprivate let segueToLoginID = "toLogin"
+fileprivate let segueToJoin = "toJoin"
 
 class HomeTableViewController: UITableViewController {
     
+    let userDC = UserDataController.shared
     let eventDC = EventDataController.shared
     var updatedChannels: [Channel] = []
 
@@ -30,7 +31,10 @@ class HomeTableViewController: UITableViewController {
         // TODO : Check log in
         // TODO: Custom myUIViewController and myUITablevie controlelr  OR Protocol programing.
         //
-        //performSegue(withIdentifier: segueToLoginID, sender: self)
+        if userDC.user.id == -1 {
+            performSegue(withIdentifier: segueToJoin, sender: self)
+        }
+        
         
         self.tableView.register(UINib(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: channelsCellReuseIdentifier)
         self.tableView.register(UINib(nibName: "EventSimpleTableViewCell", bundle: nil), forCellReuseIdentifier: calendarCellReuseIdentifier)
@@ -53,17 +57,10 @@ class HomeTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let logoToNavigationRatio: CGFloat = 0.4
-        guard let navigationController = self.navigationController else {
-            return
-        }
-        let navigationBarHeight = navigationController.navigationBar.frame.size.height
-        let postLogoHeight = logoToNavigationRatio * navigationBarHeight
-        
         let preImage = #imageLiteral(resourceName: "logo_white")
-        let postImage = preImage.resize(newHeight: postLogoHeight)
+        let postImage = preImage.withRenderingMode(.alwaysOriginal)
         
-        self.navigationItem.leftBarButtonItem?.image = postImage?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.leftBarButtonItem?.image = postImage
     }
     
     override func viewDidLayoutSubviews() {

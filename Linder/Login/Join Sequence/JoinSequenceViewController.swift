@@ -38,7 +38,9 @@ class JoinSequenceViewController: UIViewController {
         }
             // "완료"
         else {
-            performSegue(withIdentifier: segueToMainID, sender: self)
+            //performSegue(withIdentifier: segueToMainID, sender: self)
+            UserDataController.shared.user.id = 3
+            dismiss(animated: true)
         }
         
         

@@ -15,12 +15,22 @@ class ChannelSelectingViewController: UIViewController, UITableViewDataSource, U
     
     @IBOutlet weak var channelTableView: UITableView!
     
-    let channels: [String : [String]] = [
+    let channels2: [String : [String]] = [
         "뮤지컬" : ["뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드", "뮤지컬 팬텀", "삼총사", "뮤지컬 엘리자벳", "록키호러쇼", "위키드"],
         "야구" : ["넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스", "넥센 히어로즈", "삼성 라이온즈", "두산 베어스", "한화 이글스", "엘지 트윈스"],
         "대학" : ["고려대학교", "국민대학교", "서울대학교", "연세대학교", "조선대학교", "홍익대학교", "이화여자대학교", "서강대학교", "중앙대학교", "인하대학교"],
         "뷰티" : ["이니스프리", "아모레퍼시픽", "미미박스", "더페이스샵", "후", "샤넬", "에뛰드하우스", "입생로랑"]
     ]
+    
+    let channels: [String : [ChannelID]] = [
+        "뮤지컬" : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "야구" : [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        "대학" : [21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+        "뷰티" : [31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+        "축제" : [41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+    ]
+    
+    var channelStore : [Channel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +39,20 @@ class ChannelSelectingViewController: UIViewController, UITableViewDataSource, U
         channelTableView.register(UINib.init(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
         channelTableView.rowHeight = channelCollectionViewCellHeight + channelTableViewCellPadding * 2
         channelTableView.allowsSelection = false
+        
+        for section in 0..<channels.keys.count {
+            for id in Array(channels.values)[section] {
+                EventDataController.shared.getChannel(withID: id, completion: { (channel) in
+                    self.channelStore.append(channel)
+                    
+                    if let cell = self.channelTableView.cellForRow(at: IndexPath(row: section, section: 0)) as? ChannelTableViewCell {
+                        cell.collectionView.insertItems(at: [IndexPath(item: cell.collectionView.numberOfItems(inSection: 0) - 1 , section: 0 )])
+                    }
+                    
+                })
+            }
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,10 +81,17 @@ class ChannelSelectingViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ChannelTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! ChannelTableViewCell
-        cell.channels = Array(channels.values)[indexPath.section].map({ (title) -> Channel in
-            Channel(title: title, thumbnailURL: URL(string: "https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"))
-        })
+        cell.channels = []
+        cell.collectionView.reloadData()
         cell.allowsMultipleSelection = true
+        for id in Array(channels.values)[indexPath.section] {
+            let filtered = self.channelStore.filter({ (channel) -> Bool in
+                return channel.id == id
+            })
+            cell.channels.append(contentsOf: filtered)
+        }
+        
+        
         return cell
     }
     

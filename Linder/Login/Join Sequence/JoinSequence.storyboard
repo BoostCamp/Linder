@@ -13,7 +13,7 @@
         <!--Channel Selecting View Controller-->
         <scene sceneID="Szr-ps-yuf">
             <objects>
-                <viewController storyboardIdentifier="Channel" id="7rp-Zu-8Nj" customClass="ChannelSelectingViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Channel" id="7rp-Zu-8Nj" customClass="ChannelSelectingViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ceQ-J6-bMt"/>
                         <viewControllerLayoutGuide type="bottom" id="6Sj-Md-0WM"/>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="29" width="375" height="638"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelSection" rowHeight="67" id="Ens-Dr-FuK" customClass="ChannelTableViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelSection" rowHeight="67" id="Ens-Dr-FuK" customClass="ChannelTableViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="375" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ens-Dr-FuK" id="0qB-bj-ulK">
@@ -44,7 +44,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="channelCell" id="8w6-RJ-T6x" customClass="ChannelCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="channelCell" id="8w6-RJ-T6x" customClass="ChannelCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="4" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -90,7 +90,8 @@
         <!--Age And Gender Selecting View Controller-->
         <scene sceneID="hxS-dS-KOW">
             <objects>
-                <viewController storyboardIdentifier="AgeAndGender" id="lc6-1f-mBp" customClass="AgeAndGenderSelectingViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YOY-0F-3b5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="AgeAndGender" id="lc6-1f-mBp" customClass="AgeAndGenderSelectingViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y6J-G1-DLJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wo2-Nw-Beo"/>
@@ -105,15 +106,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-dy-Yr1" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-dy-Yr1" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="29" width="375" height="130"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="I2Q-ia-3qK"/>
                                 </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="5RN-UA-59h" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="5RN-UA-59h" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ageCell" id="z5W-Dv-47r" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ageCell" id="z5W-Dv-47r" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -123,15 +124,15 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XMy-sA-kPj" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XMy-sA-kPj" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="196" width="375" height="130"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="tbA-av-J2K"/>
                                 </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="lWh-mR-ZuA" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="lWh-mR-ZuA" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="genderCell" id="5x8-ZY-y9S" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="genderCell" id="5x8-ZY-y9S" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -172,14 +173,13 @@
                         <outlet property="genderCollectionView" destination="XMy-sA-kPj" id="GqF-gW-3Hr"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YOY-0F-3b5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="446" y="277"/>
         </scene>
         <!--Interest Selecting View Controller-->
         <scene sceneID="bmm-Dh-hbj">
             <objects>
-                <viewController storyboardIdentifier="Interest" id="uMA-gL-Mvc" customClass="InterestSelectingViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Interest" id="uMA-gL-Mvc" customClass="InterestSelectingViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pbb-7Z-N7W"/>
                         <viewControllerLayoutGuide type="bottom" id="v1e-xX-SLW"/>
@@ -188,12 +188,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="waf-JR-DYg" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="waf-JR-DYg" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="29" width="375" height="638"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="tLB-Uw-Hyy" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="tLB-Uw-Hyy" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestTagCell" id="T8y-eM-c9H" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestTagCell" id="T8y-eM-c9H" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -234,7 +234,8 @@
         <!--Region Selecting View Controller-->
         <scene sceneID="YRi-4b-N7t">
             <objects>
-                <viewController storyboardIdentifier="Region" id="AQO-Yp-1CT" customClass="RegionSelectingViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IdN-eP-WzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="Region" id="AQO-Yp-1CT" customClass="RegionSelectingViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GD8-zc-9Tb"/>
                         <viewControllerLayoutGuide type="bottom" id="yVV-nb-qQ3"/>
@@ -243,12 +244,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GyK-yj-A5W" customClass="TagCollectionView" customModule="Pastel" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GyK-yj-A5W" customClass="TagCollectionView" customModule="Linder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="29" width="375" height="638"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="1HJ-Bi-vDA" customClass="TagCollectionViewLayout" customModule="Pastel" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="1HJ-Bi-vDA" customClass="TagCollectionViewLayout" customModule="Linder" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="regionTagCell" id="8SJ-mW-GCE" customClass="TagCollectionViewCell" customModule="Pastel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="regionTagCell" id="8SJ-mW-GCE" customClass="TagCollectionViewCell" customModule="Linder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -282,14 +283,13 @@
                         <outlet property="regionCollectionView" destination="GyK-yj-A5W" id="TWd-qt-pis"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IdN-eP-WzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1898.4000000000001" y="276.61169415292358"/>
         </scene>
         <!--Join Sequence View Controller-->
         <scene sceneID="tn5-T9-uDM">
             <objects>
-                <viewController id="2bX-wm-m0y" customClass="JoinSequenceViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2bX-wm-m0y" customClass="JoinSequenceViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qkt-9a-nh5"/>
                         <viewControllerLayoutGuide type="bottom" id="Zvu-xM-h1T"/>
@@ -348,7 +348,7 @@
         <!--Join Sequence Page View Controller-->
         <scene sceneID="qhl-ca-Jtf">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="4FF-vO-Lxz" customClass="JoinSequencePageViewController" customModule="Pastel" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="4FF-vO-Lxz" customClass="JoinSequencePageViewController" customModule="Linder" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UE9-vA-n6Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1486" y="-346"/>

@@ -48,16 +48,32 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             switch searchMode {
             case .normal:
                 maskingView.isHidden = true
-                scopeControl.isHidden = true
-                filterCollectionView.isHidden = false
+                if self.scopeControl.frame.height > 20 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.scopeControl.frame.size.height = 0
+                        self.tableView.frame.origin.y -= 28
+                        self.tableView.frame.size.height += 28
+                    })
+                }
+                //scopeControl.isHidden = false
+                //filterCollectionView.isHidden = false
             case .searching:
                 maskingView.isHidden = false
-                scopeControl.isHidden = true
-                filterCollectionView.isHidden = false
+                //scopeControl.isHidden = false
+                //filterCollectionView.isHidden = false
             case .searched:
                 maskingView.isHidden = true
                 scopeControl.isHidden = false
-                filterCollectionView.isHidden = true
+                if self.scopeControl.frame.height < 20 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.scopeControl.frame.size.height = 28
+                        self.tableView.frame.origin.y += 28
+                        self.tableView.frame.size.height -= 28
+                    })
+                }
+                
+                //scopeControl.isHidden = false
+                //filterCollectionView.isHidden = true
             }
         }
     }
@@ -115,15 +131,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationItem.leftBarButtonItem?.image = postImage?.withRenderingMode(.alwaysOriginal)
         
         // Suggestion Collecection View settings
-        filterCollectionView.dataSource = self
-        filterCollectionView.delegate = self
-        filterCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: tagCellID)
-        filterCollectionView.allowsSelection = true
-        filterCollectionView.backgroundColor = UIColor.ldPuple
-        if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: 90.0, height: 22.0)
-            flowLayout.sectionInset.left = 8
-        }
+//        filterCollectionView.dataSource = self
+//        filterCollectionView.delegate = self
+//        filterCollectionView.register(UINib.init(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: tagCellID)
+//        filterCollectionView.allowsSelection = true
+//        filterCollectionView.backgroundColor = UIColor.ldPuple
+//        if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            flowLayout.itemSize = CGSize(width: 90.0, height: 22.0)
+//            flowLayout.sectionInset.left = 8
+//        }
         
         // Scope Control appearence
         
@@ -143,7 +159,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         scopeControl.setTitleTextAttributes(selectedTitleAttributes, for: .selected)
         scopeControl.setTitleTextAttributes(normalTitleAttributes, for: .normal)
-        scopeControl.isHidden = true
         
         // Load Recommand Data
         if eventDC.events.count == 0 {
@@ -161,6 +176,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 channelCell.channels.append(channel)
             }
         })
+        
+        scopeControl.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -173,6 +190,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.maskingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.endSearch)))
         self.maskingView.isHidden = true
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -195,7 +213,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return nil
             }
         } else {
-            let sectionTitles = ["최근 업데이트", "추천 캘린더"]
+            let sectionTitles = ["최근 업데이트", "추천 캘린더", ""]
             return sectionTitles[section]
         }
     }
@@ -410,21 +428,26 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchField.resignFirstResponder()
         self.searchMode = (self.tableView.numberOfSections == 2) ? .normal : .searched
     }
+    
+    @IBAction func search(_ sender: Any) {
+        self.searchField.resignFirstResponder()
+        if self.searchField.text == "" {
+            searchMode = .normal
+            self.updateSearchTable(scope: .all)
+        } else {
+            searchMode = .searched
+            updateSearchTable(self.searchField.text!, scope: scope)
+        }
+        
+        self.searchField.endEditing(true)
+    }
 }
 
 extension SearchViewController: UITextFieldDelegate {
     // MARK: - UITextField Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text == "" {
-            searchMode = .normal
-            self.updateSearchTable(scope: .all)
-        } else {
-            searchMode = .searched
-            updateSearchTable(textField.text!, scope: scope)
-        }
-        
-        textField.endEditing(true)
+        search(self)
         return true
     }
     

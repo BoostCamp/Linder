@@ -82,6 +82,7 @@
                         <constraint firstItem="8pV-H7-PGK" firstAttribute="leading" secondItem="ATI-RD-BIp" secondAttribute="trailing" constant="16" id="NSD-Pe-gOX"/>
                         <constraint firstAttribute="height" constant="85" id="dzh-du-Pdg"/>
                         <constraint firstItem="ATI-RD-BIp" firstAttribute="centerY" secondItem="wy5-7Y-3y4" secondAttribute="centerY" id="kuK-RY-7MR"/>
+                        <constraint firstItem="vO7-QK-r8t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8pV-H7-PGK" secondAttribute="trailing" constant="16" id="lmQ-H2-Vd5"/>
                         <constraint firstItem="8pV-H7-PGK" firstAttribute="centerY" secondItem="wy5-7Y-3y4" secondAttribute="centerY" id="qeu-E6-rRf"/>
                         <constraint firstItem="vO7-QK-r8t" firstAttribute="centerY" secondItem="wy5-7Y-3y4" secondAttribute="centerY" id="vhj-mR-VEB"/>
                     </constraints>

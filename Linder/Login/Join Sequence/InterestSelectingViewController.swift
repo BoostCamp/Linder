@@ -99,7 +99,8 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
             //cell.setSelected()
             debugPrint("Follows \(interest)")
             // follow interest
-            userDC.follow(followable: .hashtags, data: interest)
+            //userDC.follow(followable: .hashtags, data: interest)
+            userDC.user.hashtags.append(interest)
         }
     }
     
@@ -109,7 +110,9 @@ class InterestSelectingViewController: UIViewController, UICollectionViewDelegat
             //cell.setDeselect()
             debugPrint("UnFollows \(interest)")
             // follow interest
-            userDC.unFollow(followable: .hashtags, data: interest)
+            //userDC.unFollow(followable: .hashtags, data: interest)
+            let index = userDC.user.hashtags.index(of: interest)
+            userDC.user.hashtags.remove(at: index!)
         }
     }
 }

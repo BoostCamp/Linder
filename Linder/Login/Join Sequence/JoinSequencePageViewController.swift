@@ -122,8 +122,10 @@ extension JoinSequencePageViewController: UIPageViewControllerPageCurl {
     
     func nextButtonTouched(in parentViewController: JoinSequenceViewController) {
         if let currentViewController = self.viewControllers?.last {
-            if let nextViewController = self.pageViewController(self, viewControllerAfter: currentViewController) {
+            if let nextViewController = self.pageViewController(self, viewControllerAfter: currentViewController)
+                ,let index = orderedViewControllers.index(of: nextViewController) {
                 self.setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
+                pageControlDelegate?.joinSequencePageViewController(self, didUpdatePageIndex: index)
             }
         }
     }

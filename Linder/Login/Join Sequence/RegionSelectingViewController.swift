@@ -66,7 +66,8 @@ class RegionSelectingViewController: UIViewController, UICollectionViewDelegate,
         if let region = cell.titleLabel?.text {
             //cell.setSelected()
             // Put region to user
-            userDC.setRegion(regionName: region)
+            //userDC.setRegion(regionName: region)
+            userDC.user.region = region
         }
 
     }

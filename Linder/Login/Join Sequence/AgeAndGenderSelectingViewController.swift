@@ -20,7 +20,7 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
     
     let userDC = UserDataController.shared
     let agesStrings: [String] = ["10대", "20대", "30대", "40대", "50대", "60이상"]
-    let genderStrings: [String] = ["여성", "남성", "기타"]
+    let genderStrings: [String] = ["남성", "여성", "기타"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,10 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
                 //genderCell.setSelected()
                 debugPrint(gender)
                 // Put gender to user
-                userDC.putUserData(type: .gender, data: gender)
+                //userDC.putUserData(type: .gender, data: gender)
+                let genderIndex = self.genderStrings.index(of: gender)
+                let genderData: Gender = Gender(rawValue: genderIndex! + 1)!
+                userDC.user.gender = genderData
             }
         default : // 선택된 CollectionView가 ageCollectionView
             let ageCell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
@@ -102,7 +105,10 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
                 //ageCell.setSelected()
                 debugPrint(age)
                 // Put age to user
-                userDC.putUserData(type: .age, data: age)
+                //userDC.putUserData(type: .age, data: age)
+                let ageInt: Int = Int(age.substring(to: age.index(age.startIndex, offsetBy: 2)))!
+                let ageEnum: Age = Age(rawValue: ageInt)!
+                userDC.user.age = ageEnum
             }
         }
     }

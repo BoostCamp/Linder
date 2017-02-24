@@ -33,7 +33,7 @@ class EventDataController {
     var events: [Event] = []
     var recommandedEvents: [Event] = []
     var userSchedules: Dictionary<Date, [UserSchedule]> = [:]
-    var recommandedSchedulesForDate: [Date:[RecommandedSchedule]] = [:]
+    var recommandedSchedulesForDate: [Date:[Schedule]] = [:]
     var schedules: [Schedule] = []
     
     // Prevent to create another EventDataController instance
@@ -83,6 +83,10 @@ class EventDataController {
         self.getFIRChannels(scope: scope, count: count, completion: completion)
     }
     
+    func getChannel(withID id: ChannelID, completion: @escaping (Channel) -> Void) {
+        self.getFIRChannel(withID: id, completion: completion)
+    }
+    
     
     // MARK: - FIRBASE DB SET
     
@@ -105,7 +109,7 @@ class EventDataController {
     
     // MARK: - FIRBASE DB Get
     private func getFIRChannels(scope: ChannelScope, count: UInt = 20, completion: @escaping (Channel) -> Void) {
-        print("getFIRChannels")
+        //print("getFIRChannels")
         let channelRef =  self.ref.child("channels").queryOrdered(byChild: "updatedAt")
         let queryType = FIRDataEventType.childAdded
         
@@ -164,6 +168,52 @@ class EventDataController {
             print(error.localizedDescription)
         }
     }
+    
+    private func getFIRChannel(withID id: ChannelID, completion: @escaping (Channel) -> Void) {
+        let channelRef =  self.ref.child("channels").child("\(id)")
+        
+        channelRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let channelID = ChannelID(snapshot.key) else {
+                print("Error: No or Invalide Channel ID")
+                return
+            }
+            
+            guard let value = snapshot.value as? [String: AnyObject] else {
+                print("Error: NO Data")
+                return
+            }
+            
+            guard let eventIDs = value["events"] as? [EventID] else {
+                print("Error: No or Invalide Event IDs")
+                return
+            }
+            
+            // pars Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            guard let updatedAtString = value["updatedAt"] as? String else {
+                print("ERROR: Cannot Pars End Date of Channel ID: \(snapshot.key).")
+                return
+            }
+            
+            guard let hashtag = value["hashtag"] as? String else {
+                print("ERROR: Cannot Pars hashtag of Channel ID: \(snapshot.key).")
+                return
+            }
+            
+            let channel = Channel(id: channelID,
+                                  title: value["title"] as! String,
+                                  thumbnailURL: URL(string: value["thumbnail"] as! String)!,
+                                  hashtags: [hashtag],
+                                  eventIDs: eventIDs,
+                                  updatedAt: Date(string: updatedAtString, formatter: formatter)!)
+            completion(channel)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+
     
     private func getFIREvents(withIDs ids: [EventID]? = nil, completion: @escaping (Event) -> Void){
         let eventsRef =  self.ref.child("events")
@@ -395,8 +445,8 @@ class EventDataController {
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
             let date = Calendar.current.date(from: dateComponents)!
             //print("Write User Schedule name: \(event.title) at \(date)")
-            if var schedules = self.userSchedules[date] {
-                schedules.append(UserSchedule(ekEvent: event))
+            if self.userSchedules[date] != nil {
+                self.userSchedules[date]!.append(UserSchedule(ekEvent: event))
             } else {
                 self.userSchedules[date] = [UserSchedule(ekEvent: event)]
             }

@@ -21,5 +21,24 @@ class LDEventViewController: EKEventViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setToolbarHidden(true, animated: true)
         super.viewWillDisappear(animated)
+        
+        let eventDC = EventDataController.shared
+        
+        let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
+        let date = Calendar.current.date(from: dateComp)!
+        
+        let section = dateComp.day! - 1
+        guard let row = eventDC.userSchedules[date]?.index(where: { (userSchedule) -> Bool in
+            return userSchedule.originalEKEvent == event
+        }) else {
+            print("There is not Such EKEvent")
+            return
+        }
+        
+        let indexPath = IndexPath(row: row, section: section)
+        
+        
+        eventDC.userSchedules[date]?[row] = UserSchedule(ekEvent: event)
     }
+    
 }
