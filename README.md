@@ -10,7 +10,7 @@ Your Smart Schedule Manager
 - Schedule Your Own Schedules and Linder's Recommandations
 
 ## Video
-[![intoro](https://i.ytimg.com/vi/1QdJR8WnQvU/hqdefault.jpg)](https://youtu.be/2QdJR8WnQvU)
+[![intoro](https://i.ytimg.com/vi/1QdJR8WnQvU/hqdefault.jpg)](https://youtu.be/1QdJR8WnQvU)
 
 
 ## Screenshots
