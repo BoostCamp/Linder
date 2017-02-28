@@ -113,8 +113,4 @@ class AgeAndGenderSelectingViewController: UIViewController, UICollectionViewDel
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-//        //cell.setDeselect()
-//    }
 }

@@ -35,21 +35,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     var refreshControl: UIRefreshControl!
     
-    func refresh(sender:AnyObject) {
-        // Code to refresh table view
-        
-        eventDC.eventStore.requestAccess(to: .event) { (isAllowed, error) in
-            if error == nil && isAllowed {
-                self.eventDC.userSchedules = [:]
-                self.eventDC.getLocalStoredSchedules()
-                self.monthUpdated()
-                self.tableView.reloadData()
-            }
-        }
-        
-        self.refreshControl?.endRefreshing()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,17 +78,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             //let date = Calendar.current.date(byAdding: DateComponents(day: selectedIndex.section), to: month.startDate)!
             let date = keysFilled[selectedIndex.section]
             cell.schedule = eventDC.userSchedules[date]?[selectedIndex.row]
-//            self.tableView.beginUpdates()
-//            self.tableView.reloadRows(at: [selectedIndex], with: .fade)
-//            self.tableView.reloadSections([selectedIndex.section], with: .fade)
-//            self.tableView.endUpdates()
             
         }
-//        for day in 0..<month.numberOfDaysInMonth() {
-//            let date = Calendar.current.date(byAdding: DateComponents(day: day), to: month.startDate)!
-//            updateScheduleFor(date: date)
-//            
-//        }
+
         
         // MonthButton setting
         monthUpdated()
@@ -163,9 +140,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             eventDC.getRecommanedSchedules(maxNumber: maxNumberOfRecommand, for: date) { (recommandation) in
                 self.eventDC.recommandedSchedulesForDate[date]?.append(recommandation)
                 self.allSchedules[date]!.append(recommandation)
-                //self.tableView.beginUpdates()
-                //self.tableView.insertRows(at: [IndexPath(row: self.tableView.numberOfRows(inSection: day) , section: day)], with: .bottom)
-                //self.tableView.endUpdates()
+
                 
                 let keys = Array(self.allSchedules.keys).sorted(by: { (left, right) -> Bool in
                     return left.compare(right) == .orderedAscending
@@ -205,18 +180,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        //print(month.numberOfDaysInMonth())
-        //return month.numberOfDaysInMonth()
-        
-        //return allSchedules.keys.count
-//        let keys = Array(allSchedules.keys)
-//        let keysFilled = keys.filter { (date) -> Bool in
-//            guard let schedulesInDate = self.allSchedules[date] else {
-//                return false
-//            }
-//            return schedulesInDate.count > 0
-//        }
-        //print("keysFilled.count",keysFilled.count)
+
         return keysFilled.count
     }
     
@@ -229,30 +193,14 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let numberOfRows = self.tableView(tableView, numberOfRowsInSection: section)
-//        if numberOfRows == 0 {
-//            return nil
-//        }
-//        let keys = Array(allSchedules.keys)
-//        let keysFilled = keys.filter { (date) -> Bool in
-//            guard let schedulesInDate = self.allSchedules[date] else {
-//                return false
-//            }
-//            return schedulesInDate.count > 0
-//        }
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd EEE"
-        //let date = Calendar.current.date(byAdding: DateComponents(day: section), to: month.startDate)!
 
         let date = keysFilled[section]
         return date.toDateString(formatter)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 그 날의 일정들의 개수..
-        //스케쥴로 가져올 때의 접근 방법...
-        //let date = Calendar.current.date(byAdding: DateComponents(day: section), to: month.startDate)!
         
         let date = keysFilled[section]
         
@@ -306,41 +254,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             self.navigationController?.pushViewController(ekEventVC, animated: true)
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - Navigation
 
@@ -394,14 +307,21 @@ extension CalendarViewController: EKEventViewDelegate {
             
         default:
             print("Eventt Not Deleted")
-//            eventDC.userSchedules[date]?[row] = UserSchedule(ekEvent: event)
-//            let cell = self.tableView.cellForRow(at: indexPath) as! ScheduleCalendarViewCell
-//            cell.schedule = eventDC.userSchedules[date]?[row]
-//            self.tableView.beginUpdates()
-//            self.tableView.reloadRows(at: [indexPath], with: .fade)
-//            self.tableView.reloadSections([section], with: .fade)
-//            self.tableView.endUpdates()
-//            let _ = controller.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        
+        eventDC.eventStore.requestAccess(to: .event) { (isAllowed, error) in
+            if error == nil && isAllowed {
+                self.eventDC.userSchedules = [:]
+                self.eventDC.getLocalStoredSchedules()
+                self.monthUpdated()
+                self.tableView.reloadData()
+            }
+        }
+        
+        self.refreshControl?.endRefreshing()
     }
 }

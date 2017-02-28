@@ -85,22 +85,6 @@ extension JoinSequencePageViewController: UIPageViewControllerDataSource {
         
         return orderedViewControllers[nextIndex]
     }
-    
-    // Belows are for presenting indication in this page view controller's view
-//    // The number of items reflected in the page indicator.
-//    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-//        return orderedViewControllers.count
-//    }
-//    
-//    // The selected item reflected in the page indicator.
-//    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-//        guard let firstViewController = viewControllers?.first,
-//            let firstViewControllerIndex = orderedViewControllers.index(of: firstViewController) else {
-//                return 0
-//        }
-//        
-//        return firstViewControllerIndex
-//    }
 }
 
 extension JoinSequencePageViewController: UIPageViewControllerDelegate {
