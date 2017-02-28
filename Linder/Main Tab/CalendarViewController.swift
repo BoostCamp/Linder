@@ -33,8 +33,32 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     var allSchedules: [Date : [Schedule]] = [:]
     var keysFilled: [Date] = []
     
+    var refreshControl: UIRefreshControl!
+    
+    func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        
+        eventDC.eventStore.requestAccess(to: .event) { (isAllowed, error) in
+            if error == nil && isAllowed {
+                self.eventDC.userSchedules = [:]
+                self.eventDC.getLocalStoredSchedules()
+                self.monthUpdated()
+                self.tableView.reloadData()
+            }
+        }
+        
+        self.refreshControl?.endRefreshing()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action: #selector(self.refresh(sender:)), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl!) // not required when using UITableViewController
+        
+        
         // View Layout set
         self.extendedLayoutIncludesOpaqueBars = true
         

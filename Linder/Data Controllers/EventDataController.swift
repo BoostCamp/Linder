@@ -433,8 +433,8 @@ class EventDataController {
     
     // Returns Schedules converted from EKEvents saved in loacal Event Store
     func getLocalStoredSchedules() {
-        let threeMonthAgo = Date(timeIntervalSinceNow: -3 * 30 * 24 * 3600)
-        let threeMonthAfter = Date(timeIntervalSinceNow: +3 * 30 * 24 * 3600)
+        let threeMonthAgo = Date(timeIntervalSinceNow: -12 * 30 * 24 * 3600)
+        let threeMonthAfter = Date(timeIntervalSinceNow: +12 * 30 * 24 * 3600)
         //debugPrint("Get Local Stored Scheduls from \(threeMonthAgo) to \(threeMonthAfter)")
         getLocalStoredSchedules(start: threeMonthAgo, end: threeMonthAfter)
     }

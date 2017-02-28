@@ -22,9 +22,22 @@ class HomeTableViewController: UITableViewController {
     let userDC = UserDataController.shared
     let eventDC = EventDataController.shared
     var updatedChannels: [Channel] = []
+    
+    func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action: #selector(self.refresh(sender:)), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl!) // not required when using UITableViewController
+        
+        
         // Network Indicator on Status Bar
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
