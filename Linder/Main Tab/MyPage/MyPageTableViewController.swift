@@ -71,7 +71,6 @@ class MyPageTableViewController: UITableViewController {
         let flowLayout = channelCell.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.itemSize = CGSize(width: channelCollectionViewCellWidth, height: channelCollectionViewCellHeight)
         
-        
 //        // Set User Date
 //        userName.text = userDC.user.name
 //        userID.text = "@"+String(userDC.user.nickName)
@@ -85,8 +84,9 @@ class MyPageTableViewController: UITableViewController {
             if let index = self.userDC.user.channelIDs.index(of: channel.id) {
                 self.channelCell.channels[index] = channel
                 
-                let cell = self.channelCell.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as! ChannelCollectionViewCell
-                cell.channel = channel
+                if let cell = self.channelCell.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? ChannelCollectionViewCell {
+                    cell.channel = channel
+                }
                 
                 self.channelCell.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }

@@ -26,7 +26,6 @@
 		B10FB7B31E56C85200D239B8 /* JoinSequence.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B10FB7751E56C85200D239B8 /* JoinSequence.storyboard */; };
 		B10FB7B41E56C85200D239B8 /* JoinSequencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7761E56C85200D239B8 /* JoinSequencePageViewController.swift */; };
 		B10FB7B51E56C85200D239B8 /* JoinSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7771E56C85200D239B8 /* JoinSequenceViewController.swift */; };
-		B10FB7B71E56C85200D239B8 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB7791E56C85200D239B8 /* JoinViewController.swift */; };
 		B10FB7BA1E56C85200D239B8 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB77D1E56C85200D239B8 /* CalendarViewController.swift */; };
 		B10FB7BB1E56C85200D239B8 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB77E1E56C85200D239B8 /* HomeTableViewController.swift */; };
 		B10FB7BC1E56C85200D239B8 /* MyPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB77F1E56C85200D239B8 /* MyPageTableViewController.swift */; };
@@ -92,7 +91,6 @@
 		B10FB7751E56C85200D239B8 /* JoinSequence.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JoinSequence.storyboard; sourceTree = "<group>"; };
 		B10FB7761E56C85200D239B8 /* JoinSequencePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSequencePageViewController.swift; sourceTree = "<group>"; };
 		B10FB7771E56C85200D239B8 /* JoinSequenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSequenceViewController.swift; sourceTree = "<group>"; };
-		B10FB7791E56C85200D239B8 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		B10FB77D1E56C85200D239B8 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B10FB77E1E56C85200D239B8 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		B10FB77F1E56C85200D239B8 /* MyPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageTableViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				B10FB7711E56C85200D239B8 /* Join Sequence */,
-				B10FB7791E56C85200D239B8 /* JoinViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -423,7 +420,7 @@
 				TargetAttributes = {
 					B105E03A1E499E87004331E9 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 76433YZMGR;
+						DevelopmentTeam = SW6E76Z7QV;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -563,7 +560,6 @@
 				B10FB7BC1E56C85200D239B8 /* MyPageTableViewController.swift in Sources */,
 				B10FB7AC1E56C85200D239B8 /* EventDetailTableViewCell.swift in Sources */,
 				B10FB7D71E56C85200D239B8 /* UIMonthPicker.swift in Sources */,
-				B10FB7B71E56C85200D239B8 /* JoinViewController.swift in Sources */,
 				B10FB7AE1E56C85200D239B8 /* EventHeaderTableViewCell.swift in Sources */,
 				B10FB7C41E56C85200D239B8 /* ChannelTableViewCell.swift in Sources */,
 			);
@@ -681,13 +677,14 @@
 			baseConfigurationReference = 2C5D0846B67A02AA3FF1F1E7 /* Pods-Linder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 76433YZMGR;
+				DEVELOPMENT_TEAM = SW6E76Z7QV;
 				INFOPLIST_FILE = Linder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linder;
+				PRODUCT_BUNDLE_IDENTIFIER = co.hiddentrack.pastel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -696,13 +693,14 @@
 			baseConfigurationReference = 755550BDAD3A91E83405E0A2 /* Pods-Linder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 76433YZMGR;
+				DEVELOPMENT_TEAM = SW6E76Z7QV;
 				INFOPLIST_FILE = Linder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.linder;
+				PRODUCT_BUNDLE_IDENTIFIER = co.hiddentrack.pastel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
